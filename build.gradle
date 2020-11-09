@@ -12,6 +12,10 @@ plugins {
 group 'lcmc'
 version '1.0'
 
+repositories {
+    mavenCentral()
+}
+
 dependencies {
     antlr 'org.antlr:antlr4:4.8'
     testImplementation 'junit:junit:4.13'
