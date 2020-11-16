@@ -46,7 +46,7 @@ public class ExampleObjectsFactory implements ObjectFactory<lcmc.ExampleLexer, l
     public lcmc.ExampleParser getParser(lcmc.ExampleLexer lexer) {
         Objects.requireNonNull(lexer);
 
-        if(lexer.getClass() != lcmc.ExampleLexer.class)
+        if (lexer.getClass() != lcmc.ExampleLexer.class)
             throw new RuntimeException("Required ExampleLexer class");
 
         if (parser == null) {
