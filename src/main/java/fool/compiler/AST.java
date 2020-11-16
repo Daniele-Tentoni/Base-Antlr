@@ -5,7 +5,7 @@ import fool.compiler.lib.Node;
 
 public class AST {
     public static class ProgNode implements Node {
-        Node exp;
+        private final Node exp;
 
         ProgNode(Node e) {
             exp = e;
@@ -22,8 +22,8 @@ public class AST {
     }
 
     public static class PlusNode implements Node {
-        Node left;
-        Node right;
+        private final Node left;
+        private final Node right;
 
         PlusNode(Node l, Node r) {
             left = l;
@@ -45,8 +45,8 @@ public class AST {
     }
 
     public static class TimesNode implements Node {
-        Node left;
-        Node right;
+        private final Node left;
+        private final Node right;
 
         TimesNode(Node l, Node r) {
             left = l;
@@ -68,7 +68,7 @@ public class AST {
     }
 
     public static class IntNode implements Node {
-        int val;
+        private final int val;
 
         IntNode(int n) {
             val = n;

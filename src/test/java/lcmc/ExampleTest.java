@@ -5,6 +5,9 @@ import org.junit.Test;
 
 import java.io.IOException;
 
+import lcmc.ExampleLexer;
+import lcmc.ExampleParser;
+
 import static org.junit.Assert.assertEquals;
 
 public class ExampleTest {
@@ -13,13 +16,15 @@ public class ExampleTest {
     /**
      * You can use this method to instance factories properly.
      */
-    @Before public void setup() {
+    @Before
+    public void setup() {
         factory = ExampleObjectsFactory.getInstance();
     }
 
-    @Test public void testExamples() throws IOException {
-        lcmc.ExampleLexer lexer = factory.getLexer("strings.txt");
-        lcmc.ExampleParser parser = factory.getParser(lexer);
+    @Test
+    public void testExamples() throws IOException {
+        ExampleLexer lexer = factory.getLexer("strings.txt");
+        ExampleParser parser = factory.getParser(lexer);
         parser.prog();
 
         log("Prog");

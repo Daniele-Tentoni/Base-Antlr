@@ -7,11 +7,14 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 
-public class ExampleObjectsFactory implements ObjectFactory<lcmc.ExampleLexer, lcmc.ExampleParser> {
+import lcmc.ExampleLexer;
+import lcmc.ExampleParser;
+
+public class ExampleObjectsFactory implements ObjectFactory<ExampleLexer, ExampleParser> {
     private static ExampleObjectsFactory instance;
 
-    private lcmc.ExampleLexer lexer;
-    private lcmc.ExampleParser parser;
+    private ExampleLexer lexer;
+    private ExampleParser parser;
 
     private ExampleObjectsFactory() { }
 
@@ -29,29 +32,29 @@ public class ExampleObjectsFactory implements ObjectFactory<lcmc.ExampleLexer, l
     }
 
     @Override
-    public lcmc.ExampleLexer getLexer(String fileName) throws IOException {
+    public ExampleLexer getLexer(String fileName) throws IOException {
         if (lexer == null) {
             URL strings = getClass().getClassLoader().getResource(fileName);
             if (strings == null) {
                 throw new FileNotFoundException(String.format("Not found %s file.", fileName));
             }
             CharStream chars = CharStreams.fromFileName(strings.getPath());
-            lexer = new lcmc.ExampleLexer(chars);
+            lexer = new ExampleLexer(chars);
         }
 
         return lexer;
     }
 
     @Override
-    public lcmc.ExampleParser getParser(lcmc.ExampleLexer lexer) {
+    public ExampleParser getParser(ExampleLexer lexer) {
         Objects.requireNonNull(lexer);
 
-        if (lexer.getClass() != lcmc.ExampleLexer.class)
+        if (lexer.getClass() != ExampleLexer.class)
             throw new RuntimeException("Required ExampleLexer class");
 
         if (parser == null) {
             CommonTokenStream tokens = new CommonTokenStream(lexer);
-            parser = new lcmc.ExampleParser(tokens);
+            parser = new ExampleParser(tokens);
         }
 
         return parser;
