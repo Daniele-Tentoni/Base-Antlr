@@ -5,27 +5,32 @@ package lcmc;
 }
 
 @lexer::members {
-int lexicalErrors = 0;
+// Istanzio variabili del lexer.
+public int lexicalErrors = 0;
 }
 
 // PARSER RULES
 
-prog: EOF { System.out.println("Parsing finished!"); };
-
-// ... other rules.
+prog: exp EOF { System.out.println("Parsing finished!"); };
+exp: exp PLUS term | term;
+term: term TIMES value | value;
+value: NUM | LPAR exp RPAR;
 
 // LEXER RULES
 
-// ... some important rules.
+PLUS: '+';
+MINUS: '-';
+TIMES: '*';
+DIV: '/';
+LPAR: '(';
+RPAR: ')';
+NUM: ('0' | ('1' .. '9')) ('0'..'9')*;
 
-// Whitespace remove rule.
 WHITESP: (' ' | '\t' | '\n' | '\r')+ -> channel(HIDDEN);
 
-// Catch error rule. Match any char that is any other.
 ERR: . {
 System.out.println("Invalid char: " + getText());
 lexicalErrors++;
 } -> channel(HIDDEN);
 
-// Comment rule. Dosen't use maximal match.
-COMMENT: '/*' .*? . '*/' -> channel(HIDDEN);
+COMMENT: '/*' .*? '*/' -> channel(HIDDEN);
