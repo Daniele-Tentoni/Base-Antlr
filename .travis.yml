@@ -14,3 +14,7 @@ jdk:
 
 script:
   - ./gradlew check
+
+after_script:
+  - bash <(curl -Ls https://coverage.codacy.com/get.sh) report
+
