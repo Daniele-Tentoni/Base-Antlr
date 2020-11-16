@@ -1,8 +1,7 @@
 package lcmc.semantic;
 
-import lcmc.semantic.Declaration;
-import lcmc.semantic.SymbolTable;
-import lcmc.semantic.Usage;
+import lcmc.semantic.symbols.Declaration;
+import lcmc.semantic.symbols.Usage;
 
 /**
  * Based on list of tables.

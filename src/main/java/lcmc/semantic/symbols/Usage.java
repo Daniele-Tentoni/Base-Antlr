@@ -1,25 +1,24 @@
-package lcmc.semantic;
+package lcmc.semantic.symbols;
 
-public class Usage {
-    private final String name;
-    private final int level;
-    private final String type;
+/**
+ * Represent the usage of a symbol.
+ *
+ * @param <T> Type of the symbol.
+ */
+public class Usage<T> extends Symbol {
+    private final T value;
 
-    public Usage(final String name, final int level, final String type) {
-        this.name = name;
-        this.level = level;
-        this.type = type;
+    public Usage(final String name, final Class<T> type, final T value) {
+        super(name, type);
+        this.value = value;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public int getLevel() {
-        return level;
-    }
-
-    public String getType() {
-        return type;
+    /**
+     * Get the value of the usage.
+     *
+     * @return the value.
+     */
+    public T getValue() {
+        return value;
     }
 }

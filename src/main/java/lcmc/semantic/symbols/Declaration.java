@@ -1,19 +1,12 @@
-package lcmc.semantic;
+package lcmc.semantic.symbols;
 
-public class Declaration {
-    private final String name;
-    private final int level;
-
-    public Declaration(final String name, final int level){
-        this.name = name;
-        this.level = level;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getLevel() {
-        return level;
+/**
+ * The declaration of a symbol.
+ *
+ * @param <T> Type of the symbol.
+ */
+public class Declaration<T> extends Symbol {
+    public Declaration(final String name, final Class<T> type) {
+        super(name, type);
     }
 }
