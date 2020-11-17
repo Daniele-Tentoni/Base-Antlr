@@ -31,7 +31,7 @@ public class MemoryStack {
      * @return -1 if operation fail, given value otherwise.
      */
     public int set(int index, Integer value) {
-        if (index >= memory.size())
+        if (index >= memory.size() || index < 0)
             throw new IndexOutOfBoundsException("Index out of range of memory");
         return memory.set(index, value);
     }

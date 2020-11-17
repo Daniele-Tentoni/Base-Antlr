@@ -23,12 +23,30 @@ dependencies {
     testCompile 'junit:junit:4.13'
 }
 
+jacocoTestReport {
+    dependsOn test
+}
+
+
+
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            limit {
+                minimum = 0.33
+            }
+        }
+    }
+}
+
+
+
 test {
     useJUnit()
     maxHeapSize = '1G'
     finalizedBy jacocoTestReport
 }
 
-jacocoTestReport {
-    dependsOn test
+check{
+    dependsOn jacocoTestCoverageVerification
 }
