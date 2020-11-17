@@ -50,7 +50,7 @@ public class ExampleObjectsFactory implements ObjectFactory<ExampleLexer, Exampl
         Objects.requireNonNull(lexer);
 
         if (lexer.getClass() != ExampleLexer.class)
-            throw new RuntimeException("Required ExampleLexer class");
+            throw new ClassCastException("Required ExampleLexer class");
 
         if (parser == null) {
             CommonTokenStream tokens = new CommonTokenStream(lexer);

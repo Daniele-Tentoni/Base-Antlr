@@ -8,7 +8,7 @@ import java.io.IOException;
 import static org.junit.Assert.assertEquals;
 
 public class TestASM {
-    SVMObjectFactory factory;
+    private SVMObjectFactory factory;
 
     @Before
     public void setup() {

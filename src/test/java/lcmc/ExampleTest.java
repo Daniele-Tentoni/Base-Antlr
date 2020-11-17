@@ -11,7 +11,7 @@ import lcmc.ExampleParser;
 import static org.junit.Assert.assertEquals;
 
 public class ExampleTest {
-    ExampleObjectsFactory factory;
+    private ExampleObjectsFactory factory;
 
     /**
      * You can use this method to instance factories properly.

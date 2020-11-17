@@ -7,7 +7,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 
 public class ASTGenerationSTVisitor extends FOOLBaseVisitor<Node> {
 
-    String indent;
+    private String indent;
 
     @Override
     public Node visit(ParseTree t) {             //visit now returns Node

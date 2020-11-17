@@ -9,7 +9,7 @@ public class TestMemoryStack {
 
     private MemoryStack stack;
     private final int size = 10;
-    int v1 = 1;
+    private final int v1 = 1;
 
     @Before
     public void setup() {

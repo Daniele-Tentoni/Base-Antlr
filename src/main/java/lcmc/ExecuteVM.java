@@ -13,9 +13,9 @@ public class ExecuteVM {
     private int ip = 0;
     private int sp = MEM_SIZE; // punta al top dello stack
     private int tm;
-    private int  hp;
-    private int  fp;
-    private int  ra;
+    private int hp;
+    private int fp;
+    private int ra;
 
     public ExecuteVM(int[] code) {
         this.code = code;
@@ -35,7 +35,8 @@ public class ExecuteVM {
     public void cpu() {
         while (true) {
             int bytecode = code[ip++]; // fetch
-            int v1, v2;
+            int v1;
+            int v2;
             int address;
             switch (bytecode) {
                 case SVMParser.PUSH:

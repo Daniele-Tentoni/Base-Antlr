@@ -46,7 +46,7 @@ public class FOOLObjectFactory implements ObjectFactory<FOOLLexer, FOOLParser> {
         Objects.requireNonNull(lexer);
 
         if (lexer.getClass() != fool.FOOLLexer.class)
-            throw new RuntimeException("Required ExampleLexer class");
+            throw new ClassCastException("Required ExampleLexer class");
 
         if (parser == null) {
             CommonTokenStream tokens = new CommonTokenStream(lexer);

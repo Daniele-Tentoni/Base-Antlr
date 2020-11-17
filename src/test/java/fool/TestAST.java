@@ -13,7 +13,7 @@ import java.io.IOException;
 import static org.junit.Assert.assertEquals;
 
 public class TestAST {
-    FOOLObjectFactory factory;
+    private FOOLObjectFactory factory;
 
     @Before
     public void setup() {

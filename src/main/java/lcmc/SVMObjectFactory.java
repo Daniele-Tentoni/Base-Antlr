@@ -42,7 +42,7 @@ public class SVMObjectFactory implements ObjectFactory<lcmc.SVMLexer, lcmc.SVMPa
         Objects.requireNonNull(lexer);
 
         if (lexer.getClass() != lcmc.SVMLexer.class)
-            throw new RuntimeException("Required ExampleLexer class");
+            throw new ClassCastException("Required ExampleLexer class");
 
         if (parser == null) {
             CommonTokenStream tokens = new CommonTokenStream(lexer);
