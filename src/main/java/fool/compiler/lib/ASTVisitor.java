@@ -36,11 +36,13 @@ public class ASTVisitor<T> {
         if (print) {
             String temp = indent;
             indent = (indent == null) ? "" : indent + "  ";
+            T result = visitByAcc(n);
             /*
              * Tramite questa istruzione resettiamo la indent prima di tornare al livello
              * superiore.
              */
             indent = temp;
+            return result;
         }
 
         return visitByAcc(n);
