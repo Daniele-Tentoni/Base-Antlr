@@ -1,5 +1,10 @@
 grammar FOOL;
 
+@header {
+package fool;
+import java.util.HashMap;
+}
+
 @lexer::members {
 int lexicalErrors=0;
 }

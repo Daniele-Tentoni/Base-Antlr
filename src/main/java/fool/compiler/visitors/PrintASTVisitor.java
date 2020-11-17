@@ -19,6 +19,7 @@ public class PrintASTVisitor extends ASTVisitor<Void> {
      *
      * @param n il Prog Node da visitare.
      */
+    @Override
     public Void visit(ProgNode n) {
         printNode(n);
         visit(n.getExp());
@@ -30,6 +31,7 @@ public class PrintASTVisitor extends ASTVisitor<Void> {
      *
      * @param n il Times Node da visitare.
      */
+    @Override
     public Void visit(TimesNode n) {
         printNode(n);
         visit(n.getLeft());
@@ -42,6 +44,7 @@ public class PrintASTVisitor extends ASTVisitor<Void> {
      *
      * @param n il Plus node da visitare.
      */
+    @Override
     public Void visit(PlusNode n) {
         printNode(n);
         visit(n.getLeft());
@@ -54,8 +57,39 @@ public class PrintASTVisitor extends ASTVisitor<Void> {
      *
      * @param n il Int node da visitare.
      */
+    @Override
     public Void visit(IntNode n) {
         printNode(n, ": " + n.getVal());
+        return null;
+    }
+
+    @Override
+    public Void visit(EqualNode n) {
+        printNode(n);
+        visit(n.getLeft());
+        visit(n.getRight());
+        return null;
+    }
+
+    @Override
+    public Void visit(BoolNode n) {
+        printNode(n);
+        return null;
+    }
+
+    @Override
+    public Void visit(IfNode n) {
+        printNode(n);
+        visit(n.getCondition());
+        visit(n.getThen());
+        visit(n.getEls());
+        return null;
+    }
+
+    @Override
+    public Void visit(PrintNode n) {
+        printNode(n);
+        visit(n.getPrint());
         return null;
     }
 }

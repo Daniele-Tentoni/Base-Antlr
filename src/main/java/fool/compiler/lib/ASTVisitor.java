@@ -10,7 +10,7 @@ import fool.compiler.AST.*;
 public class ASTVisitor<T> {
 
     private String indent;
-    private boolean print;
+    private final boolean print;
 
     /**
      * You can enable or not the print of all results.
@@ -28,10 +28,6 @@ public class ASTVisitor<T> {
         this.print = false;
     }
 
-    protected String getIndent() {
-        return indent;
-    }
-
     protected boolean mustPrint() {
         return print;
     }
@@ -40,16 +36,14 @@ public class ASTVisitor<T> {
         if (print) {
             String temp = indent;
             indent = (indent == null) ? "" : indent + "  ";
-            T result = visitByAcc(n);
             /*
              * Tramite questa istruzione resettiamo la indent prima di tornare al livello
              * superiore.
              */
             indent = temp;
-            return result;
-        } else {
-            return visitByAcc(n);
         }
+
+        return visitByAcc(n);
     }
 
     /**
@@ -100,6 +94,22 @@ public class ASTVisitor<T> {
      * @return TODO
      */
     public T visit(IntNode n) {
+        throw new UnImplementedException();
+    }
+
+    public T visit(EqualNode n) {
+        throw new UnImplementedException();
+    }
+
+    public T visit(BoolNode n) {
+        throw new UnImplementedException();
+    }
+
+    public T visit(IfNode n) {
+        throw new UnImplementedException();
+    }
+
+    public T visit(PrintNode n) {
         throw new UnImplementedException();
     }
 

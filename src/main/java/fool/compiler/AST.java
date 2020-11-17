@@ -83,4 +83,90 @@ public class AST {
             return visitor.visit(this);
         }
     }
+
+    public static class EqualNode implements Node {
+        private final Node left;
+        private final Node right;
+
+        EqualNode(Node left, Node right) {
+            this.left = left;
+            this.right = right;
+        }
+
+        public Node getLeft() {
+            return left;
+        }
+
+        public Node getRight() {
+            return right;
+        }
+
+        @Override
+        public <S> S accept(ASTVisitor<S> visitor) {
+            return visitor.visit(this);
+        }
+    }
+
+    public static class BoolNode implements Node {
+        private final boolean val;
+
+        BoolNode(boolean v) {
+            val = v;
+        }
+
+        public boolean getVal() {
+            return val;
+        }
+
+        @Override
+        public <S> S accept(ASTVisitor<S> visitor) {
+            return visitor.visit(this);
+        }
+    }
+
+    public static class IfNode implements Node {
+        private final Node condition;
+        private final Node then;
+        private final Node els;
+
+        IfNode(Node c, Node t, Node e) {
+            this.condition = c;
+            this.then = t;
+            this.els = e;
+        }
+
+        public Node getCondition() {
+            return condition;
+        }
+
+        public Node getEls() {
+            return els;
+        }
+
+        public Node getThen() {
+            return then;
+        }
+
+        @Override
+        public <S> S accept(ASTVisitor<S> visitor) {
+            return visitor.visit(this);
+        }
+    }
+
+    public static class PrintNode implements Node {
+        private final Node print;
+
+        PrintNode(Node p) {
+            this.print = p;
+        }
+
+        public Node getPrint() {
+            return print;
+        }
+
+        @Override
+        public <S> S accept(ASTVisitor<S> visitor) {
+            return visitor.visit(this);
+        }
+    }
 }
