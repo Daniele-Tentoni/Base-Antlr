@@ -42,7 +42,7 @@ jobs:
           echo 'TEST_REPORT_PATH<<EOF' >> $GITHUB_ENV
           find -name jacocoTestReport.xml >> $GITHUB_ENV
           echo 'EOF' >> $GITHUB_ENV
-          echo find -name jacocoTestReport.xml
+          echo | find -name jacocoTestReport.xml
       - uses: actions/checkout@master
       - name: Run codacy-coverage-reporter
         uses: codacy/codacy-coverage-reporter-action@master
