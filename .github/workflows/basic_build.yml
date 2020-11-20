@@ -24,5 +24,8 @@ jobs:
           restore-keys: ${{ runner.os }}-gradle
       - name: Build with Gradle
         run: ./gradlew check
-      - name: Upload Coverage to Codacy
-        run: bash <(curl -Ls https://coverage.codacy.com/get.sh) report
+      - name: Run codacy-coverage-reporter
+        uses: codacy/codacy-coverage-reporter-action@master
+        with:
+          project-token: $ {{ secrets.CODACY_PROJECT_TOKEN }}
+          coverage-reports: jacocoTestReport.xml
