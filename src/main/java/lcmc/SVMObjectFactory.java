@@ -9,10 +9,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 
-public class SVMObjectFactory implements ObjectFactory<lcmc.SVMLexer, lcmc.SVMParser> {
+import lcmc.SVMLexer;
+import lcmc.SVMParser;
+
+public class SVMObjectFactory implements ObjectFactory<SVMLexer, SVMParser> {
     private static SVMObjectFactory instance;
-    private lcmc.SVMParser parser;
-    private lcmc.SVMLexer lexer;
+    private SVMParser parser;
+    private SVMLexer lexer;
 
     private SVMObjectFactory() {}
 
@@ -24,29 +27,29 @@ public class SVMObjectFactory implements ObjectFactory<lcmc.SVMLexer, lcmc.SVMPa
     }
 
     @Override
-    public lcmc.SVMLexer getLexer(String fileName) throws IOException {
+    public SVMLexer getLexer(String fileName) throws IOException {
         if (lexer == null) {
             URL strings = getClass().getClassLoader().getResource(fileName);
             if (strings == null) {
                 throw new FileNotFoundException(String.format("Not found %s file.", fileName));
             }
             CharStream chars = CharStreams.fromFileName(strings.getPath());
-            lexer = new lcmc.SVMLexer(chars);
+            lexer = new SVMLexer(chars);
         }
 
         return lexer;
     }
 
     @Override
-    public lcmc.SVMParser getParser(lcmc.SVMLexer lexer) {
+    public SVMParser getParser(SVMLexer lexer) {
         Objects.requireNonNull(lexer);
 
-        if (lexer.getClass() != lcmc.SVMLexer.class)
+        if (lexer.getClass() != SVMLexer.class)
             throw new ClassCastException("Required ExampleLexer class");
 
         if (parser == null) {
             CommonTokenStream tokens = new CommonTokenStream(lexer);
-            parser = new lcmc.SVMParser(tokens);
+            parser = new SVMParser(tokens);
         }
 
         return parser;

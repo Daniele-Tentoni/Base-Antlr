@@ -10,6 +10,9 @@ import org.junit.Test;
 
 import java.io.IOException;
 
+import fool.FOOLLexer;
+import fool.FOOLParser;
+
 import static org.junit.Assert.assertEquals;
 
 public class TestAST {
@@ -25,8 +28,8 @@ public class TestAST {
 
         String fileName = "prova.fool"; // quicksort.fool.asm
 
-        fool.FOOLLexer lexer = factory.getLexer(fileName);
-        fool.FOOLParser parser = factory.getParser(lexer);
+        FOOLLexer lexer = factory.getLexer(fileName);
+        FOOLParser parser = factory.getParser(lexer);
         ParseTree pt = parser.prog();
 
         System.out.println("You had: " + lexer.lexicalErrors + " lexical errors and " + parser.getNumberOfSyntaxErrors() + " syntax errors.");

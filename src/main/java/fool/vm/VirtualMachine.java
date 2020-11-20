@@ -11,7 +11,11 @@ public class VirtualMachine {
     private final MemoryStack memory;
 
     // TODO: What is ra?
-    private int instructionPointer = 0, temporaryPointer, framePointer, heapPointer, ra;
+    private int instructionPointer = 0;
+    private int temporaryPointer;
+    private int framePointer;
+    private int heapPointer;
+    private int ra;
     private int stackPointer = MEMORY_SIZE;
 
     public VirtualMachine(int[] code) {

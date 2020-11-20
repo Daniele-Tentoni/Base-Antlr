@@ -28,9 +28,15 @@ jobs:
   # From https://github.com/codacy/codacy-coverage-reporter-action
   codacy-coverage-reporter:
     runs-on: ubuntu-latest
+    env:
+      TEST_REPORT_PATH: jacocoTestReport.xml
 
     name: codacy-coverage-reporter
     steps:
+      - name: Find report
+        run:
+          - bash find -name jacocoTestReport.xml
+          - bash echo $TEST_REPORT_PATH
       - uses: actions/checkout@master
       - name: Run codacy-coverage-reporter
         uses: codacy/codacy-coverage-reporter-action@master
