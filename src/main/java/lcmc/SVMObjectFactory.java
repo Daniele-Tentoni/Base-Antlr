@@ -16,6 +16,7 @@ public class SVMObjectFactory implements ObjectFactory<SVMLexer, SVMParser> {
     private static SVMObjectFactory instance;
     private SVMParser parser;
     private SVMLexer lexer;
+    private String openedFile;
 
     private SVMObjectFactory() {}
 
@@ -28,13 +29,14 @@ public class SVMObjectFactory implements ObjectFactory<SVMLexer, SVMParser> {
 
     @Override
     public SVMLexer getLexer(String fileName) throws IOException {
-        if (lexer == null) {
+        if (lexer == null || !openedFile.equals(fileName)) {
             URL strings = getClass().getClassLoader().getResource(fileName);
             if (strings == null) {
                 throw new FileNotFoundException(String.format("Not found %s file.", fileName));
             }
             CharStream chars = CharStreams.fromFileName(strings.getPath());
             lexer = new SVMLexer(chars);
+            openedFile = fileName;
         }
 
         return lexer;

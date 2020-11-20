@@ -15,6 +15,7 @@ public class ExampleObjectsFactory implements ObjectFactory<ExampleLexer, Exampl
 
     private ExampleLexer lexer;
     private ExampleParser parser;
+    private String openedFile;
 
     private ExampleObjectsFactory() { }
 
@@ -33,13 +34,14 @@ public class ExampleObjectsFactory implements ObjectFactory<ExampleLexer, Exampl
 
     @Override
     public ExampleLexer getLexer(String fileName) throws IOException {
-        if (lexer == null) {
+        if (lexer == null || !openedFile.equals(fileName)) {
             URL strings = getClass().getClassLoader().getResource(fileName);
             if (strings == null) {
                 throw new FileNotFoundException(String.format("Not found %s file.", fileName));
             }
             CharStream chars = CharStreams.fromFileName(strings.getPath());
             lexer = new ExampleLexer(chars);
+            openedFile = fileName;
         }
 
         return lexer;
