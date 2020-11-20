@@ -15,8 +15,8 @@ import java.util.Objects;
 public class FOOLObjectFactory implements ObjectFactory<FOOLLexer, FOOLParser> {
 
     private static FOOLObjectFactory instance;
-    private fool.FOOLParser parser;
-    private fool.FOOLLexer lexer;
+    private FOOLParser parser;
+    private FOOLLexer lexer;
 
     private FOOLObjectFactory() {}
 
@@ -28,29 +28,26 @@ public class FOOLObjectFactory implements ObjectFactory<FOOLLexer, FOOLParser> {
     }
 
     @Override
-    public fool.FOOLLexer getLexer(String fileName) throws IOException {
+    public FOOLLexer getLexer(String fileName) throws IOException {
         if (lexer == null) {
             URL strings = getClass().getClassLoader().getResource(fileName);
             if (strings == null) {
                 throw new FileNotFoundException(String.format("Not found %s file.", fileName));
             }
             CharStream chars = CharStreams.fromFileName(strings.getPath());
-            lexer = new fool.FOOLLexer(chars);
+            lexer = new FOOLLexer(chars);
         }
 
         return lexer;
     }
 
     @Override
-    public fool.FOOLParser getParser(fool.FOOLLexer lexer) {
+    public FOOLParser getParser(FOOLLexer lexer) {
         Objects.requireNonNull(lexer);
-
-        if (lexer.getClass() != fool.FOOLLexer.class)
-            throw new ClassCastException("Required ExampleLexer class");
 
         if (parser == null) {
             CommonTokenStream tokens = new CommonTokenStream(lexer);
-            parser = new fool.FOOLParser(tokens);
+            parser = new FOOLParser(tokens);
         }
 
         return parser;

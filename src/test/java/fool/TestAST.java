@@ -8,6 +8,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import fool.FOOLLexer;
@@ -21,6 +22,12 @@ public class TestAST {
     @Before
     public void setup() {
         factory = FOOLObjectFactory.getInstance();
+    }
+
+    @Test(expected = FileNotFoundException.class)
+    public void TestWithFileNotFound() throws IOException {
+        String fileName = "non.esistente";
+        FOOLLexer lexer = factory.getLexer(fileName);
     }
 
     @Test
