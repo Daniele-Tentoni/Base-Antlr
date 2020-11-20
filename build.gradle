@@ -53,9 +53,14 @@ generateGrammarSource {
 
 jacocoTestReport {
     dependsOn test
+    reports {
+        xml.enabled true
+        html.enabled true
+    }
 }
 
 jacocoTestCoverageVerification {
+    dependsOn jacocoTestReport
     violationRules {
         rule {
             limit {
