@@ -40,7 +40,7 @@ jobs:
         # From https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-commands-for-github-actions#setting-an-environment-variable
         run: |
           echo 'TEST_REPORT_PATH<<EOF' >> $GITHUB_ENV
-          find -name jacocoTestReport.xml >> $GITHUB_ENV
+          echo `find -name jacocoTestReport.xml` >> $GITHUB_ENV
           echo 'EOF' >> $GITHUB_ENV
           echo | find -name jacocoTestReport.xml
       - uses: actions/checkout@master
