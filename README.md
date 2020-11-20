@@ -14,3 +14,6 @@ You can put all into main java dir, or you can use more practical Unit tests.
 
 ### Issues
 For any advice, feel free to open an issue, or a pr to improve this template.
+
+### Build status
+I use CI to check build status at any moment ![Java CI](https://github.com/Daniele-Tentoni/base-antlr/workflows/Java%20CI/badge.svg)
