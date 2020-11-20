@@ -5,6 +5,9 @@ import org.junit.Test;
 
 import java.io.IOException;
 
+import lcmc.SVMLexer;
+import lcmc.SVMParser;
+
 import static org.junit.Assert.assertEquals;
 
 public class TestASM {
@@ -20,8 +23,8 @@ public class TestASM {
 
         String fileName = "prova.asm"; // quicksort.fool.asm
 
-        lcmc.SVMLexer lexer = factory.getLexer(fileName);
-        lcmc.SVMParser parser = factory.getParser(lexer);
+        SVMLexer lexer = factory.getLexer(fileName);
+        SVMParser parser = factory.getParser(lexer);
         parser.assembly();
 
         System.out.println("You had: " + lexer.lexicalErrors + " lexical errors and " + parser.getNumberOfSyntaxErrors() + " syntax errors.");

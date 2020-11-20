@@ -17,6 +17,7 @@ public class FOOLObjectFactory implements ObjectFactory<FOOLLexer, FOOLParser> {
     private static FOOLObjectFactory instance;
     private FOOLParser parser;
     private FOOLLexer lexer;
+    private String openedFile;
 
     private FOOLObjectFactory() {}
 
@@ -29,13 +30,14 @@ public class FOOLObjectFactory implements ObjectFactory<FOOLLexer, FOOLParser> {
 
     @Override
     public FOOLLexer getLexer(String fileName) throws IOException {
-        if (lexer == null) {
+        if (lexer == null || !openedFile.equals(fileName)) {
             URL strings = getClass().getClassLoader().getResource(fileName);
             if (strings == null) {
                 throw new FileNotFoundException(String.format("Not found %s file.", fileName));
             }
             CharStream chars = CharStreams.fromFileName(strings.getPath());
             lexer = new FOOLLexer(chars);
+            openedFile = fileName;
         }
 
         return lexer;

@@ -35,11 +35,13 @@ public class TestMemoryStack {
 
     @Test(expected = IndexOutOfBoundsException.class)
     public void testGetOnUpperBounds() {
+        // Crack.
         stack.get(v1);
     }
 
     @Test(expected = IndexOutOfBoundsException.class)
     public void testGetOnLowerBounds() {
+        // Crack.
         stack.get(-v1);
     }
 

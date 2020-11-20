@@ -15,6 +15,7 @@ import fool.FOOLLexer;
 import fool.FOOLParser;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 public class TestAST {
     private FOOLObjectFactory factory;
@@ -24,10 +25,17 @@ public class TestAST {
         factory = FOOLObjectFactory.getInstance();
     }
 
-    @Test(expected = FileNotFoundException.class)
-    public void TestWithFileNotFound() throws IOException {
-        String fileName = "non.esistente";
-        FOOLLexer lexer = factory.getLexer(fileName);
+    @Test
+    public void testWithFileNotFound() {
+        String fileName = "non.exist";
+        try {
+            factory.getLexer(fileName);
+            fail("Expected an FileNotFoundException");
+        } catch (FileNotFoundException e) {
+            assertEquals(String.format("Not found %s file.", fileName), e.getMessage());
+        } catch (Exception e) {
+            fail("Unexpected exception thrown.");
+        }
     }
 
     @Test
