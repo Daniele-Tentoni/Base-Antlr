@@ -16,6 +16,7 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.11
+          architecture: x64
       - name: Cache Gradle packages
         uses: actions/cache@v2
         with:
@@ -27,6 +28,7 @@ jobs:
 
   # From https://github.com/codacy/codacy-coverage-reporter-action
   codacy-coverage-reporter:
+    needs: build
     runs-on: ubuntu-latest
     env:
       TEST_REPORT_PATH: jacocoTestReport.xml
