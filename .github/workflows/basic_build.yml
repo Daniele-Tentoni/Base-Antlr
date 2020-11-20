@@ -38,7 +38,12 @@ jobs:
       - name: Find report
         # In this example, we use EOF as a delimiter and set the JSON_RESPONSE environment variable to the value of the curl response.
         # From https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-commands-for-github-actions#setting-an-environment-variable
-        run:
+        run: |
+          ls -l
+          ls -l build
+          ls -l build/reports
+          ls -l build/reports/jacoco
+          ls -l build/reports/jacoco/test
           echo 'TEST_REPORT_PATH<<EOF' >> $GITHUB_ENV
           echo find -name jacocoTestReport.xml >> $GITHUB_ENV
           echo 'EOF' >> $GITHUB_ENV
