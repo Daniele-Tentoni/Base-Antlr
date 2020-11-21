@@ -1,6 +1,4 @@
-package fool.compiler.lib;
-
-import fool.compiler.AST.*;
+package fool.compiler.ast;
 
 /**
  * Classe che ci permette di stampare l'ast.
@@ -65,7 +63,7 @@ public class ASTVisitor<T> {
      * @param n il Prog Node da visitare.
      * @return TODO
      */
-    public T visit(ProgNode n) {
+    public T visit(AST.ProgNode n) {
         throw new UnImplementedException();
     }
 
@@ -75,7 +73,7 @@ public class ASTVisitor<T> {
      * @param n il Times Node da visitare.
      * @return TODO
      */
-    public T visit(TimesNode n) {
+    public T visit(AST.TimesNode n) {
         throw new UnImplementedException();
     }
 
@@ -85,7 +83,7 @@ public class ASTVisitor<T> {
      * @param n il Plus node da visitare.
      * @return TODO
      */
-    public T visit(PlusNode n) {
+    public T visit(AST.PlusNode n) {
         throw new UnImplementedException();
     }
 
@@ -95,23 +93,23 @@ public class ASTVisitor<T> {
      * @param n il Int node da visitare.
      * @return TODO
      */
-    public T visit(IntNode n) {
+    public T visit(AST.IntNode n) {
         throw new UnImplementedException();
     }
 
-    public T visit(EqualNode n) {
+    public T visit(AST.EqualNode n) {
         throw new UnImplementedException();
     }
 
-    public T visit(BoolNode n) {
+    public T visit(AST.BoolNode n) {
         throw new UnImplementedException();
     }
 
-    public T visit(IfNode n) {
+    public T visit(AST.IfNode n) {
         throw new UnImplementedException();
     }
 
-    public T visit(PrintNode n) {
+    public T visit(AST.PrintNode n) {
         throw new UnImplementedException();
     }
 

@@ -51,9 +51,6 @@ public class ExampleObjectsFactory implements ObjectFactory<ExampleLexer, Exampl
     public ExampleParser getParser(ExampleLexer lexer) {
         Objects.requireNonNull(lexer);
 
-        if (lexer.getClass() != ExampleLexer.class)
-            throw new ClassCastException("Required ExampleLexer class");
-
         if (parser == null) {
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             parser = new ExampleParser(tokens);

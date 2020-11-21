@@ -3,12 +3,14 @@ package lcmc;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import lcmc.SVMLexer;
 import lcmc.SVMParser;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 public class TestASM {
     private SVMObjectFactory factory;
@@ -16,6 +18,19 @@ public class TestASM {
     @Before
     public void setup() {
         factory = SVMObjectFactory.getInstance();
+    }
+
+    @Test
+    public void testWithFileNotFound() {
+        String fileName = "non.exist";
+        try {
+            factory.getLexer(fileName);
+            fail("Expected an FileNotFoundException");
+        } catch (FileNotFoundException e) {
+            assertEquals(String.format("Not found %s file.", fileName), e.getMessage());
+        } catch (Exception e) {
+            fail("Unexpected exception thrown.");
+        }
     }
 
     @Test

@@ -1,7 +1,4 @@
-package fool.compiler;
-
-import fool.compiler.lib.ASTVisitor;
-import fool.compiler.lib.Node;
+package fool.compiler.ast;
 
 public class AST {
     public static class ProgNode implements Node {

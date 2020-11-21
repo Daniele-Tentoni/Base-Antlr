@@ -1,18 +1,15 @@
 package fool;
 
-import fool.compiler.ASTGenerationSTVisitor;
-import fool.compiler.lib.Node;
-import fool.compiler.visitors.CalcASTVisitor;
-import fool.compiler.visitors.PrintASTVisitor;
+import fool.compiler.ast.ASTGenerationSTVisitor;
+import fool.compiler.ast.Node;
+import fool.compiler.ast.CalcASTVisitor;
+import fool.compiler.ast.PrintASTVisitor;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-
-import fool.FOOLLexer;
-import fool.FOOLParser;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;

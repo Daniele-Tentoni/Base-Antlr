@@ -46,9 +46,6 @@ public class SVMObjectFactory implements ObjectFactory<SVMLexer, SVMParser> {
     public SVMParser getParser(SVMLexer lexer) {
         Objects.requireNonNull(lexer);
 
-        if (lexer.getClass() != SVMLexer.class)
-            throw new ClassCastException("Required ExampleLexer class");
-
         if (parser == null) {
             CommonTokenStream tokens = new CommonTokenStream(lexer);
             parser = new SVMParser(tokens);
