@@ -17,12 +17,81 @@ public class ASTVisitorTest {
     }
 
     @Test
-    public void testUnimplementedExceptions() {
-        String fileName = "non.exist";
+    public void testUnimplementedExceptionsOnProgNode() {
         try {
             visitor.visit(new AST.ProgNode(null));
             fail("Expected an FileNotFoundException");
-        } catch (UnImplementedException e){
+        } catch (UnImplementedException e) {
+            assertNull(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testUnimplementedExceptionsOnTimesNode() {
+        try {
+            visitor.visit(new AST.TimesNode(null, null));
+            fail("Expected an FileNotFoundException");
+        } catch (UnImplementedException e) {
+            assertNull(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testUnimplementedExceptionsOnPlusNode() {
+        try {
+            visitor.visit(new AST.PlusNode(null, null));
+            fail("Expected an FileNotFoundException");
+        } catch (UnImplementedException e) {
+            assertNull(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testUnimplementedExceptionsOnIntNode() {
+        try {
+            visitor.visit(new AST.IntNode(0));
+            fail("Expected an FileNotFoundException");
+        } catch (UnImplementedException e) {
+            assertNull(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testUnimplementedExceptionsOnEqualNode() {
+        try {
+            visitor.visit(new AST.EqualNode(null, null));
+            fail("Expected an FileNotFoundException");
+        } catch (UnImplementedException e) {
+            assertNull(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testUnimplementedExceptionsOnBoolNode() {
+        try {
+            visitor.visit(new AST.BoolNode(true));
+            fail("Expected an FileNotFoundException");
+        } catch (UnImplementedException e) {
+            assertNull(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testUnimplementedExceptionsOnIfNode() {
+        try {
+            visitor.visit(new AST.IfNode(null, null, null));
+            fail("Expected an FileNotFoundException");
+        } catch (UnImplementedException e) {
+            assertNull(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testUnimplementedExceptionsOnPrintNode() {
+        try {
+            visitor.visit(new AST.PrintNode(null));
+            fail("Expected an FileNotFoundException");
+        } catch (UnImplementedException e) {
             assertNull(e.getMessage());
         }
     }
