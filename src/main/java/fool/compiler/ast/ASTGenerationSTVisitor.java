@@ -26,14 +26,14 @@ public class ASTGenerationSTVisitor extends FOOLBaseVisitor<Node> {
     }
 
     @Override
-    public Node visitHighPriOp(FOOLParser.HighPriOpContext c) {       //modified production tags
+    public Node visitTimes(FOOLParser.TimesContext c) {       //modified production tags
         System.out.println(indent + "exp: prod with TIMES");
 
         return new AST.TimesNode(visit(c.exp(0)), visit(c.exp(1)));
     }
 
     @Override
-    public Node visitMediumPriOp(FOOLParser.MediumPriOpContext c) {
+    public Node visitPlus(FOOLParser.PlusContext c) {
         System.out.println(indent + "exp: prod with PLUS");
 
         return new AST.PlusNode(visit(c.exp(0)), visit(c.exp(1)));
@@ -57,7 +57,7 @@ public class ASTGenerationSTVisitor extends FOOLBaseVisitor<Node> {
     }
 
     @Override
-    public Node visitLowPriOp(FOOLParser.LowPriOpContext c) {
+    public Node visitEq(FOOLParser.EqContext c) {
         System.out.println(indent + "exp: prod with PLUS");
 
         return new AST.EqualNode(visit(c.exp(0)), visit(c.exp(1)));
