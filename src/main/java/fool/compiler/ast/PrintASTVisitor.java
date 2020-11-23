@@ -58,7 +58,7 @@ public class PrintASTVisitor extends ASTVisitor<Void> {
      * @param n il Int node da visitare.
      */
     @Override
-    public Void visit(IntNode n) {
+    public Void visit(IntValueNode n) {
         printNode(n, ": " + n.getVal());
         return null;
     }
@@ -72,7 +72,7 @@ public class PrintASTVisitor extends ASTVisitor<Void> {
     }
 
     @Override
-    public Void visit(BoolNode n) {
+    public Void visit(BoolValueNode n) {
         printNode(n);
         return null;
     }

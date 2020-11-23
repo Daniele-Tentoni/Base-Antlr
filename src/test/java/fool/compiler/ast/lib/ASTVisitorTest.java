@@ -49,7 +49,7 @@ public class ASTVisitorTest {
     @Test
     public void testUnimplementedExceptionsOnIntNode() {
         try {
-            visitor.visit(new AST.IntNode(0));
+            visitor.visit(new AST.IntValueNode(0));
             fail("Expected an FileNotFoundException");
         } catch (UnImplementedException e) {
             assertNull(e.getMessage());
@@ -69,7 +69,7 @@ public class ASTVisitorTest {
     @Test
     public void testUnimplementedExceptionsOnBoolNode() {
         try {
-            visitor.visit(new AST.BoolNode(true));
+            visitor.visit(new AST.BoolValueNode(true));
             fail("Expected an FileNotFoundException");
         } catch (UnImplementedException e) {
             assertNull(e.getMessage());

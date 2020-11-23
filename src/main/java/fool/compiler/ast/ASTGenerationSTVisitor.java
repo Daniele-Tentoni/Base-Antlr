@@ -53,7 +53,7 @@ public class ASTGenerationSTVisitor extends FOOLBaseVisitor<Node> {
         int res = minus ? -v : v;
         System.out.println(indent + "exp: prod with " + (minus ? "MINUS " : "") + "NUM " + res);
 
-        return new AST.IntNode(res);
+        return new AST.IntValueNode(res);
     }
 
     @Override
@@ -72,14 +72,14 @@ public class ASTGenerationSTVisitor extends FOOLBaseVisitor<Node> {
     public Node visitTrue(FOOLParser.TrueContext c) {
         System.out.println(indent + "exp: prod with TRUE");
 
-        return new AST.BoolNode(true);
+        return new AST.BoolValueNode(true);
     }
 
     @Override
     public Node visitFalse(FOOLParser.FalseContext c) {
         System.out.println(indent + "exp: prod with FALSE");
 
-        return new AST.BoolNode(false);
+        return new AST.BoolValueNode(false);
     }
 
     @Override

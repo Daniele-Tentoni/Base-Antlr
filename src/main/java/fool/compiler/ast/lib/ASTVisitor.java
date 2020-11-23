@@ -94,7 +94,7 @@ public class ASTVisitor<T> {
      * @param n il Int node da visitare.
      * @return TODO
      */
-    public T visit(AST.IntNode n) {
+    public T visit(AST.IntValueNode n) {
         throw new UnImplementedException();
     }
 
@@ -102,7 +102,7 @@ public class ASTVisitor<T> {
         throw new UnImplementedException();
     }
 
-    public T visit(AST.BoolNode n) {
+    public T visit(AST.BoolValueNode n) {
         throw new UnImplementedException();
     }
 

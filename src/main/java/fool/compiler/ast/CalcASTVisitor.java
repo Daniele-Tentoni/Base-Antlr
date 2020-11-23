@@ -57,7 +57,7 @@ public class CalcASTVisitor extends ASTVisitor<Integer> {
      * @param n il Int node da visitare.
      */
     @Override
-    public Integer visit(IntNode n) {
+    public Integer visit(IntValueNode n) {
         if (super.mustPrint()) super.printNode(n);
         return n.getVal();
     }
@@ -70,7 +70,7 @@ public class CalcASTVisitor extends ASTVisitor<Integer> {
     }
 
     @Override
-    public Integer visit(BoolNode n) {
+    public Integer visit(BoolValueNode n) {
         if (super.mustPrint()) super.printNode(n);
         return n.getVal() ? 0 : 1;
     }

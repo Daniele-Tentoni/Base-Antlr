@@ -67,10 +67,10 @@ public class AST {
         }
     }
 
-    public final static class IntNode extends Node {
+    public final static class IntValueNode extends Node {
         private final int val;
 
-        public IntNode(int n) {
+        public IntValueNode(int n) {
             val = n;
         }
 
@@ -107,10 +107,10 @@ public class AST {
         }
     }
 
-    public final static class BoolNode extends Node {
+    public final static class BoolValueNode extends Node {
         private final boolean val;
 
-        public BoolNode(boolean v) {
+        public BoolValueNode(boolean v) {
             val = v;
         }
 
