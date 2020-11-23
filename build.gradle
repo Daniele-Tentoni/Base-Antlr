@@ -51,6 +51,12 @@ generateGrammarSource {
     }
 }
 
+test {
+    useJUnit()
+    maxHeapSize = '1G'
+    finalizedBy jacocoTestReport
+}
+
 jacocoTestReport {
     dependsOn test
     reports {
@@ -68,12 +74,6 @@ jacocoTestCoverageVerification {
             }
         }
     }
-}
-
-test {
-    useJUnit()
-    maxHeapSize = '1G'
-    finalizedBy jacocoTestReport
 }
 
 check {

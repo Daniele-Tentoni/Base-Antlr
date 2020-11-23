@@ -32,7 +32,8 @@ public class CalcASTVisitorTest {
         assertEquals(0, (int) res);
     }
 
-    @Test public void testVisitProgNode() {
+    @Test
+    public void testVisitProgNode() {
         Node n = new AST.BoolNode(true);
         Node p = new AST.ProgNode(n);
         var res = visitor.visit(p);
@@ -89,7 +90,8 @@ public class CalcASTVisitorTest {
         assertEquals(1, (int) res);
     }
 
-    @Test public void testVisitIfNode() {
+    @Test
+    public void testVisitIfNode() {
         // Test left branch for if.
         int v2 = 1;
         int v3 = 2;

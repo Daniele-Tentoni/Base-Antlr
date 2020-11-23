@@ -6,7 +6,6 @@ import fool.compiler.ast.AST.*;
  * Classe che ci permette di stampare l'ast.
  *
  * @author ap nono, è il professore che l'ha fatto.
- *
  */
 public class CalcASTVisitor extends ASTVisitor<Integer> {
 
@@ -25,7 +24,7 @@ public class CalcASTVisitor extends ASTVisitor<Integer> {
      */
     @Override
     public Integer visit(ProgNode n) {
-        if(super.mustPrint()) super.printNode(n);
+        if (super.mustPrint()) super.printNode(n);
         return visit(n.getExp());
     }
 
@@ -36,7 +35,7 @@ public class CalcASTVisitor extends ASTVisitor<Integer> {
      */
     @Override
     public Integer visit(TimesNode n) {
-        if(super.mustPrint()) super.printNode(n);
+        if (super.mustPrint()) super.printNode(n);
         return visit(n.getLeft()) * visit(n.getRight());
     }
 
@@ -47,7 +46,7 @@ public class CalcASTVisitor extends ASTVisitor<Integer> {
      */
     @Override
     public Integer visit(PlusNode n) {
-        if(super.mustPrint()) super.printNode(n);
+        if (super.mustPrint()) super.printNode(n);
         return visit(n.getLeft()) + visit(n.getRight());
     }
 
@@ -58,7 +57,7 @@ public class CalcASTVisitor extends ASTVisitor<Integer> {
      */
     @Override
     public Integer visit(IntNode n) {
-        if(super.mustPrint()) super.printNode(n);
+        if (super.mustPrint()) super.printNode(n);
         return n.getVal();
     }
 
