@@ -83,6 +83,7 @@ public class ASTGenerationSTVisitor extends FOOLBaseVisitor<Node> {
 
     @Override
     public Node visitIf(FOOLParser.IfContext c) {
+        System.out.println(indent + "exp: prod with IF THEN ELSE");
         return new AST.IfNode(
                 visit(c.exp(0)),
                 visit(c.exp(1)),
