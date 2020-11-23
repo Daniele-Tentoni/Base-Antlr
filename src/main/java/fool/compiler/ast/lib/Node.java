@@ -1,4 +1,4 @@
-package fool.compiler.ast;
+package fool.compiler.ast.lib;
 
 /**
  * Represent a single node for the AST.

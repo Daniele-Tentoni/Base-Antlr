@@ -1,4 +1,7 @@
-package fool.compiler.ast;
+package fool.compiler.ast.lib;
+
+import fool.compiler.ast.AST;
+import fool.compiler.ast.UnImplementedException;
 
 /**
  * Classe che ci permette di stampare l'ast.
@@ -34,11 +37,9 @@ public class ASTVisitor<T> {
         if (print) {
             String temp = indent;
             indent = (indent == null) ? "" : indent + "  ";
+            // Dobbiamo eseguire qui la visitazione del'albero per sfruttare l'identazione.
             T result = visitByAcc(n);
-            /*
-             * Tramite questa istruzione resettiamo la indent prima di tornare al livello
-             * superiore.
-             */
+            // Tramite questa istruzione resettiamo la indent prima di tornare al livello superiore.
             indent = temp;
             return result;
         }

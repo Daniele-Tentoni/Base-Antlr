@@ -2,6 +2,7 @@ package fool.compiler.ast;
 
 import fool.FOOLBaseVisitor;
 import fool.FOOLParser;
+import fool.compiler.ast.lib.Node;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 public class ASTGenerationSTVisitor extends FOOLBaseVisitor<Node> {

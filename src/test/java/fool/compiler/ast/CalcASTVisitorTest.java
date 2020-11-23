@@ -1,5 +1,6 @@
 package fool.compiler.ast;
 
+import fool.compiler.ast.lib.Node;
 import org.junit.Before;
 import org.junit.Test;
 

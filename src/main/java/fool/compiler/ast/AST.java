@@ -1,10 +1,13 @@
 package fool.compiler.ast;
 
+import fool.compiler.ast.lib.ASTVisitor;
+import fool.compiler.ast.lib.Node;
+
 public class AST {
-    public static class ProgNode extends Node {
+    public final static class ProgNode extends Node {
         private final Node exp;
 
-        ProgNode(Node e) {
+        public ProgNode(Node e) {
             exp = e;
         }
 
@@ -18,11 +21,11 @@ public class AST {
         }
     }
 
-    public static class PlusNode extends Node {
+    public final static class PlusNode extends Node {
         private final Node left;
         private final Node right;
 
-        PlusNode(Node l, Node r) {
+        public PlusNode(Node l, Node r) {
             left = l;
             right = r;
         }
@@ -41,11 +44,11 @@ public class AST {
         }
     }
 
-    public static class TimesNode extends Node {
+    public final static class TimesNode extends Node {
         private final Node left;
         private final Node right;
 
-        TimesNode(Node l, Node r) {
+        public TimesNode(Node l, Node r) {
             left = l;
             right = r;
         }
@@ -64,10 +67,10 @@ public class AST {
         }
     }
 
-    public static class IntNode extends Node {
+    public final static class IntNode extends Node {
         private final int val;
 
-        IntNode(int n) {
+        public IntNode(int n) {
             val = n;
         }
 
@@ -81,11 +84,11 @@ public class AST {
         }
     }
 
-    public static class EqualNode extends Node {
+    public final static class EqualNode extends Node {
         private final Node left;
         private final Node right;
 
-        EqualNode(Node left, Node right) {
+        public EqualNode(Node left, Node right) {
             this.left = left;
             this.right = right;
         }
@@ -104,10 +107,10 @@ public class AST {
         }
     }
 
-    public static class BoolNode extends Node {
+    public final static class BoolNode extends Node {
         private final boolean val;
 
-        BoolNode(boolean v) {
+        public BoolNode(boolean v) {
             val = v;
         }
 
@@ -121,12 +124,12 @@ public class AST {
         }
     }
 
-    public static class IfNode extends Node {
+    public final static class IfNode extends Node {
         private final Node condition;
         private final Node then;
         private final Node els;
 
-        IfNode(Node c, Node t, Node e) {
+        public IfNode(Node c, Node t, Node e) {
             this.condition = c;
             this.then = t;
             this.els = e;
@@ -150,10 +153,10 @@ public class AST {
         }
     }
 
-    public static class PrintNode extends Node {
+    public final static class PrintNode extends Node {
         private final Node print;
 
-        PrintNode(Node p) {
+        public PrintNode(Node p) {
             this.print = p;
         }
 

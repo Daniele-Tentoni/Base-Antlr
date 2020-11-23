@@ -1,6 +1,7 @@
 package fool.compiler.ast;
 
 import fool.compiler.ast.AST.*;
+import fool.compiler.ast.lib.ASTVisitor;
 
 /**
  * Classe che ci permette di stampare l'ast.

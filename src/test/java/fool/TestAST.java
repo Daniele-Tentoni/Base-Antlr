@@ -1,7 +1,7 @@
 package fool;
 
 import fool.compiler.ast.ASTGenerationSTVisitor;
-import fool.compiler.ast.Node;
+import fool.compiler.ast.lib.Node;
 import fool.compiler.ast.CalcASTVisitor;
 import fool.compiler.ast.PrintASTVisitor;
 import org.antlr.v4.runtime.tree.ParseTree;

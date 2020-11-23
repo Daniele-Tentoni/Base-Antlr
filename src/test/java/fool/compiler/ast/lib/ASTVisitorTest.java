@@ -1,5 +1,7 @@
-package fool.compiler.ast;
+package fool.compiler.ast.lib;
 
+import fool.compiler.ast.AST;
+import fool.compiler.ast.UnImplementedException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -8,8 +10,6 @@ import static org.junit.Assert.*;
 public class ASTVisitorTest {
 
     private ASTVisitor<Integer> visitor;
-    private final int size = 10;
-    private final int v1 = 1;
 
     @Before
     public void setup() {
