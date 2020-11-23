@@ -1,7 +1,7 @@
 package fool.compiler.ast;
 
 public class AST {
-    public static class ProgNode implements Node {
+    public static class ProgNode extends Node {
         private final Node exp;
 
         ProgNode(Node e) {
@@ -18,7 +18,7 @@ public class AST {
         }
     }
 
-    public static class PlusNode implements Node {
+    public static class PlusNode extends Node {
         private final Node left;
         private final Node right;
 
@@ -41,7 +41,7 @@ public class AST {
         }
     }
 
-    public static class TimesNode implements Node {
+    public static class TimesNode extends Node {
         private final Node left;
         private final Node right;
 
@@ -64,7 +64,7 @@ public class AST {
         }
     }
 
-    public static class IntNode implements Node {
+    public static class IntNode extends Node {
         private final int val;
 
         IntNode(int n) {
@@ -81,7 +81,7 @@ public class AST {
         }
     }
 
-    public static class EqualNode implements Node {
+    public static class EqualNode extends Node {
         private final Node left;
         private final Node right;
 
@@ -104,7 +104,7 @@ public class AST {
         }
     }
 
-    public static class BoolNode implements Node {
+    public static class BoolNode extends Node {
         private final boolean val;
 
         BoolNode(boolean v) {
@@ -121,7 +121,7 @@ public class AST {
         }
     }
 
-    public static class IfNode implements Node {
+    public static class IfNode extends Node {
         private final Node condition;
         private final Node then;
         private final Node els;
@@ -150,7 +150,7 @@ public class AST {
         }
     }
 
-    public static class PrintNode implements Node {
+    public static class PrintNode extends Node {
         private final Node print;
 
         PrintNode(Node p) {
