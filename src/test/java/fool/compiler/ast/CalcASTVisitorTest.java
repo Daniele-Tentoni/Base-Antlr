@@ -80,14 +80,14 @@ public class CalcASTVisitorTest {
         Node n2 = new AST.IntNode(v2);
         Node e1 = new AST.EqualNode(n1, n2);
         var res = visitor.visit(e1);
-        assertEquals(0, (int) res);
+        assertEquals(1, (int) res);
 
         // Here are equals, so I expect 1.
         int v3 = 2;
         Node n3 = new AST.IntNode(v3);
         Node e2 = new AST.EqualNode(n2, n3);
         res = visitor.visit(e2);
-        assertEquals(1, (int) res);
+        assertEquals(0, (int) res);
     }
 
     @Test
