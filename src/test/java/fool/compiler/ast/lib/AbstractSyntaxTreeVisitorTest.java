@@ -22,7 +22,7 @@ public class AbstractSyntaxTreeVisitorTest {
       visitor.visit(new AbstractSyntaxTree.ProgNode(null));
       fail("Expected an FileNotFoundException");
     } catch (UnImplementedException e) {
-      assertNull(e.getMessage());
+      assertEquals("ProgNode", e.getMessage());
     }
   }
 
