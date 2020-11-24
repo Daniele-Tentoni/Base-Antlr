@@ -1,6 +1,6 @@
 package fool.compiler;
 
-public final class Utils {
+public final class SyntaxTreeUtils {
   private static final int NODE_NAME_LENGTH = 4;
   private static final int CONTEXT_NAME_LENGTH = 7;
 

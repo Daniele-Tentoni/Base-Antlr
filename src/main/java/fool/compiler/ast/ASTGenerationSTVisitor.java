@@ -10,8 +10,8 @@ import java.util.List;
 
 import org.antlr.v4.runtime.tree.ParseTree;
 
-import static fool.compiler.Utils.extractCtxName;
-import static fool.compiler.Utils.lowerFirstChar;
+import static fool.compiler.SyntaxTreeUtils.extractCtxName;
+import static fool.compiler.SyntaxTreeUtils.lowerFirstChar;
 
 public class ASTGenerationSTVisitor extends FOOLBaseVisitor<Node> {
 
