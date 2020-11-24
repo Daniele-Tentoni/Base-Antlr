@@ -1,6 +1,6 @@
 package fool;
 
-import fool.compiler.ast.ASTGenerationSTVisitor;
+import fool.compiler.ast.AbsSynTreeGenSynTreeVisitor;
 import fool.compiler.ast.CalcASTVisitor;
 import fool.compiler.ast.PrintASTVisitor;
 import fool.compiler.ast.lib.Node;
@@ -10,9 +10,6 @@ import org.junit.Test;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-
-import fool.FOOLLexer;
-import fool.FOOLParser;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -57,7 +54,7 @@ public class TestAbstractSyntaxTree {
     assertEquals(0, lexer.lexicalErrors);
     assertEquals(0, parser.getNumberOfSyntaxErrors());
 
-    ASTGenerationSTVisitor astGenVisitor = new ASTGenerationSTVisitor();
+    AbsSynTreeGenSynTreeVisitor astGenVisitor = new AbsSynTreeGenSynTreeVisitor();
     Node ast = astGenVisitor.visit(pt);
 
     System.out.println("Visualizing AST...");

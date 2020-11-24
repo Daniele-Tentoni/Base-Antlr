@@ -20,13 +20,15 @@ public final class FOOLObjectFactory implements
   private String openedFile;
 
   /**
-   *
+   * Generate an empty factory. Used private for singleton pattern.
    */
   private FOOLObjectFactory() {
   }
 
   /**
-   * @return current singleton instance of the factory.
+   * Get the current singleton instance of the factory.
+   *
+   * @return singleton instance.
    */
   public static FOOLObjectFactory getInstance() {
     if (instance == null) {

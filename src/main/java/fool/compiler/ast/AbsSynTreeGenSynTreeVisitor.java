@@ -3,32 +3,41 @@ package fool.compiler.ast;
 import fool.FOOLBaseVisitor;
 import fool.FOOLParser;
 import fool.compiler.ast.lib.Node;
-import org.antlr.v4.runtime.ParserRuleContext;
-
 import java.util.LinkedList;
 import java.util.List;
-
+import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import static fool.compiler.SyntaxTreeUtils.extractCtxName;
 import static fool.compiler.SyntaxTreeUtils.lowerFirstChar;
 
-public class ASTGenerationSTVisitor extends FOOLBaseVisitor<Node> {
+/**
+ * Visit the Abstract Syntax Tree of FOOL language.
+ */
+public class AbsSynTreeGenSynTreeVisitor extends FOOLBaseVisitor<Node> {
 
   private boolean print;
   private String indent;
 
-  public ASTGenerationSTVisitor() {
+  public AbsSynTreeGenSynTreeVisitor() {
   }
 
-  public ASTGenerationSTVisitor(boolean debug) {
+  public AbsSynTreeGenSynTreeVisitor(boolean debug) {
     print = debug;
   }
 
-  public boolean mustPrint() {
+  /**
+   * @return process must print debug info during execution.
+   */
+  protected boolean mustPrint() {
     return print;
   }
 
+  /**
+   * Print a debug message in console from given Context.
+   *
+   * @param ctx the rule context to debug. Can be a Var or a Fun.
+   */
   private void printVarAndProdName(final ParserRuleContext ctx) {
     String prefix = "";
     Class<?> ctxClass = ctx.getClass();
@@ -42,6 +51,12 @@ public class ASTGenerationSTVisitor extends FOOLBaseVisitor<Node> {
         indent + prefix + lowerFirstChar(extractCtxName(ctxClass.getName())));
   }
 
+  /**
+   * Start here the visit of the Parse tree.
+   *
+   * @param t tree to visit.
+   * @return abstract syntax tree node from visit.
+   */
   @Override
   public final Node visit(final ParseTree t) {
     String temp = indent;
@@ -51,6 +66,12 @@ public class ASTGenerationSTVisitor extends FOOLBaseVisitor<Node> {
     return result;
   }
 
+  /**
+   * Start here the visit of a Prog Context, the root od a program.
+   *
+   * @param c context to visit.
+   * @return abstract syntax tree node from visit.
+   */
   @Override
   public Node visitProg(final FOOLParser.ProgContext c) {
     if (print) {

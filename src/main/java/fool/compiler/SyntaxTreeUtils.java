@@ -1,11 +1,15 @@
 package fool.compiler;
 
+/**
+ * Some utils methods for the Syntax Trees generation.
+ */
 public final class SyntaxTreeUtils {
   private static final int NODE_NAME_LENGTH = 4;
   private static final int CONTEXT_NAME_LENGTH = 7;
 
   /**
    * String s is in the form compiler.AST$NameNode.
+   *
    * @param s rich node name.
    * @return simple node name.
    */

@@ -6,18 +6,42 @@ import fool.compiler.east.lib.SymbolTableEntry;
 
 import java.util.List;
 
+/**
+ * Collection of all nodes of the ABS of FOOL language.
+ */
 public class AbstractSyntaxTree {
+  /**
+   * Start node of FOOL language.
+   */
   public final static class ProgNode extends Node {
     private final Node exp;
 
+    /**
+     * Create a Prog Node with a node inside.
+     *
+     * @param e node wrapped by Prog.
+     */
     public ProgNode(Node e) {
       exp = e;
     }
 
+    /**
+     * Get the wrapped node.
+     *
+     * @return node.
+     */
     public Node getExp() {
       return exp;
     }
 
+    /**
+     * Execute the visit of a visitor on the runtime object class.
+     * Practice of Visitor Pattern.
+     *
+     * @param visitor visitor to recall.
+     * @param <S>     visitor type.
+     * @return visitor object type return.
+     */
     @Override
     public <S> S accept(ASTVisitor<S> visitor) {
       return visitor.visit(this);
