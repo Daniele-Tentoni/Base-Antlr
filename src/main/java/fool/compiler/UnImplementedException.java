@@ -15,7 +15,7 @@ public class UnImplementedException extends RuntimeException {
     }
 
     public UnImplementedException(){
-        this("");
+        super();
     }
 
 }
