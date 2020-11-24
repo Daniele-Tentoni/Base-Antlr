@@ -52,6 +52,23 @@ generateGrammarSource {
     }
 }
 
+// Checkstyle configuration.
+def configDir = "${project.rootDir}/config"
+
+checkstyle {
+    toolVersion '8.37'
+    configFile file("$configDir/checkstyle/checkstyle.xml")
+    configProperties.checkstyleSuppressionsPath = file("$configDir/checkstyle/suppressions.xml").absolutePath
+}
+
+checkstyleMain {
+    source = 'src/main/java'
+}
+
+checkstyleTest {
+    source = 'src/test/java'
+}
+
 test {
     useJUnit()
     maxHeapSize = '1G'

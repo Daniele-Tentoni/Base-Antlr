@@ -7,27 +7,27 @@ package fool.compiler.ast.lib;
  */
 public abstract class Node {
 
-    // This is the line in the file of the node.
-    private int line;
+  // This is the line in the file of the node.
+  private int line;
 
-    public void setLine(int line) {
-        this.line = line;
-    }
+  public Node() {
+    // Is set at -1 to debug the right assignment of this var.
+    line = -1;
+  }
 
-    public int getLine() {
-        return line;
-    }
+  public int getLine() {
+    return line;
+  }
 
-    public Node() {
-        // Is set at -1 to debug the right assignment of this var.
-        line = -1;
-    }
+  public void setLine(int line) {
+    this.line = line;
+  }
 
-    /**
-     * Use the specific visit implementation at runtime.
-     *
-     * @param visitor Visitor to recall.
-     * @return TODO
-     */
-    public abstract <S> S accept(ASTVisitor<S> visitor);
+  /**
+   * Use the specific visit implementation at runtime.
+   *
+   * @param visitor Visitor to recall.
+   * @return TODO
+   */
+  public abstract <S> S accept(ASTVisitor<S> visitor);
 }

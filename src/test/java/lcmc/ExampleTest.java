@@ -13,43 +13,43 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 public class ExampleTest {
-    private ExampleObjectsFactory factory;
+  private ExampleObjectsFactory factory;
 
-    /**
-     * You can use this method to instance factories properly.
-     */
-    @Before
-    public void setup() {
-        factory = ExampleObjectsFactory.getInstance();
+  /**
+   * You can use this method to instance factories properly.
+   */
+  @Before
+  public void setup() {
+    factory = ExampleObjectsFactory.getInstance();
+  }
+
+  @Test
+  public void testWithFileNotFound() {
+    String fileName = "non.exist";
+    try {
+      factory.getLexer(fileName);
+      fail("Expected an FileNotFoundException");
+    } catch (FileNotFoundException e) {
+      assertEquals(String.format("Not found %s file.", fileName), e.getMessage());
+    } catch (Exception e) {
+      fail("Unexpected exception thrown.");
     }
+  }
 
-    @Test
-    public void testWithFileNotFound() {
-        String fileName = "non.exist";
-        try {
-            factory.getLexer(fileName);
-            fail("Expected an FileNotFoundException");
-        } catch (FileNotFoundException e) {
-            assertEquals(String.format("Not found %s file.", fileName), e.getMessage());
-        } catch (Exception e) {
-            fail("Unexpected exception thrown.");
-        }
-    }
+  @Test
+  public void testExamples() throws IOException {
+    ExampleLexer lexer = factory.getLexer("strings.txt");
+    ExampleParser parser = factory.getParser(lexer);
+    parser.prog();
 
-    @Test
-    public void testExamples() throws IOException {
-        ExampleLexer lexer = factory.getLexer("strings.txt");
-        ExampleParser parser = factory.getParser(lexer);
-        parser.prog();
+    log("Prog");
+    log("Lexical errors: " + lexer.lexicalErrors);
+    log("Syntax errors: " + parser.getNumberOfSyntaxErrors());
+    assertEquals(0, lexer.lexicalErrors);
+    assertEquals(0, parser.getNumberOfSyntaxErrors());
+  }
 
-        log("Prog");
-        log("Lexical errors: " + lexer.lexicalErrors);
-        log("Syntax errors: " + parser.getNumberOfSyntaxErrors());
-        assertEquals(0, lexer.lexicalErrors);
-        assertEquals(0, parser.getNumberOfSyntaxErrors());
-    }
-
-    private void log(String msg) {
-        System.out.println(msg);
-    }
+  private void log(String msg) {
+    System.out.println(msg);
+  }
 }

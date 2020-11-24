@@ -8,14 +8,14 @@ package fool.compiler;
  */
 public class UnImplementedException extends RuntimeException {
 
-    private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 1L;
 
-    public UnImplementedException(String message){
-        super(message);
-    }
+  public UnImplementedException(String message) {
+    super(message);
+  }
 
-    public UnImplementedException(){
-        super();
-    }
+  public UnImplementedException() {
+    super();
+  }
 
 }

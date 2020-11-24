@@ -14,44 +14,45 @@ import java.util.Objects;
 
 public class FOOLObjectFactory implements ObjectFactory<FOOLLexer, FOOLParser> {
 
-    private static FOOLObjectFactory instance;
-    private FOOLParser parser;
-    private FOOLLexer lexer;
-    private String openedFile;
+  private static FOOLObjectFactory instance;
+  private FOOLParser parser;
+  private FOOLLexer lexer;
+  private String openedFile;
 
-    private FOOLObjectFactory() {}
+  private FOOLObjectFactory() {
+  }
 
-    public static FOOLObjectFactory getInstance() {
-        if (instance == null) {
-            instance = new FOOLObjectFactory();
-        }
-        return instance;
+  public static FOOLObjectFactory getInstance() {
+    if (instance == null) {
+      instance = new FOOLObjectFactory();
+    }
+    return instance;
+  }
+
+  @Override
+  public FOOLLexer getLexer(String fileName) throws IOException {
+    if (lexer == null || !openedFile.equals(fileName)) {
+      URL strings = getClass().getClassLoader().getResource(fileName);
+      if (strings == null) {
+        throw new FileNotFoundException(String.format("Not found %s file.", fileName));
+      }
+      CharStream chars = CharStreams.fromFileName(strings.getPath());
+      lexer = new FOOLLexer(chars);
+      openedFile = fileName;
     }
 
-    @Override
-    public FOOLLexer getLexer(String fileName) throws IOException {
-        if (lexer == null || !openedFile.equals(fileName)) {
-            URL strings = getClass().getClassLoader().getResource(fileName);
-            if (strings == null) {
-                throw new FileNotFoundException(String.format("Not found %s file.", fileName));
-            }
-            CharStream chars = CharStreams.fromFileName(strings.getPath());
-            lexer = new FOOLLexer(chars);
-            openedFile = fileName;
-        }
+    return lexer;
+  }
 
-        return lexer;
+  @Override
+  public FOOLParser getParser(FOOLLexer lexer) {
+    Objects.requireNonNull(lexer);
+
+    if (parser == null) {
+      CommonTokenStream tokens = new CommonTokenStream(lexer);
+      parser = new FOOLParser(tokens);
     }
 
-    @Override
-    public FOOLParser getParser(FOOLLexer lexer) {
-        Objects.requireNonNull(lexer);
-
-        if (parser == null) {
-            CommonTokenStream tokens = new CommonTokenStream(lexer);
-            parser = new FOOLParser(tokens);
-        }
-
-        return parser;
-    }
+    return parser;
+  }
 }
