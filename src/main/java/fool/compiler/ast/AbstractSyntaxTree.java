@@ -25,10 +25,10 @@ public class AbstractSyntaxTree {
   }
 
   public final static class ProgLetInNode extends Node {
-    private List<Node> declarationList;
-    private Node exp;
+    private final List<Node> declarationList;
+    private final Node exp;
 
-    ProgLetInNode(List<Node> d, Node e) {
+    public ProgLetInNode(List<Node> d, Node e) {
       declarationList = d;
       exp = e;
     }
@@ -213,9 +213,9 @@ public class AbstractSyntaxTree {
   }
 
   public final static class VarNode extends Node {
-    private String id;
-    private Node type;
-    private Node exp;
+    private final String id;
+    private final Node type;
+    private final Node exp;
 
     public VarNode(String i, Node t, Node v) {
       id = i;
@@ -242,13 +242,14 @@ public class AbstractSyntaxTree {
   }
 
   public final static class FunNode extends Node {
-    private String id;
-    private Node retType;
+    private final String id;
+    private final Node retType;
     //List<ParNode> parlist;
-    private List<Node> declarationList;
-    private Node exp;
+    private final List<Node> declarationList;
+    private final Node exp;
 
-    FunNode(String i, Node rt, /* List<ParNode> pl, */ List<Node> dl, Node e) {
+    public FunNode(String i, Node rt, /* List<ParNode> pl, */ List<Node> dl,
+                   Node e) {
       id = i;
       retType = rt; /* parlist=pl; */
       declarationList = dl;
@@ -278,10 +279,10 @@ public class AbstractSyntaxTree {
   }
 
   public final static class IdNode extends Node {
-    private String id;
+    private final String id;
     private SymbolTableEntry entry;
 
-    IdNode(String i) {
+    public IdNode(String i) {
       id = i;
     }
 
@@ -304,11 +305,11 @@ public class AbstractSyntaxTree {
   }
 
   public final static class CallNode extends Node {
-    private String id;
+    private final String id;
     private SymbolTableEntry entry;
 
     // List<Node> arglist;
-    CallNode(String i /*, List<Node> p */) {
+    public CallNode(String i /*, List<Node> p */) {
       id = i; /* arglist = p; */
     }
 

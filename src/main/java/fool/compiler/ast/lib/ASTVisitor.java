@@ -38,9 +38,9 @@ public class ASTVisitor<T> {
   }
 
   protected void printNode(Node n, String s) {
-    String className = n.getClass()
+    final String className = n.getClass()
         .getName(); // returns a string compiler.AST$ClassName
-    String nodeName = className
+    final String nodeName = className
         .substring(className.lastIndexOf('$') + 1, className.length() - 4);
     System.out.println(indent + nodeName + s);
   }
@@ -51,10 +51,10 @@ public class ASTVisitor<T> {
 
   public T visit(Node n, String s) {
     if (mustPrint()) {
-      String temp = indent;
+      final String temp = indent;
       indent = (indent == null) ? "" : indent + s;
       // Dobbiamo eseguire qui la visitazione del'albero per sfruttare l'identazione.
-      T result = visitByAcc(n);
+      final T result = visitByAcc(n);
       // Tramite questa istruzione resettiamo la indent prima di tornare al livello superiore.
       indent = temp;
       return result;

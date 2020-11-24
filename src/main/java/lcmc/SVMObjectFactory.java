@@ -20,6 +20,9 @@ public final class SVMObjectFactory
   private SVMObjectFactory() {
   }
 
+  /**
+   * @return current singleton instance of the factory.
+   */
   public static SVMObjectFactory getInstance() {
     if (instance == null) {
       instance = new SVMObjectFactory();

@@ -26,7 +26,7 @@ public final class FOOLObjectFactory implements
   }
 
   /**
-   * @return factory singleton instance.
+   * @return current singleton instance of the factory.
    */
   public static FOOLObjectFactory getInstance() {
     if (instance == null) {

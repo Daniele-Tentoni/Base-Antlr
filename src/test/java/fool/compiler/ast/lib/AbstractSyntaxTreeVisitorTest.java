@@ -95,4 +95,74 @@ public class AbstractSyntaxTreeVisitorTest {
       assertNull(e.getMessage());
     }
   }
+
+  @Test
+  public void testUnimplementedExceptionsOnProgLetInNode() {
+    try {
+      visitor.visit(new AbstractSyntaxTree.ProgLetInNode(null, null));
+      fail("Expected an FileNotFoundException");
+    } catch (UnImplementedException e) {
+      assertNull(e.getMessage());
+    }
+  }
+
+  @Test
+  public void testUnimplementedExceptionsOnBoolTypeNode() {
+    try {
+      visitor.visit(new AbstractSyntaxTree.BoolTypeNode());
+      fail("Expected an FileNotFoundException");
+    } catch (UnImplementedException e) {
+      assertNull(e.getMessage());
+    }
+  }
+
+  @Test
+  public void testUnimplementedExceptionsOnIntTypeNode() {
+    try {
+      visitor.visit(new AbstractSyntaxTree.IntTypeNode());
+      fail("Expected an FileNotFoundException");
+    } catch (UnImplementedException e) {
+      assertNull(e.getMessage());
+    }
+  }
+
+  @Test
+  public void testUnimplementedExceptionsOnVarNode() {
+    try {
+      visitor.visit(new AbstractSyntaxTree.VarNode(null, null, null));
+      fail("Expected an FileNotFoundException");
+    } catch (UnImplementedException e) {
+      assertNull(e.getMessage());
+    }
+  }
+
+  @Test
+  public void testUnimplementedExceptionsOnFunNode() {
+    try {
+      visitor.visit(new AbstractSyntaxTree.FunNode(null, null, null, null));
+      fail("Expected an FileNotFoundException");
+    } catch (UnImplementedException e) {
+      assertNull(e.getMessage());
+    }
+  }
+
+  @Test
+  public void testUnimplementedExceptionsOnIdNode() {
+    try {
+      visitor.visit(new AbstractSyntaxTree.IdNode(null));
+      fail("Expected an FileNotFoundException");
+    } catch (UnImplementedException e) {
+      assertNull(e.getMessage());
+    }
+  }
+
+  @Test
+  public void testUnimplementedExceptionsOnCallNode() {
+    try {
+      visitor.visit(new AbstractSyntaxTree.CallNode(null));
+      fail("Expected an FileNotFoundException");
+    } catch (UnImplementedException e) {
+      assertNull(e.getMessage());
+    }
+  }
 }

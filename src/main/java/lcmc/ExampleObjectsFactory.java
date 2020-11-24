@@ -22,9 +22,7 @@ public final class ExampleObjectsFactory
   }
 
   /**
-   * Get the singleton factory instance.
-   *
-   * @return factory instance.
+   * @return current singleton instance of the factory.
    */
   public static ExampleObjectsFactory getInstance() {
     if (instance == null) {
