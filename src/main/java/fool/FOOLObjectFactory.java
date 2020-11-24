@@ -2,15 +2,13 @@ package fool;
 
 import fool.FOOLLexer;
 import fool.FOOLParser;
-import lcmc.ObjectFactory;
-import org.antlr.v4.runtime.CharStream;
-import org.antlr.v4.runtime.CharStreams;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
-
+import lcmc.ObjectFactory;
+import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 
 public final class FOOLObjectFactory implements
@@ -38,6 +36,8 @@ public final class FOOLObjectFactory implements
   }
 
   /**
+   * Get the singleton FOOLLexer instance.
+   *
    * @param fileName that lexer have to read.
    * @return lexer singleton instance.
    * @throws IOException when file is not found.
@@ -59,6 +59,8 @@ public final class FOOLObjectFactory implements
   }
 
   /**
+   * Get the singleton FOOLParser instance.
+   *
    * @param foolLexer lexer that produce tokens.
    * @return parser that create syntax trees.
    */

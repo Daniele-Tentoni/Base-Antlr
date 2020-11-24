@@ -26,16 +26,18 @@ public class SymbolTableASTVisitor extends ASTVisitor<Void> {
 
   @Override
   public Void visit(AbstractSyntaxTree.ProgNode n) {
-    if (mustPrint())
+    if (mustPrint()) {
       printNode(n);
+    }
     visit(n.getExp());
     return null;
   }
 
   @Override
   public Void visit(AbstractSyntaxTree.TimesNode n) {
-    if (mustPrint())
+    if (mustPrint()) {
       printNode(n);
+    }
     visit(n.getLeft());
     visit(n.getRight());
     return null;
@@ -43,8 +45,9 @@ public class SymbolTableASTVisitor extends ASTVisitor<Void> {
 
   @Override
   public Void visit(AbstractSyntaxTree.PlusNode n) {
-    if (mustPrint())
+    if (mustPrint()) {
       printNode(n);
+    }
     visit(n.getLeft());
     visit(n.getRight());
     return null;
@@ -52,15 +55,17 @@ public class SymbolTableASTVisitor extends ASTVisitor<Void> {
 
   @Override
   public Void visit(AbstractSyntaxTree.IntValueNode n) {
-    if (mustPrint())
+    if (mustPrint()) {
       printNode(n, String.valueOf(n.getVal()));
+    }
     return null;
   }
 
   @Override
   public Void visit(AbstractSyntaxTree.EqualNode n) {
-    if (mustPrint())
+    if (mustPrint()) {
       printNode(n);
+    }
     visit(n.getLeft());
     visit(n.getRight());
     return null;
@@ -68,15 +73,17 @@ public class SymbolTableASTVisitor extends ASTVisitor<Void> {
 
   @Override
   public Void visit(AbstractSyntaxTree.BoolValueNode n) {
-    if (mustPrint())
+    if (mustPrint()) {
       printNode(n, String.valueOf(n.getVal()));
+    }
     return null;
   }
 
   @Override
   public Void visit(AbstractSyntaxTree.IfNode n) {
-    if (mustPrint())
+    if (mustPrint()) {
       printNode(n);
+    }
     visit(n.getCondition());
     visit(n.getThen());
     visit(n.getElse());
@@ -85,16 +92,18 @@ public class SymbolTableASTVisitor extends ASTVisitor<Void> {
 
   @Override
   public Void visit(AbstractSyntaxTree.PrintNode n) {
-    if (mustPrint())
+    if (mustPrint()) {
       printNode(n);
+    }
     visit(n.getPrint());
     return null;
   }
 
   @Override
   public Void visit(AbstractSyntaxTree.ProgLetInNode n) {
-    if (mustPrint())
+    if (mustPrint()) {
       printNode(n);
+    }
     Map<String, SymbolTableEntry> hashMap = new HashMap<>();
     symbolTable.add(hashMap);
     n.getDeclarationList().forEach(this::visit);
@@ -114,16 +123,18 @@ public class SymbolTableASTVisitor extends ASTVisitor<Void> {
 
   @Override
   public Void visit(AbstractSyntaxTree.VarNode n) {
-    if (mustPrint())
+    if (mustPrint()) {
       printNode(n, n.getId());
+    }
     visit(n.getExp());
     return null;
   }
 
   @Override
   public Void visit(AbstractSyntaxTree.FunNode n) {
-    if (mustPrint())
+    if (mustPrint()) {
       printNode(n, n.getId());
+    }
     Map<String, SymbolTableEntry> hashMap = new HashMap<>();
     symbolTable.add(hashMap);
     n.getDeclarationList().forEach(this::visit);
@@ -134,8 +145,9 @@ public class SymbolTableASTVisitor extends ASTVisitor<Void> {
 
   @Override
   public Void visit(AbstractSyntaxTree.IdNode n) {
-    if (mustPrint())
+    if (mustPrint()) {
       printNode(n, n.getId());
+    }
     SymbolTableEntry entry = lookUp(n.getId());
     if (entry == null) {
       System.out.println(

@@ -18,8 +18,9 @@ public class MemoryStack {
    * @return required element.
    */
   public int get(int index) {
-    if (index >= memory.size() || index < 0)
+    if (index >= memory.size() || index < 0) {
       throw new IndexOutOfBoundsException();
+    }
     return memory.get(index);
   }
 
@@ -31,8 +32,9 @@ public class MemoryStack {
    * @return -1 if operation fail, given value otherwise.
    */
   public int set(int index, Integer value) {
-    if (index >= memory.size() || index < 0)
+    if (index >= memory.size() || index < 0) {
       throw new IndexOutOfBoundsException("Index out of range of memory");
+    }
     return memory.set(index, value);
   }
 
@@ -42,9 +44,10 @@ public class MemoryStack {
    * @return value of last element.
    */
   public int pop() {
-    if (memory.size() == 0)
+    if (memory.size() == 0) {
       throw new StackOverflowError(
           "Reached bottom memory limit in the memory stack.");
+    }
     return memory.pop();
   }
 
@@ -54,9 +57,10 @@ public class MemoryStack {
    * @param v value to insert.
    */
   public void push(int v) {
-    if (memory.size() == maxSize)
+    if (memory.size() == maxSize) {
       throw new StackOverflowError(
           "Reached upper memory limit in the memory stack.");
+    }
     memory.push(v);
   }
 }

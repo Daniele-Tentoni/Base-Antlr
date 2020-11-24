@@ -1,14 +1,14 @@
 package lcmc;
 
-import org.antlr.v4.runtime.*;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
-
 import lcmc.ExampleLexer;
 import lcmc.ExampleParser;
+import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.CommonTokenStream;
 
 public final class ExampleObjectsFactory
     implements ObjectFactory<ExampleLexer, ExampleParser> {

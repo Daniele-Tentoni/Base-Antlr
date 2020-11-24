@@ -1,16 +1,14 @@
 package lcmc;
 
-import org.antlr.v4.runtime.CharStream;
-import org.antlr.v4.runtime.CharStreams;
-import org.antlr.v4.runtime.CommonTokenStream;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
-
 import lcmc.SVMLexer;
 import lcmc.SVMParser;
+import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.CommonTokenStream;
 
 public final class SVMObjectFactory
     implements ObjectFactory<SVMLexer, SVMParser> {
@@ -29,6 +27,13 @@ public final class SVMObjectFactory
     return instance;
   }
 
+  /**
+   * Get the singleton SVMLexer instance.
+   *
+   * @param fileName that lexer have to read.
+   * @return lexer singleton instance.
+   * @throws IOException when file is not found.
+   */
   @Override
   public SVMLexer getLexer(String fileName) throws IOException {
     if (lexer == null || !openedFile.equals(fileName)) {
@@ -45,6 +50,12 @@ public final class SVMObjectFactory
     return lexer;
   }
 
+  /**
+   * Get the singleton SVMParser instance.
+   *
+   * @param svmLexer lexer that produce tokens.
+   * @return parser that create syntax trees.
+   */
   @Override
   public SVMParser getParser(SVMLexer svmLexer) {
     Objects.requireNonNull(svmLexer);

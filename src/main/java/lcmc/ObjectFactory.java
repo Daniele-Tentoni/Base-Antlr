@@ -1,9 +1,8 @@
 package lcmc;
 
+import java.io.IOException;
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.Parser;
-
-import java.io.IOException;
 
 /**
  * Contract for Object Factory. Implement this to use factory methods.

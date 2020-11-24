@@ -2,7 +2,6 @@ package fool.compiler.east.lib;
 
 import fool.compiler.Visitable;
 import fool.compiler.ast.lib.ASTVisitor;
-
 import java.util.Objects;
 
 /**
@@ -15,6 +14,9 @@ public class SymbolTableEntry implements Visitable {
     nestingLevel = nl;
   }
 
+  /**
+   * @return the nesting level for this entry.
+   */
   public int getNestingLevel() {
     return nestingLevel;
   }

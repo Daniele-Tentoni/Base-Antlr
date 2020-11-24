@@ -25,7 +25,9 @@ public class CalcASTVisitor extends ASTVisitor<Integer> {
    */
   @Override
   public Integer visit(ProgNode n) {
-    if (super.mustPrint()) super.printNode(n);
+    if (super.mustPrint()) {
+      super.printNode(n);
+    }
     return visit(n.getExp());
   }
 
@@ -36,7 +38,9 @@ public class CalcASTVisitor extends ASTVisitor<Integer> {
    */
   @Override
   public Integer visit(TimesNode n) {
-    if (super.mustPrint()) super.printNode(n);
+    if (super.mustPrint()) {
+      super.printNode(n);
+    }
     return visit(n.getLeft()) * visit(n.getRight());
   }
 
@@ -47,7 +51,9 @@ public class CalcASTVisitor extends ASTVisitor<Integer> {
    */
   @Override
   public Integer visit(PlusNode n) {
-    if (super.mustPrint()) super.printNode(n);
+    if (super.mustPrint()) {
+      super.printNode(n);
+    }
     return visit(n.getLeft()) + visit(n.getRight());
   }
 
@@ -58,33 +64,43 @@ public class CalcASTVisitor extends ASTVisitor<Integer> {
    */
   @Override
   public Integer visit(IntValueNode n) {
-    if (super.mustPrint()) super.printNode(n);
+    if (super.mustPrint()) {
+      super.printNode(n);
+    }
     return n.getVal();
   }
 
   @Override
   public Integer visit(EqualNode n) {
-    if (super.mustPrint()) super.printNode(n);
+    if (super.mustPrint()) {
+      super.printNode(n);
+    }
     boolean equality = visit(n.getLeft()).equals(visit(n.getRight()));
     return equality ? 0 : 1;
   }
 
   @Override
   public Integer visit(BoolValueNode n) {
-    if (super.mustPrint()) super.printNode(n);
+    if (super.mustPrint()) {
+      super.printNode(n);
+    }
     return n.getVal() ? 0 : 1;
   }
 
   @Override
   public Integer visit(IfNode n) {
-    if (super.mustPrint()) super.printNode(n);
+    if (super.mustPrint()) {
+      super.printNode(n);
+    }
     boolean equality = visit(n.getCondition()) == 0;
     return equality ? visit(n.getThen()) : visit(n.getElse());
   }
 
   @Override
   public Integer visit(PrintNode n) {
-    if (super.mustPrint()) super.printNode(n);
+    if (super.mustPrint()) {
+      super.printNode(n);
+    }
     return visit(n.getPrint());
   }
 }
