@@ -8,7 +8,7 @@ package fool.compiler.ast.lib;
 public abstract class Node {
 
     // This is the line in the file of the node.
-    int line;
+    private int line;
 
     public void setLine(int line) {
         this.line = line;

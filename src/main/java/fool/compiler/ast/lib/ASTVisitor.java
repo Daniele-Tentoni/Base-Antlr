@@ -1,7 +1,7 @@
 package fool.compiler.ast.lib;
 
 import fool.compiler.ast.AST;
-import fool.compiler.ast.UnImplementedException;
+import fool.compiler.UnImplementedException;
 
 /**
  * Classe che ci permette di stampare l'ast.
@@ -33,10 +33,24 @@ public class ASTVisitor<T> {
         return print;
     }
 
-    public T visit(Node n) {
-        if (print) {
+    protected String getIndent() {
+        return indent;
+    }
+
+    protected void printNode(Node n, String s) {
+        String className = n.getClass().getName(); // returns a string compiler.AST$ClassName
+        String nodeName = className.substring(className.lastIndexOf('$') + 1, className.length() - 4);
+        System.out.println(indent + nodeName + s);
+    }
+
+    protected void printNode(Node n) {
+        printNode(n, "");
+    }
+
+    public T visit(Node n, String s) {
+        if (mustPrint()) {
             String temp = indent;
-            indent = (indent == null) ? "" : indent + "  ";
+            indent = (indent == null) ? "" : indent + s;
             // Dobbiamo eseguire qui la visitazione del'albero per sfruttare l'identazione.
             T result = visitByAcc(n);
             // Tramite questa istruzione resettiamo la indent prima di tornare al livello superiore.
@@ -47,6 +61,10 @@ public class ASTVisitor<T> {
         return visitByAcc(n);
     }
 
+    public T visit(Node n) {
+        return n.accept(this);
+    }
+
     /**
      * Metodo di visita generico per tutti i nodes. A runtime eseguiremo sempre
      * questo metodo. Quindi dobbiamo poi redirigere la computazione dove vogliamo.
@@ -54,7 +72,7 @@ public class ASTVisitor<T> {
      * @param n il Node da valutare.
      * @return TODO
      */
-    public T visitByAcc(Node n) {
+    private T visitByAcc(Node n) {
         return n.accept(this);
     }
 
@@ -65,7 +83,7 @@ public class ASTVisitor<T> {
      * @return TODO
      */
     public T visit(AST.ProgNode n) {
-        throw new UnImplementedException();
+        throw new UnImplementedException("ProgNode");
     }
 
     /**
@@ -114,14 +132,32 @@ public class ASTVisitor<T> {
         throw new UnImplementedException();
     }
 
-    protected void printNode(Node n, String s) {
-        String className = n.getClass().getName(); // returns a string compiler.AST$ClassName
-        String nodeName = className.substring(className.lastIndexOf('$') + 1, className.length() - 4);
-        System.out.println(indent + nodeName + s);
+    public T visit(AST.ProgLetInNode n) {
+        throw new UnImplementedException();
     }
 
-    protected void printNode(Node n) {
-        printNode(n, "");
+    public T visit(AST.BoolTypeNode n) {
+        throw new UnImplementedException();
+    }
+
+    public T visit(AST.IntTypeNode n) {
+        throw new UnImplementedException();
+    }
+
+    public T visit(AST.VarNode n) {
+        throw new UnImplementedException();
+    }
+
+    public T visit(AST.FunNode n) {
+        throw new UnImplementedException();
+    }
+
+    public T visit(AST.IdNode n) {
+        throw new UnImplementedException();
+    }
+
+    public T visit(AST.CallNode n) {
+        throw new UnImplementedException();
     }
 
 }

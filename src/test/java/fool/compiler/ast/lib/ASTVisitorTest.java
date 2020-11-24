@@ -1,7 +1,7 @@
 package fool.compiler.ast.lib;
 
 import fool.compiler.ast.AST;
-import fool.compiler.ast.UnImplementedException;
+import fool.compiler.UnImplementedException;
 import org.junit.Before;
 import org.junit.Test;
 

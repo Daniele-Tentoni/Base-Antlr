@@ -1,4 +1,4 @@
-package fool.compiler.ast;
+package fool.compiler;
 
 /**
  * Ereditiamo da una eccezione unchecked. Non viene catturata dal compilatore di
@@ -8,9 +8,14 @@ package fool.compiler.ast;
  */
 public class UnImplementedException extends RuntimeException {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
+
+    public UnImplementedException(String message){
+        super(message);
+    }
+
+    public UnImplementedException(){
+        this("");
+    }
 
 }

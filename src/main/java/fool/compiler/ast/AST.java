@@ -2,6 +2,9 @@ package fool.compiler.ast;
 
 import fool.compiler.ast.lib.ASTVisitor;
 import fool.compiler.ast.lib.Node;
+import fool.compiler.east.lib.SymbolTableEntry;
+
+import java.util.List;
 
 public class AST {
     public final static class ProgNode extends Node {
@@ -18,6 +21,27 @@ public class AST {
         @Override
         public <S> S accept(ASTVisitor<S> visitor) {
             return visitor.visit(this);
+        }
+    }
+
+    public final static class ProgLetInNode extends Node {
+        private List<Node> declarationList;
+        private Node exp;
+
+        ProgLetInNode(List<Node> d, Node e) {
+            declarationList = d;
+            exp = e;
+        }
+
+        @Override
+        public <S> S accept(ASTVisitor<S> visitor) { return visitor.visit(this); }
+
+        public List<Node> getDeclarationList() {
+            return declarationList;
+        }
+
+        public Node getExp() {
+            return exp;
         }
     }
 
@@ -84,6 +108,12 @@ public class AST {
         }
     }
 
+    public final static class IntTypeNode extends Node {
+
+        @Override
+        public <S> S accept(ASTVisitor<S> visitor) { return visitor.visit(this); }
+    }
+
     public final static class EqualNode extends Node {
         private final Node left;
         private final Node right;
@@ -124,6 +154,12 @@ public class AST {
         }
     }
 
+    public final static class BoolTypeNode extends Node {
+
+        @Override
+        public <S> S accept(ASTVisitor<S> visitor) { return visitor.visit(this); }
+    }
+
     public final static class IfNode extends Node {
         private final Node condition;
         private final Node then;
@@ -139,7 +175,7 @@ public class AST {
             return condition;
         }
 
-        public Node getEls() {
+        public Node getElse() {
             return els;
         }
 
@@ -167,6 +203,112 @@ public class AST {
         @Override
         public <S> S accept(ASTVisitor<S> visitor) {
             return visitor.visit(this);
+        }
+    }
+
+    public final static class VarNode extends Node {
+        private String id;
+        private Node type;
+        private Node exp;
+
+        public VarNode(String i, Node t, Node v) {
+            id = i;
+            type = t;
+            exp = v;
+        }
+
+        @Override
+        public <S> S accept(ASTVisitor<S> visitor) { return visitor.visit(this); }
+
+        public String getId() {
+            return id;
+        }
+
+        public Node getType() {
+            return type;
+        }
+
+        public Node getExp() {
+            return exp;
+        }
+    }
+
+    public final static class FunNode extends Node {
+        private String id;
+        private Node retType;
+        //List<ParNode> parlist;
+        private List<Node> declarationList;
+        private Node exp;
+
+        FunNode(String i, Node rt, /* List<ParNode> pl, */ List<Node> dl, Node e) {
+            id = i;
+            retType = rt; /* parlist=pl; */
+            declarationList = dl;
+            exp = e;
+        }
+
+        @Override
+        public <S> S accept(ASTVisitor<S> visitor) { return visitor.visit(this); }
+
+        public List<Node> getDeclarationList() {
+            return declarationList;
+        }
+
+        public Node getRetType() {
+            return retType;
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public Node getExp() {
+            return exp;
+        }
+    }
+
+    public final static class IdNode extends Node {
+        private String id;
+        private SymbolTableEntry entry;
+
+        IdNode(String i) {id = i;}
+
+        public void setEntry(SymbolTableEntry entry) {
+            this.entry = entry;
+        }
+
+        public SymbolTableEntry getEntry() {
+            return entry;
+        }
+
+        @Override
+        public <S> S accept(ASTVisitor<S> visitor) { return visitor.visit(this); }
+
+        public String getId() {
+            return id;
+        }
+    }
+
+    public final static class CallNode extends Node {
+        private String id;
+        private SymbolTableEntry entry;
+
+        // List<Node> arglist;
+        CallNode(String i /*, List<Node> p */) {id = i; /* arglist = p; */}
+
+        @Override
+        public <S> S accept(ASTVisitor<S> visitor) { return visitor.visit(this); }
+
+        public String getId() {
+            return id;
+        }
+
+        public void setEntry(SymbolTableEntry entry) {
+            this.entry = entry;
+        }
+
+        public SymbolTableEntry getEntry() {
+            return entry;
         }
     }
 }

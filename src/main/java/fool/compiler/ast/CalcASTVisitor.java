@@ -79,7 +79,7 @@ public class CalcASTVisitor extends ASTVisitor<Integer> {
     public Integer visit(IfNode n) {
         if (super.mustPrint()) super.printNode(n);
         boolean equality = visit(n.getCondition()) == 0;
-        return equality ? visit(n.getThen()) : visit(n.getEls());
+        return equality ? visit(n.getThen()) : visit(n.getElse());
     }
 
     @Override

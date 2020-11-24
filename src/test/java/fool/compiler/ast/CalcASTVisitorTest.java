@@ -8,14 +8,10 @@ import static org.junit.Assert.assertEquals;
 
 public class CalcASTVisitorTest {
     private CalcASTVisitor visitor;
-    private CalcASTVisitor printVisitor;
-    private CalcASTVisitor falsePrintVisitor;
 
     @Before
     public void setup() {
         visitor = new CalcASTVisitor();
-        printVisitor = new CalcASTVisitor(true);
-        falsePrintVisitor = new CalcASTVisitor(false);
     }
 
     @Test

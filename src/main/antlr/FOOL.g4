@@ -25,16 +25,16 @@ dec : VAR ID COLON type ASS exp SEMIC  #vardec
         	(LET dec+ IN)? exp SEMIC   #fundec
     ;
 
-exp     : exp TIMES exp #times
-        | exp PLUS  exp #plus
-        | exp EQ  exp   #eq
-        | LPAR exp RPAR #pars
-    	| MINUS? NUM #integer
-	    | TRUE #true
-	    | FALSE #false
+exp     : exp TIMES exp                     #times
+        | exp PLUS exp                      #plus
+        | exp EQ exp                        #eq
+        | LPAR exp RPAR                     #pars
+    	| MINUS? NUM                        #integer
+	    | TRUE                              #true
+	    | FALSE                             #false
 	    | IF exp THEN CLPAR exp CRPAR ELSE CLPAR exp CRPAR  #if
-	    | PRINT LPAR exp RPAR #print
-	    | ID #id
+	    | PRINT LPAR exp RPAR               #print
+	    | ID                                #id
 	    | ID LPAR (exp (COMMA exp)* )? RPAR #call
         ;
 
@@ -43,7 +43,7 @@ type    : INT #intType
         ;
 
 /*------------------------------------------------------------------
- * LEXER RULES
+ * LEXER RULES gli a
  *------------------------------------------------------------------*/
 
 PLUS  	: '+' ;

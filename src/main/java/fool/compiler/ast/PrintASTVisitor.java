@@ -82,7 +82,7 @@ public class PrintASTVisitor extends ASTVisitor<Void> {
         printNode(n);
         visit(n.getCondition());
         visit(n.getThen());
-        visit(n.getEls());
+        visit(n.getElse());
         return null;
     }
 
@@ -90,6 +90,14 @@ public class PrintASTVisitor extends ASTVisitor<Void> {
     public Void visit(PrintNode n) {
         printNode(n);
         visit(n.getPrint());
+        return null;
+    }
+
+    @Override
+    public Void visit(ProgLetInNode n){
+        printNode(n);
+        n.getDeclarationList().forEach(this::visit);
+        visit(n.getExp());
         return null;
     }
 }
