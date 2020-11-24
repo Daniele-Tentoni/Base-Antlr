@@ -68,13 +68,15 @@ public class VirtualMachine {
           // Qui invece non salto sempre.
           v1 = pop();
           v2 = pop();
-          instructionPointer = v2 == v1 ? code[instructionPointer] : instructionPointer + 1;
+          instructionPointer =
+              v2 == v1 ? code[instructionPointer] : instructionPointer + 1;
           break;
         case SVMParser.BRANCHLESSEQ:
           // Qui invece non salto sempre.
           v1 = pop();
           v2 = pop();
-          instructionPointer = v2 <= v1 ? code[instructionPointer] : instructionPointer + 1;
+          instructionPointer =
+              v2 <= v1 ? code[instructionPointer] : instructionPointer + 1;
           break;
         case SVMParser.LOADTM:
           push(temporaryPointer);
@@ -118,7 +120,9 @@ public class VirtualMachine {
           memory.set(v1, v2);
           break;
         case SVMParser.PRINT:
-          System.out.printf("Print: %s%n", stackPointer == MEMORY_SIZE ? "Empty stack." : memory.get(stackPointer));
+          System.out.printf("Print: %s%n",
+              stackPointer == MEMORY_SIZE ? "Empty stack." :
+                  memory.get(stackPointer));
           break;
         case SVMParser.HALT:
           // Leave cpu() method.

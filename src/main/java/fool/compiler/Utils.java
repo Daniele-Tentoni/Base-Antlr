@@ -1,8 +1,17 @@
 package fool.compiler;
 
 public final class Utils {
-  public static String extractNodeName(String s) { // s is in the form compiler.AST$NameNode
-    return s.substring(s.lastIndexOf('$') + 1, s.length() - 4);
+  private static final int NODE_NAME_LENGTH = 4;
+  private static final int CONTEXT_NAME_LENGTH = 7;
+
+  /**
+   * String s is in the form compiler.AST$NameNode.
+   * @param s rich node name.
+   * @return simple node name.
+   */
+  public static String extractNodeName(final String s) {
+    //
+    return s.substring(s.lastIndexOf('$') + 1, s.length() - NODE_NAME_LENGTH);
   }
 
   /**
@@ -12,8 +21,9 @@ public final class Utils {
    * @param s class name of the context.
    * @return name of the context.
    */
-  public static String extractCtxName(String s) {
-    return s.substring(s.lastIndexOf('$') + 1, s.length() - 7);
+  public static String extractCtxName(final String s) {
+    return s
+        .substring(s.lastIndexOf('$') + 1, s.length() - CONTEXT_NAME_LENGTH);
   }
 
   /**
@@ -24,7 +34,7 @@ public final class Utils {
    * @param s string to process.
    * @return string processed.
    */
-  public static String lowerFirstChar(String s) {
+  public static String lowerFirstChar(final String s) {
     return Character.toLowerCase(s.charAt(0)) + s.substring(1);
   }
 }

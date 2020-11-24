@@ -32,7 +32,8 @@ public class TestAbstractSyntaxTree {
       factory.getLexer(fileName);
       fail("Expected an FileNotFoundException");
     } catch (FileNotFoundException e) {
-      assertEquals(String.format("Not found %s file.", fileName), e.getMessage());
+      assertEquals(String.format("Not found %s file.", fileName),
+          e.getMessage());
     } catch (Exception e) {
       fail("Unexpected exception thrown.");
     }
@@ -47,7 +48,9 @@ public class TestAbstractSyntaxTree {
     FOOLParser parser = factory.getParser(lexer);
     ParseTree pt = parser.prog();
 
-    System.out.println("You had: " + lexer.lexicalErrors + " lexical errors and " + parser.getNumberOfSyntaxErrors() + " syntax errors.");
+    System.out.println(
+        "You had: " + lexer.lexicalErrors + " lexical errors and " +
+            parser.getNumberOfSyntaxErrors() + " syntax errors.");
     log("Prog");
     log("Lexical errors: " + lexer.lexicalErrors);
     log("Syntax errors: " + parser.getNumberOfSyntaxErrors());
@@ -62,7 +65,8 @@ public class TestAbstractSyntaxTree {
     new PrintASTVisitor().visit(ast);
 
     System.out.println("Calculating program value...");
-    System.out.println("Program value is: " + new CalcASTVisitor(false).visit(ast));
+    System.out
+        .println("Program value is: " + new CalcASTVisitor(false).visit(ast));
 
   }
 

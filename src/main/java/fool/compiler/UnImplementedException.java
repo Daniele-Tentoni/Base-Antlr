@@ -10,10 +10,18 @@ public class UnImplementedException extends RuntimeException {
 
   private static final long serialVersionUID = 1L;
 
-  public UnImplementedException(String message) {
+  /**
+   * Instance a new Exception with a user message.
+   *
+   * @param message message for the user.
+   */
+  public UnImplementedException(final String message) {
     super(message);
   }
 
+  /**
+   * Instance a new Exception without a message.
+   */
   public UnImplementedException() {
     super();
   }

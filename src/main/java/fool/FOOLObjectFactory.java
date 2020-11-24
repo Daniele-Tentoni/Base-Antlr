@@ -5,23 +5,31 @@ import fool.FOOLParser;
 import lcmc.ObjectFactory;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
-import org.antlr.v4.runtime.CommonTokenStream;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
 
-public class FOOLObjectFactory implements ObjectFactory<FOOLLexer, FOOLParser> {
+import org.antlr.v4.runtime.CommonTokenStream;
+
+public final class FOOLObjectFactory implements
+    ObjectFactory<FOOLLexer, FOOLParser> {
 
   private static FOOLObjectFactory instance;
   private FOOLParser parser;
   private FOOLLexer lexer;
   private String openedFile;
 
+  /**
+   *
+   */
   private FOOLObjectFactory() {
   }
 
+  /**
+   * @return factory singleton instance.
+   */
   public static FOOLObjectFactory getInstance() {
     if (instance == null) {
       instance = new FOOLObjectFactory();
@@ -29,12 +37,18 @@ public class FOOLObjectFactory implements ObjectFactory<FOOLLexer, FOOLParser> {
     return instance;
   }
 
+  /**
+   * @param fileName that lexer have to read.
+   * @return lexer singleton instance.
+   * @throws IOException when file is not found.
+   */
   @Override
-  public FOOLLexer getLexer(String fileName) throws IOException {
+  public FOOLLexer getLexer(final String fileName) throws IOException {
     if (lexer == null || !openedFile.equals(fileName)) {
       URL strings = getClass().getClassLoader().getResource(fileName);
       if (strings == null) {
-        throw new FileNotFoundException(String.format("Not found %s file.", fileName));
+        throw new FileNotFoundException(
+            String.format("Not found %s file.", fileName));
       }
       CharStream chars = CharStreams.fromFileName(strings.getPath());
       lexer = new FOOLLexer(chars);
@@ -44,12 +58,16 @@ public class FOOLObjectFactory implements ObjectFactory<FOOLLexer, FOOLParser> {
     return lexer;
   }
 
+  /**
+   * @param foolLexer lexer that produce tokens.
+   * @return parser that create syntax trees.
+   */
   @Override
-  public FOOLParser getParser(FOOLLexer lexer) {
-    Objects.requireNonNull(lexer);
+  public FOOLParser getParser(final FOOLLexer foolLexer) {
+    Objects.requireNonNull(foolLexer);
 
     if (parser == null) {
-      CommonTokenStream tokens = new CommonTokenStream(lexer);
+      CommonTokenStream tokens = new CommonTokenStream(foolLexer);
       parser = new FOOLParser(tokens);
     }
 

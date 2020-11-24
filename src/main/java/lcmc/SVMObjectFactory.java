@@ -12,7 +12,8 @@ import java.util.Objects;
 import lcmc.SVMLexer;
 import lcmc.SVMParser;
 
-public class SVMObjectFactory implements ObjectFactory<SVMLexer, SVMParser> {
+public final class SVMObjectFactory
+    implements ObjectFactory<SVMLexer, SVMParser> {
   private static SVMObjectFactory instance;
   private SVMParser parser;
   private SVMLexer lexer;
@@ -33,7 +34,8 @@ public class SVMObjectFactory implements ObjectFactory<SVMLexer, SVMParser> {
     if (lexer == null || !openedFile.equals(fileName)) {
       URL strings = getClass().getClassLoader().getResource(fileName);
       if (strings == null) {
-        throw new FileNotFoundException(String.format("Not found %s file.", fileName));
+        throw new FileNotFoundException(
+            String.format("Not found %s file.", fileName));
       }
       CharStream chars = CharStreams.fromFileName(strings.getPath());
       lexer = new SVMLexer(chars);
@@ -44,11 +46,11 @@ public class SVMObjectFactory implements ObjectFactory<SVMLexer, SVMParser> {
   }
 
   @Override
-  public SVMParser getParser(SVMLexer lexer) {
-    Objects.requireNonNull(lexer);
+  public SVMParser getParser(SVMLexer svmLexer) {
+    Objects.requireNonNull(svmLexer);
 
     if (parser == null) {
-      CommonTokenStream tokens = new CommonTokenStream(lexer);
+      CommonTokenStream tokens = new CommonTokenStream(svmLexer);
       parser = new SVMParser(tokens);
     }
 

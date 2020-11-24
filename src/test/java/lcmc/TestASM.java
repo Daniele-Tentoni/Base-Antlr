@@ -27,7 +27,8 @@ public class TestASM {
       factory.getLexer(fileName);
       fail("Expected an FileNotFoundException");
     } catch (FileNotFoundException e) {
-      assertEquals(String.format("Not found %s file.", fileName), e.getMessage());
+      assertEquals(String.format("Not found %s file.", fileName),
+          e.getMessage());
     } catch (Exception e) {
       fail("Unexpected exception thrown.");
     }
@@ -42,7 +43,9 @@ public class TestASM {
     SVMParser parser = factory.getParser(lexer);
     parser.assembly();
 
-    System.out.println("You had: " + lexer.lexicalErrors + " lexical errors and " + parser.getNumberOfSyntaxErrors() + " syntax errors.");
+    System.out.println(
+        "You had: " + lexer.lexicalErrors + " lexical errors and " +
+            parser.getNumberOfSyntaxErrors() + " syntax errors.");
     log("Prog");
     log("Lexical errors: " + lexer.lexicalErrors);
     log("Syntax errors: " + parser.getNumberOfSyntaxErrors());

@@ -134,7 +134,8 @@ public class ExecuteVM {
           memory[v1] = v2;
           break;
         case SVMParser.PRINT:
-          System.out.printf("Print: %s%n", sp == MEM_SIZE ? "Empty stack." : memory[sp]);
+          System.out.printf("Print: %s%n",
+              sp == MEM_SIZE ? "Empty stack." : memory[sp]);
           break;
         case SVMParser.HALT:
           // Leave cpu() method.

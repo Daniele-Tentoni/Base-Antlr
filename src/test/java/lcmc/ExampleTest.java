@@ -30,7 +30,8 @@ public class ExampleTest {
       factory.getLexer(fileName);
       fail("Expected an FileNotFoundException");
     } catch (FileNotFoundException e) {
-      assertEquals(String.format("Not found %s file.", fileName), e.getMessage());
+      assertEquals(String.format("Not found %s file.", fileName),
+          e.getMessage());
     } catch (Exception e) {
       fail("Unexpected exception thrown.");
     }

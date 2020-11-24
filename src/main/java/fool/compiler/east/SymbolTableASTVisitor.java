@@ -138,7 +138,8 @@ public class SymbolTableASTVisitor extends ASTVisitor<Void> {
       printNode(n, n.getId());
     SymbolTableEntry entry = lookUp(n.getId());
     if (entry == null) {
-      System.out.println("Var id " + n.getId() + " at line " + n.getLine() + " not declared.");
+      System.out.println(
+          "Var id " + n.getId() + " at line " + n.getLine() + " not declared.");
       errors++;
     } else {
       n.setEntry(entry);
@@ -154,7 +155,8 @@ public class SymbolTableASTVisitor extends ASTVisitor<Void> {
     }
     SymbolTableEntry entry = lookUp(n.getId());
     if (entry == null) {
-      System.out.println("Fun id " + n.getId() + " at line " + n.getLine() + " not declared.");
+      System.out.println(
+          "Fun id " + n.getId() + " at line " + n.getLine() + " not declared.");
       errors++;
     } else {
       n.setEntry(entry);

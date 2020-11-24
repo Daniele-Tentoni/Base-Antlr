@@ -43,7 +43,8 @@ public class MemoryStack {
    */
   public int pop() {
     if (memory.size() == 0)
-      throw new StackOverflowError("Reached bottom memory limit in the memory stack.");
+      throw new StackOverflowError(
+          "Reached bottom memory limit in the memory stack.");
     return memory.pop();
   }
 
@@ -54,7 +55,8 @@ public class MemoryStack {
    */
   public void push(int v) {
     if (memory.size() == maxSize)
-      throw new StackOverflowError("Reached upper memory limit in the memory stack.");
+      throw new StackOverflowError(
+          "Reached upper memory limit in the memory stack.");
     memory.push(v);
   }
 }

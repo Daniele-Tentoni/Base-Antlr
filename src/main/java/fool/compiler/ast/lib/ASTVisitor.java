@@ -38,8 +38,10 @@ public class ASTVisitor<T> {
   }
 
   protected void printNode(Node n, String s) {
-    String className = n.getClass().getName(); // returns a string compiler.AST$ClassName
-    String nodeName = className.substring(className.lastIndexOf('$') + 1, className.length() - 4);
+    String className = n.getClass()
+        .getName(); // returns a string compiler.AST$ClassName
+    String nodeName = className
+        .substring(className.lastIndexOf('$') + 1, className.length() - 4);
     System.out.println(indent + nodeName + s);
   }
 

@@ -29,19 +29,21 @@ public class ASTGenerationSTVisitor extends FOOLBaseVisitor<Node> {
     return print;
   }
 
-  private void printVarAndProdName(ParserRuleContext ctx) {
+  private void printVarAndProdName(final ParserRuleContext ctx) {
     String prefix = "";
     Class<?> ctxClass = ctx.getClass();
     Class<?> parentClass = ctxClass.getSuperclass();
     if (!parentClass.equals(ParserRuleContext.class)) {
       // parentClass is the var context (and not ctxClass itself)
-      prefix = lowerFirstChar(extractCtxName(parentClass.getName())) + ": production #";
+      prefix = lowerFirstChar(extractCtxName(parentClass.getName())) +
+          ": production #";
     }
-    System.out.println(indent + prefix + lowerFirstChar(extractCtxName(ctxClass.getName())));
+    System.out.println(
+        indent + prefix + lowerFirstChar(extractCtxName(ctxClass.getName())));
   }
 
   @Override
-  public Node visit(ParseTree t) {
+  public final Node visit(final ParseTree t) {
     String temp = indent;
     indent = (indent == null) ? "" : indent + "  ";
     Node result = super.visit(t);
@@ -50,7 +52,7 @@ public class ASTGenerationSTVisitor extends FOOLBaseVisitor<Node> {
   }
 
   @Override
-  public Node visitProg(FOOLParser.ProgContext c) {
+  public Node visitProg(final FOOLParser.ProgContext c) {
     if (print) {
       printVarAndProdName(c);
     }
@@ -58,7 +60,7 @@ public class ASTGenerationSTVisitor extends FOOLBaseVisitor<Node> {
   }
 
   @Override
-  public Node visitLetInProg(FOOLParser.LetInProgContext c) {
+  public Node visitLetInProg(final FOOLParser.LetInProgContext c) {
     if (print) {
       printVarAndProdName(c);
     }
@@ -69,7 +71,7 @@ public class ASTGenerationSTVisitor extends FOOLBaseVisitor<Node> {
   }
 
   @Override
-  public Node visitNoDecProg(FOOLParser.NoDecProgContext c) {
+  public Node visitNoDecProg(final FOOLParser.NoDecProgContext c) {
     if (print) {
       printVarAndProdName(c);
     }
@@ -77,64 +79,66 @@ public class ASTGenerationSTVisitor extends FOOLBaseVisitor<Node> {
   }
 
   @Override
-  public Node visitTimes(FOOLParser.TimesContext c) {       //modified production tags
+  public Node visitTimes(
+      final FOOLParser.TimesContext c) {       //modified production tags
     System.out.println(indent + "exp: prod with TIMES");
 
     return new AbstractSyntaxTree.TimesNode(visit(c.exp(0)), visit(c.exp(1)));
   }
 
   @Override
-  public Node visitPlus(FOOLParser.PlusContext c) {
+  public Node visitPlus(final FOOLParser.PlusContext c) {
     System.out.println(indent + "exp: prod with PLUS");
 
     return new AbstractSyntaxTree.PlusNode(visit(c.exp(0)), visit(c.exp(1)));
   }
 
   @Override
-  public Node visitPars(FOOLParser.ParsContext c) {
+  public Node visitPars(final FOOLParser.ParsContext c) {
     System.out.println(indent + "exp: prod with LPAR RPAR");
 
     return visit(c.exp());
   }
 
   @Override
-  public Node visitInteger(FOOLParser.IntegerContext c) {
+  public Node visitInteger(final FOOLParser.IntegerContext c) {
     int v = Integer.parseInt(c.NUM().getText());
     boolean minus = c.MINUS() != null;
     int res = minus ? -v : v;
-    System.out.println(indent + "exp: prod with " + (minus ? "MINUS " : "") + "NUM " + res);
+    System.out.println(
+        indent + "exp: prod with " + (minus ? "MINUS " : "") + "NUM " + res);
 
     return new AbstractSyntaxTree.IntValueNode(res);
   }
 
   @Override
-  public Node visitEq(FOOLParser.EqContext c) {
+  public Node visitEq(final FOOLParser.EqContext c) {
     System.out.println(indent + "exp: prod with PLUS");
 
     return new AbstractSyntaxTree.EqualNode(visit(c.exp(0)), visit(c.exp(1)));
   }
 
   @Override
-  public Node visitPrint(FOOLParser.PrintContext c) {
+  public Node visitPrint(final FOOLParser.PrintContext c) {
     return new AbstractSyntaxTree.PrintNode(visit(c.exp()));
   }
 
   @Override
-  public Node visitTrue(FOOLParser.TrueContext c) {
+  public Node visitTrue(final FOOLParser.TrueContext c) {
     System.out.println(indent + "exp: prod with TRUE");
 
     return new AbstractSyntaxTree.BoolValueNode(true);
   }
 
   @Override
-  public Node visitFalse(FOOLParser.FalseContext c) {
+  public Node visitFalse(final FOOLParser.FalseContext c) {
     System.out.println(indent + "exp: prod with FALSE");
 
     return new AbstractSyntaxTree.BoolValueNode(false);
   }
 
   @Override
-  public Node visitIf(FOOLParser.IfContext c) {
+  public Node visitIf(final FOOLParser.IfContext c) {
     System.out.println(indent + "exp: prod with IF THEN ELSE");
     return new AbstractSyntaxTree.IfNode(
         visit(c.exp(0)),
