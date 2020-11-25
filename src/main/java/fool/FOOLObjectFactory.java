@@ -11,6 +11,9 @@ import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 
+/**
+ * Provide factory methods for antlr objects for FOOL language.
+ */
 public final class FOOLObjectFactory implements
     ObjectFactory<FOOLLexer, FOOLParser> {
 

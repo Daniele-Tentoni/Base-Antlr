@@ -6,6 +6,7 @@ import fool.compiler.ast.PrintASTVisitor;
 import fool.compiler.ast.lib.Node;
 import fool.FOOLLexer;
 import fool.FOOLParser;
+import fool.compiler.east.SymbolTableASTVisitor;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.junit.Before;
 import org.junit.Test;
@@ -66,7 +67,7 @@ public class TestAbstractSyntaxTree {
     System.out.println("Calculating program value...");
     System.out
         .println("Program value is: " + new CalcASTVisitor(false).visit(ast));
-
+    // TODO: Continue from 3:12
   }
 
   @Test
@@ -93,6 +94,15 @@ public class TestAbstractSyntaxTree {
     System.out.println("Visualizing AST...");
 
     new PrintASTVisitor().visit(ast);
+
+    System.out.println("Enriching AST.");
+
+    SymbolTableASTVisitor symbolTableVisitor = new SymbolTableASTVisitor();
+    symbolTableVisitor.visit(ast);
+
+    System.out.println("You had: " + symbolTableVisitor.getErrors() + " "
+        + "symbol table errors.\n");
+
   }
 
   private void log(String msg) {

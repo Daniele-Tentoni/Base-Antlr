@@ -1,3 +1,4 @@
+/* Use this with the v0.3 of the FOOL Language. */
 let
   var y:int = 5+2;
   fun g:bool ()
@@ -12,4 +13,4 @@ in
     if g()
       then { y }
       else { 10 }
-  );
+  ) ;

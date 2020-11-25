@@ -10,6 +10,11 @@ import java.util.Objects;
 public class SymbolTableEntry implements Visitable {
   private final int nestingLevel;
 
+  /**
+   * Create the entry with the defined nesting level.
+   *
+   * @param nl nesting level.
+   */
   public SymbolTableEntry(int nl) {
     nestingLevel = nl;
   }

@@ -139,6 +139,10 @@ public class AbstractSyntaxTree {
    */
   public final static class IntTypeNode extends Node {
 
+    public IntTypeNode() {
+      super();
+    }
+
     /**
      * Visit the runtime type of the node.
      * This apply the visitor pattern.
@@ -197,6 +201,10 @@ public class AbstractSyntaxTree {
    * The bool TYPE node. This is not a value.
    */
   public final static class BoolTypeNode extends Node {
+
+    public BoolTypeNode() {
+      super();
+    }
 
     /**
      * @param visitor visitor to recall.
@@ -271,7 +279,15 @@ public class AbstractSyntaxTree {
      * @param v value. This is a functional language, there aren't
      *          declaration without assignment.
      */
+    public VarNode(String i, int line, Node t, Node v) {
+      super(line);
+      id = i;
+      type = t;
+      exp = v;
+    }
+
     public VarNode(String i, Node t, Node v) {
+      super();
       id = i;
       type = t;
       exp = v;
@@ -325,8 +341,19 @@ public class AbstractSyntaxTree {
      * @param dl declaration list.
      * @param e  expression inside the function scope.
      */
+    public FunNode(String i, int line, Node rt, /*List<Par> pl,*/ List<Node> dl,
+                   Node e) {
+      super(line);
+      id = i;
+      retType = rt;
+      //parlist = pl;
+      declarationList = dl;
+      exp = e;
+    }
+
     public FunNode(String i, Node rt, /*List<Par> pl,*/ List<Node> dl,
                    Node e) {
+      super();
       id = i;
       retType = rt;
       //parlist = pl;
@@ -356,6 +383,11 @@ public class AbstractSyntaxTree {
     }
   }
 
+  /**
+   * Create a variable use node.
+   * Contain a Symbol Table Entry field to store the linked declaration to
+   * get the value.
+   */
   public final static class IdNode extends Node {
     private final String id;
     private SymbolTableEntry entry;
@@ -365,23 +397,47 @@ public class AbstractSyntaxTree {
      *
      * @param i identifier.
      */
-    public IdNode(String i) {
+    public IdNode(String i, int line) {
       id = i;
+      super.setLine(line);
     }
 
+    /**
+     * Get the entry that link declaration -> use.
+     *
+     * @return the Symbol Table Entry.
+     */
     public SymbolTableEntry getEntry() {
       return entry;
     }
 
+    /**
+     * Set the entry that link declaration -> use.
+     * Check that is at the right nesting level.
+     *
+     * @param entry the Symbol Table Entry.
+     */
     public void setEntry(SymbolTableEntry entry) {
       this.entry = entry;
     }
 
+    /**
+     * Apply the visitor pattern to call visit on runtime type.
+     *
+     * @param visitor visitor to recall.
+     * @param <S>     return type.
+     * @return return value.
+     */
     @Override
     public <S> S accept(ASTVisitor<S> visitor) {
       return visitor.visit(this);
     }
 
+    /**
+     * Get the Identifier of the var.
+     *
+     * @return identifier.
+     */
     public String getId() {
       return id;
     }
@@ -399,6 +455,13 @@ public class AbstractSyntaxTree {
      * @param p parameters list called.
      */
     public CallNode(String i, List<Node> p) {
+      super();
+      id = i;
+      //arglist = p;
+    }
+
+    public CallNode(String i, int line, List<Node> p) {
+      super(line);
       id = i;
       //arglist = p;
     }

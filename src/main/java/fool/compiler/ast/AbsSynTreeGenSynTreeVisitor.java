@@ -113,9 +113,11 @@ public class AbsSynTreeGenSynTreeVisitor extends FOOLBaseVisitor<Node> {
       printVarAndProdName(c);
     }
 
+    var name = c.ID().getText();
+    var line = c.VAR().getSymbol().getLine();
     var type = visit(c.type());
     var val = visit(c.exp());
-    return new AbstractSyntaxTree.VarNode(c.ID().getText(), type, val);
+    return new AbstractSyntaxTree.VarNode(name, line, type, val);
   }
 
   @Override
@@ -125,6 +127,7 @@ public class AbsSynTreeGenSynTreeVisitor extends FOOLBaseVisitor<Node> {
     }
 
     var id = c.ID(0).getText();
+    var line = c.ID(0).getSymbol().getLine();
     var parameterList = new LinkedList<Node>();
     c.ID().subList(1, c.ID().size())
         .forEach(param -> parameterList.add(visit(param)));
@@ -132,7 +135,8 @@ public class AbsSynTreeGenSynTreeVisitor extends FOOLBaseVisitor<Node> {
     c.dec().forEach(dec -> declarationList.add(visit(dec)));
     var returnType = visit(c.type(0));
     var exp = visit(c.exp());
-    return new AbstractSyntaxTree.FunNode(id, returnType, /*parameterList,*/
+    return new AbstractSyntaxTree.FunNode(id, line, returnType,
+        /*parameterList,*/
         declarationList, exp);
   }
 
@@ -143,9 +147,10 @@ public class AbsSynTreeGenSynTreeVisitor extends FOOLBaseVisitor<Node> {
     }
 
     var name = c.ID().getText();
+    var line = c.ID().getSymbol().getLine();
     var params = new LinkedList<Node>();
     c.exp().forEach(elem -> params.add(visit(elem)));
-    return new AbstractSyntaxTree.CallNode(name, params);
+    return new AbstractSyntaxTree.CallNode(name, line, params);
   }
 
   @Override
@@ -154,7 +159,9 @@ public class AbsSynTreeGenSynTreeVisitor extends FOOLBaseVisitor<Node> {
       printVarAndProdName(c);
     }
 
-    return new AbstractSyntaxTree.IdNode(c.ID().getText());
+    var name = c.ID().getText();
+    var line = c.ID().getSymbol().getLine();
+    return new AbstractSyntaxTree.IdNode(name, line);
   }
 
   @Override

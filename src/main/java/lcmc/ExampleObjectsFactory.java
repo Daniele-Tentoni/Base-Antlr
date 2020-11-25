@@ -10,6 +10,9 @@ import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 
+/**
+ * Provide factory methods for antlr objects for example language.
+ */
 public final class ExampleObjectsFactory
     implements ObjectFactory<ExampleLexer, ExampleParser> {
   private static ExampleObjectsFactory instance;

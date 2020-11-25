@@ -10,6 +10,9 @@ import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 
+/**
+ * Provide factory methods for antlr objects for SVM language.
+ */
 public final class SVMObjectFactory
     implements ObjectFactory<SVMLexer, SVMParser> {
   private static SVMObjectFactory instance;
