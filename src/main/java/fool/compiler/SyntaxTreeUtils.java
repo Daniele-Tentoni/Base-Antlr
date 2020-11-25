@@ -14,7 +14,6 @@ public final class SyntaxTreeUtils {
    * @return simple node name.
    */
   public static String extractNodeName(final String s) {
-    //
     return s.substring(s.lastIndexOf('$') + 1, s.length() - NODE_NAME_LENGTH);
   }
 

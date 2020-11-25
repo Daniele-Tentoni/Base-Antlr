@@ -2,10 +2,20 @@ package fool.vm.memory;
 
 import java.util.Stack;
 
+/**
+ * Represent an abstractation from the simple memory stack.
+ */
 public class MemoryStack {
   private final int maxSize;
   private final Stack<Integer> memory;
 
+  /**
+   * Initialize the memory stack.
+   *
+   * @param maxSize maximum size of the stack. Over that, any increase
+   *                operation will result in an error like Stack Overflow
+   *                Exception.
+   */
   public MemoryStack(int maxSize) {
     this.maxSize = maxSize;
     memory = new Stack<>();

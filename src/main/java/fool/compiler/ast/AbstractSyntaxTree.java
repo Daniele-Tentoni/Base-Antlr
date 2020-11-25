@@ -134,8 +134,19 @@ public class AbstractSyntaxTree {
     }
   }
 
+  /**
+   * The int TYPE node. This is not a value.
+   */
   public final static class IntTypeNode extends Node {
 
+    /**
+     * Visit the runtime type of the node.
+     * This apply the visitor pattern.
+     *
+     * @param visitor visitor to recall.
+     * @param <S>     return type.
+     * @return node visited.
+     */
     @Override
     public <S> S accept(ASTVisitor<S> visitor) {
       return visitor.visit(this);
@@ -182,8 +193,16 @@ public class AbstractSyntaxTree {
     }
   }
 
+  /**
+   * The bool TYPE node. This is not a value.
+   */
   public final static class BoolTypeNode extends Node {
 
+    /**
+     * @param visitor visitor to recall.
+     * @param <S>     return type.
+     * @return node visited.
+     */
     @Override
     public <S> S accept(ASTVisitor<S> visitor) {
       return visitor.visit(this);
@@ -236,11 +255,22 @@ public class AbstractSyntaxTree {
     }
   }
 
+  /**
+   * Variable declaration node.
+   */
   public final static class VarNode extends Node {
     private final String id;
     private final Node type;
     private final Node exp;
 
+    /**
+     * Generate a Variable Declaration Node.
+     *
+     * @param i identifier.
+     * @param t type.
+     * @param v value. This is a functional language, there aren't
+     *          declaration without assignment.
+     */
     public VarNode(String i, Node t, Node v) {
       id = i;
       type = t;
@@ -252,14 +282,29 @@ public class AbstractSyntaxTree {
       return visitor.visit(this);
     }
 
+    /**
+     * Get the identifier.
+     *
+     * @return identifier.
+     */
     public String getId() {
       return id;
     }
 
+    /**
+     * Get the type node.
+     *
+     * @return type.
+     */
     public Node getType() {
       return type;
     }
 
+    /**
+     * Get the exp node.
+     *
+     * @return exp.
+     */
     public Node getExp() {
       return exp;
     }
@@ -268,14 +313,23 @@ public class AbstractSyntaxTree {
   public final static class FunNode extends Node {
     private final String id;
     private final Node retType;
-    //List<ParNode> parlist;
     private final List<Node> declarationList;
     private final Node exp;
+    //private final List<ParNode> parlist;@param pl parameter list.
 
-    public FunNode(String i, Node rt, /* List<ParNode> pl, */ List<Node> dl,
+    /**
+     * Create a function declaration node.
+     *
+     * @param i  identifier.
+     * @param rt return type.
+     * @param dl declaration list.
+     * @param e  expression inside the function scope.
+     */
+    public FunNode(String i, Node rt, /*List<Par> pl,*/ List<Node> dl,
                    Node e) {
       id = i;
-      retType = rt; /* parlist=pl; */
+      retType = rt;
+      //parlist = pl;
       declarationList = dl;
       exp = e;
     }
@@ -306,6 +360,11 @@ public class AbstractSyntaxTree {
     private final String id;
     private SymbolTableEntry entry;
 
+    /**
+     * Create the identifier using node.
+     *
+     * @param i identifier.
+     */
     public IdNode(String i) {
       id = i;
     }
@@ -330,11 +389,18 @@ public class AbstractSyntaxTree {
 
   public final static class CallNode extends Node {
     private final String id;
+    //private final List<Node> arglist;
     private SymbolTableEntry entry;
 
-    // List<Node> arglist;
-    public CallNode(String i /*, List<Node> p */) {
-      id = i; /* arglist = p; */
+    /**
+     * Create a function call node.
+     *
+     * @param i identifier called.
+     * @param p parameters list called.
+     */
+    public CallNode(String i, List<Node> p) {
+      id = i;
+      //arglist = p;
     }
 
     @Override
@@ -353,5 +419,9 @@ public class AbstractSyntaxTree {
     public void setEntry(SymbolTableEntry entry) {
       this.entry = entry;
     }
+
+    //public List<Node> getArglist() {
+    //  return arglist;
+    //}
   }
 }

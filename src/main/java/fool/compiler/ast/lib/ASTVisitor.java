@@ -3,10 +3,10 @@ package fool.compiler.ast.lib;
 import fool.compiler.ast.AbstractSyntaxTree;
 import fool.compiler.UnImplementedException;
 
+import static fool.compiler.SyntaxTreeUtils.extractNodeName;
+
 /**
- * Classe che ci permette di stampare l'ast.
- *
- * @author ap nono, è il professore che l'ha fatto.
+ * Visit an Abstract Syntax Tree. Implement to return a different type.
  */
 public class ASTVisitor<T> {
 
@@ -16,17 +16,18 @@ public class ASTVisitor<T> {
   /**
    * You can enable or not the print of all results.
    *
-   * @param print enable or not result prints.
+   * @param debug enable or not result prints.
    */
-  protected ASTVisitor(boolean print) {
-    this.print = print;
+  protected ASTVisitor(boolean debug) {
+    print = debug;
+    indent = "";
   }
 
   /**
    * Default constructor.
    */
   protected ASTVisitor() {
-    this.print = false;
+    this(false);
   }
 
   protected boolean mustPrint() {
@@ -38,15 +39,17 @@ public class ASTVisitor<T> {
   }
 
   protected void printNode(Node n, String s) {
-    final String className = n.getClass()
-        .getName(); // returns a string compiler.AST$ClassName
-    final String nodeName = className
-        .substring(className.lastIndexOf('$') + 1, className.length() - 4);
-    System.out.println(indent + nodeName + s);
+    // returns a string compiler.AST$ClassName
+    final String className = n.getClass().getName();
+    final String nodeName = extractNodeName(className);
+    System.out.println(indent + nodeName + ": " + s);
   }
 
   protected void printNode(Node n) {
-    printNode(n, "");
+    // TODO: We can refactor those two methods?
+    final String className = n.getClass().getName();
+    final String nodeName = extractNodeName(className);
+    System.out.println(indent + nodeName);
   }
 
   public T visit(Node n, String s) {
@@ -64,7 +67,7 @@ public class ASTVisitor<T> {
   }
 
   public T visit(Node n) {
-    return n.accept(this);
+    return visit(n, " ");
   }
 
   /**

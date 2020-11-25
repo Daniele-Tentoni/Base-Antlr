@@ -26,7 +26,8 @@ public abstract class Node {
   /**
    * Use the specific visit implementation at runtime.
    *
-   * @param visitor Visitor to recall.
+   * @param visitor visitor to recall.
+   * @param <S>     return type.
    * @return TODO
    */
   public abstract <S> S accept(ASTVisitor<S> visitor);

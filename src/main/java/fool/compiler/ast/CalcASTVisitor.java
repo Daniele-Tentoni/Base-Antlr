@@ -4,9 +4,8 @@ import fool.compiler.ast.AbstractSyntaxTree.*;
 import fool.compiler.ast.lib.ASTVisitor;
 
 /**
- * Classe che ci permette di stampare l'ast.
- *
- * @author ap nono, è il professore che l'ha fatto.
+ * Calculate the return value of a ABS.
+ * This class doesn't be updated anymore.
  */
 public class CalcASTVisitor extends ASTVisitor<Integer> {
 
@@ -19,9 +18,9 @@ public class CalcASTVisitor extends ASTVisitor<Integer> {
   }
 
   /**
-   * Visita per il node Prog.
+   * Visit Prog Node.
    *
-   * @param n il Prog Node da visitare.
+   * @param n node to visit.
    */
   @Override
   public Integer visit(ProgNode n) {
@@ -32,9 +31,9 @@ public class CalcASTVisitor extends ASTVisitor<Integer> {
   }
 
   /**
-   * Visita per il node Times.
+   * Visit Times Node.
    *
-   * @param n il Times Node da visitare.
+   * @param n node to visit.
    */
   @Override
   public Integer visit(TimesNode n) {
@@ -45,9 +44,9 @@ public class CalcASTVisitor extends ASTVisitor<Integer> {
   }
 
   /**
-   * Visita per il node Plus.
+   * Visit Plus Node.
    *
-   * @param n il Plus node da visitare.
+   * @param n node to visit.
    */
   @Override
   public Integer visit(PlusNode n) {
@@ -58,9 +57,9 @@ public class CalcASTVisitor extends ASTVisitor<Integer> {
   }
 
   /**
-   * Visita per il node Int.
+   * Visit Int Node.
    *
-   * @param n il Int node da visitare.
+   * @param n node to visit.
    */
   @Override
   public Integer visit(IntValueNode n) {

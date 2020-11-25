@@ -159,7 +159,7 @@ public class AbstractSyntaxTreeVisitorTest {
   @Test
   public void testUnimplementedExceptionsOnCallNode() {
     try {
-      visitor.visit(new AbstractSyntaxTree.CallNode(null));
+      visitor.visit(new AbstractSyntaxTree.CallNode(null, null));
       fail("Expected an FileNotFoundException");
     } catch (UnImplementedException e) {
       assertNull(e.getMessage());

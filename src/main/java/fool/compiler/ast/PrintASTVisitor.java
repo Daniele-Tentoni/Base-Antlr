@@ -59,7 +59,7 @@ public class PrintASTVisitor extends ASTVisitor<Void> {
    */
   @Override
   public Void visit(IntValueNode n) {
-    printNode(n, ": " + n.getVal());
+    printNode(n,String.valueOf(n.getVal()));
     return null;
   }
 
@@ -93,11 +93,95 @@ public class PrintASTVisitor extends ASTVisitor<Void> {
     return null;
   }
 
+  /**
+   * Visit a variable declaration block.
+   *
+   * @param n block node.
+   * @return nothing.
+   */
   @Override
   public Void visit(ProgLetInNode n) {
     printNode(n);
     n.getDeclarationList().forEach(this::visit);
     visit(n.getExp());
+    return null;
+  }
+
+  /**
+   * Print var node and visit is type and exp.
+   *
+   * @param n var node to visit.
+   * @return nothing.
+   */
+  @Override
+  public Void visit(VarNode n) {
+    printNode(n, n.getId());
+    visit(n.getType());
+    visit(n.getExp());
+    return null;
+  }
+
+  /**
+   * Print int type node and visit is type and exp.
+   *
+   * @param n int type node to visit.
+   * @return nothing.
+   */
+  @Override
+  public Void visit(IntTypeNode n) {
+    printNode(n);
+    return null;
+  }
+
+  /**
+   * Print bool type node and visit is type and exp.
+   *
+   * @param n bool type node to visit.
+   * @return nothing.
+   */
+  @Override
+  public Void visit(BoolTypeNode n) {
+    printNode(n);
+    return null;
+  }
+
+  /**
+   * Print function declaration node. After that, visit his return type,
+   * parameter list, declaration list and expression nodes.
+   *
+   * @param n function declaration node.
+   * @return nothing.
+   */
+  @Override
+  public Void visit(FunNode n) {
+    printNode(n, n.getId());
+    visit(n.getRetType());
+    n.getDeclarationList().forEach(this::visit);
+    visit(n.getExp());
+    return null;
+  }
+
+  /**
+   * Print function call node. Than visit each argument.
+   *
+   * @param n function call node.
+   * @return nothing.
+   */
+  @Override
+  public Void visit(CallNode n) {
+    printNode(n, n.getId());
+    return null;
+  }
+
+  /**
+   * Print variable use node.
+   *
+   * @param n variable use node.
+   * @return nothing.
+   */
+  @Override
+  public Void visit(IdNode n) {
+    printNode(n, n.getId());
     return null;
   }
 }

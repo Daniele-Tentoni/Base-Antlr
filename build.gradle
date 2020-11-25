@@ -48,7 +48,7 @@ generateGrammarSource {
             from "${buildDir}/generated-src/antlr/main"
             into "${buildDir}/generated-src/main/java/fool"
         }
-        //file("${buildDir}/generated-src/antlr/main").deleteDir()
+        // file("${buildDir}/generated-src/antlr/main").deleteDir()
     }
 }
 
