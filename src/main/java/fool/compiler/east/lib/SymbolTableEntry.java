@@ -26,11 +26,19 @@ public class SymbolTableEntry implements Visitable {
     return nestingLevel;
   }
 
+  /**
+   * Visitor pattern to call methods on runtime type instance.
+   *
+   * @param visitor that have to call visit method.
+   * @param <S>     return type.
+   * @return return value.
+   */
   @Override
   public <S> S accept(ASTVisitor<S> visitor) {
     Objects.requireNonNull(visitor);
-    if (!visitor.getClass().equals(EASTVisitor.class))
+    if (!visitor.getClass().equals(EASTVisitor.class)) {
       System.out.println("Class not compatible");
+    }
     return ((EASTVisitor<S>) visitor).visit(this);
   }
 }

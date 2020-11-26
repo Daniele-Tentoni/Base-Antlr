@@ -2,8 +2,8 @@ package fool.compiler.east;
 
 import fool.compiler.ast.AbstractSyntaxTree;
 import fool.compiler.ast.lib.Node;
-import fool.compiler.east.lib.SymbolTableEntry;
 import fool.compiler.east.lib.EASTVisitor;
+import fool.compiler.east.lib.SymbolTableEntry;
 
 public class PrintEASTVisitor extends EASTVisitor<Void> {
   PrintEASTVisitor() {
@@ -75,7 +75,7 @@ public class PrintEASTVisitor extends EASTVisitor<Void> {
   public Void visit(AbstractSyntaxTree.ProgLetInNode n) {
     printNode(n);
     for (Node dec : n.getDeclarationList()) visit(dec);
-    visit(n.getExp());
+    visit(n.getExpression());
     return null;
   }
 

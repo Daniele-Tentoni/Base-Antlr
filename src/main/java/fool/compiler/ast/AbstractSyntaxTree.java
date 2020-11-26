@@ -48,46 +48,99 @@ public class AbstractSyntaxTree {
     }
   }
 
+  /**
+   * First node when there are declaration at start of program.
+   */
   public final static class ProgLetInNode extends Node {
     private final List<Node> declarationList;
-    private final Node exp;
+    private final Node expression;
 
+    /**
+     * Complex constructor with all declarations and expression node.
+     *
+     * @param d declaration list.
+     * @param e expression.
+     */
     public ProgLetInNode(List<Node> d, Node e) {
       declarationList = d;
-      exp = e;
+      expression = e;
     }
 
+    /**
+     * Execute the visit of a visitor on the runtime object class.
+     * Practice of Visitor Pattern.
+     *
+     * @param visitor visitor to recall.
+     * @param <S>     visitor type.
+     * @return visitor object type return.
+     */
     @Override
     public <S> S accept(ASTVisitor<S> visitor) {
       return visitor.visit(this);
     }
 
+    /**
+     * Return the declaration list.
+     *
+     * @return declaration list.
+     */
     public List<Node> getDeclarationList() {
       return declarationList;
     }
 
-    public Node getExp() {
-      return exp;
+    /**
+     * Return the expression.
+     *
+     * @return expression.
+     */
+    public Node getExpression() {
+      return expression;
     }
   }
 
+  /**
+   * Node to sum two nodes.
+   */
   public final static class PlusNode extends Node {
     private final Node left;
     private final Node right;
 
+    /**
+     * Complex constructor with left and right nodes.
+     *
+     * @param l left node.
+     * @param r right node.
+     */
     public PlusNode(Node l, Node r) {
       left = l;
       right = r;
     }
 
+    /**
+     * Return the left node.
+     *
+     * @return left node.
+     */
     public Node getLeft() {
       return left;
     }
 
+    /**
+     * Return the right node.
+     *
+     * @return right node.
+     */
     public Node getRight() {
       return right;
     }
 
+    /**
+     * Execute the visit of a visitor on the runtime object class.
+     *
+     * @param visitor visitor to recall.
+     * @param <S>     visitor type.
+     * @return visitor object type return.
+     */
     @Override
     public <S> S accept(ASTVisitor<S> visitor) {
       return visitor.visit(this);

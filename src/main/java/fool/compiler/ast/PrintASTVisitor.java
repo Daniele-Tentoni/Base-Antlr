@@ -103,7 +103,7 @@ public class PrintASTVisitor extends ASTVisitor<Void> {
   public Void visit(ProgLetInNode n) {
     printNode(n);
     n.getDeclarationList().forEach(this::visit);
-    visit(n.getExp());
+    visit(n.getExpression());
     return null;
   }
 

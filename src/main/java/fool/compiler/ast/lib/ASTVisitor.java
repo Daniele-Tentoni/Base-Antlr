@@ -7,6 +7,8 @@ import static fool.compiler.SyntaxTreeUtils.extractNodeName;
 
 /**
  * Visit an Abstract Syntax Tree. Implement to return a different type.
+ *
+ * @param <T> return type of visitor.
  */
 public class ASTVisitor<T> {
 

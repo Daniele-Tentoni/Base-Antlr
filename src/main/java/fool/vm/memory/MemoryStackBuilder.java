@@ -1,4 +1,5 @@
 package fool.vm.memory;
+
 /**
  * Builder for a Memory Stack implementation.
  */

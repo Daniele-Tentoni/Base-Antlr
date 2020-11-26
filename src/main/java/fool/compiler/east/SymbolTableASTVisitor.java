@@ -16,6 +16,9 @@ public class SymbolTableASTVisitor extends ASTVisitor<Void> {
   private int errors;
   private int nestingLevel;
 
+  /**
+   * Simple
+   */
   public SymbolTableASTVisitor() {
     this(false);
   }
@@ -125,7 +128,7 @@ public class SymbolTableASTVisitor extends ASTVisitor<Void> {
     Map<String, SymbolTableEntry> hashMap = new HashMap<>();
     symbolTable.add(hashMap);
     n.getDeclarationList().forEach(this::visit);
-    visit(n.getExp());
+    visit(n.getExpression());
 
     // Internal maps are already discarded.
     symbolTable.remove(0);

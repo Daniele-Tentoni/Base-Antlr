@@ -3,7 +3,7 @@ package fool.vm.memory;
 import java.util.Stack;
 
 /**
- * Represent an abstractation from the simple memory stack.
+ * Represent an abstraction from the simple memory stack.
  */
 public class MemoryStack {
   private final int maxSize;
