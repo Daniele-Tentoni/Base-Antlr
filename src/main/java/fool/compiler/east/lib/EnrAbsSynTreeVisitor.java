@@ -1,19 +1,19 @@
 package fool.compiler.east.lib;
 
 import fool.compiler.UnImplementedException;
-import fool.compiler.ast.lib.ASTVisitor;
+import fool.compiler.ast.lib.AbsSynTreeVisitor;
 
 /**
  * Visit an Abstract Syntax Tree. Implement to return a different type.
  *
  * @param <T> return type of visitor methods.
  */
-public class EASTVisitor<T> extends ASTVisitor<T> {
+public class EnrAbsSynTreeVisitor<T> extends AbsSynTreeVisitor<T> {
 
   /**
    * Simple constructor. Set debug value at false by default.
    */
-  protected EASTVisitor() {
+  protected EnrAbsSynTreeVisitor() {
     this(false);
   }
 
@@ -22,7 +22,7 @@ public class EASTVisitor<T> extends ASTVisitor<T> {
    *
    * @param debug debug value.
    */
-  protected EASTVisitor(boolean debug) {
+  protected EnrAbsSynTreeVisitor(boolean debug) {
     super(debug);
   }
 
@@ -31,7 +31,7 @@ public class EASTVisitor<T> extends ASTVisitor<T> {
    *
    * @param s entry to print.
    */
-  protected void printSTEntry(String s) {
+  protected void printSymTabEntry(String s) {
     System.out.println(getIndent() + "Symbol Table Entry: " + s);
   }
 
@@ -41,7 +41,7 @@ public class EASTVisitor<T> extends ASTVisitor<T> {
    * @param s entry to visit.
    * @return value calculated.
    */
-  public T visit(SymbolTableEntry s) {
+  public T visitSymTabEntry(SymTabEntry s) {
     throw new UnImplementedException();
   }
 }

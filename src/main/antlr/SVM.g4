@@ -10,7 +10,7 @@ int lexicalErrors=0;
 }
 
 @parser::members {
-int[] code = new int[ExecuteVM.CODE_SIZE];
+int[] code = new int[ExecuteViMa.CODE_SIZE];
 private int i = 0;
 
 private HashMap<String,Integer> labelDef = new HashMap<String,Integer>(); // Contiene le definizioni di etichette.

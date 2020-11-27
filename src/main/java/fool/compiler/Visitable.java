@@ -1,6 +1,6 @@
 package fool.compiler;
 
-import fool.compiler.ast.lib.ASTVisitor;
+import fool.compiler.ast.lib.AbsSynTreeVisitor;
 
 /**
  * Provide a contract for any visitable object from a Visitor.
@@ -8,11 +8,11 @@ import fool.compiler.ast.lib.ASTVisitor;
 public interface Visitable {
   /**
    * Use the Visitor Pattern to call correct visit method on
-   * the runtime instance of a Node instead is compile time type.
+   * the runtime instance of a Visitable instead is compile time type.
    *
-   * @param visitor that have to call visit method.
+   * @param visitor visitor to recall.
    * @param <S>     return type of the visitor.
    * @return visit return value.
    */
-  <S> S accept(ASTVisitor<S> visitor);
+  <S> S accept(AbsSynTreeVisitor<S> visitor);
 }

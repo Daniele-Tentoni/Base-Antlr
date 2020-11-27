@@ -1,8 +1,6 @@
 package lcmc;
 
-import lcmc.SVMParser;
-
-public class ExecuteVM {
+public class ExecuteViMa {
 
   public static final int CODE_SIZE = 10000;
   public static final int MEM_SIZE = 10000;
@@ -17,7 +15,7 @@ public class ExecuteVM {
   private int fp;
   private int ra;
 
-  public ExecuteVM(int[] code) {
+  public ExecuteViMa(int[] code) {
     this.code = code;
     fp = sp;
   }
@@ -49,95 +47,95 @@ public class ExecuteVM {
       int v2;
       int address;
       switch (bytecode) {
-        case SVMParser.PUSH:
+        case lcmc.SVMParser.PUSH:
           push(code[ip++]);
           break;
-        case SVMParser.POP:
+        case lcmc.SVMParser.POP:
           pop();
           break;
-        case SVMParser.ADD:
+        case lcmc.SVMParser.ADD:
           v1 = pop();
           v2 = pop();
           push(v2 + v1);
           break;
-        case SVMParser.SUB:
+        case lcmc.SVMParser.SUB:
           v1 = pop();
           v2 = pop();
           push(v2 - v1);
           break;
-        case SVMParser.MULT:
+        case lcmc.SVMParser.MULT:
           v1 = pop();
           v2 = pop();
           push(v2 * v1);
           break;
-        case SVMParser.DIV:
+        case lcmc.SVMParser.DIV:
           v1 = pop();
           v2 = pop();
           push(v2 / v1);
           break;
-        case SVMParser.BRANCH:
+        case lcmc.SVMParser.BRANCH:
           // Salto incondizionatamente all'ip puntato contenuto in code.
           address = code[ip];
           ip = address;
           break;
-        case SVMParser.BRANCHEQ:
+        case lcmc.SVMParser.BRANCHEQ:
           // Qui invece non salto sempre.
           v1 = pop();
           v2 = pop();
           ip = v2 == v1 ? code[ip] : ip + 1;
           break;
-        case SVMParser.BRANCHLESSEQ:
+        case lcmc.SVMParser.BRANCHLESSEQ:
           // Qui invece non salto sempre.
           v1 = pop();
           v2 = pop();
           ip = v2 <= v1 ? code[ip] : ip + 1;
           break;
-        case SVMParser.LOADTM:
+        case lcmc.SVMParser.LOADTM:
           push(tm);
           break;
-        case SVMParser.STORETM:
+        case lcmc.SVMParser.STORETM:
           tm = pop();
           break;
-        case SVMParser.LOADRA:
+        case lcmc.SVMParser.LOADRA:
           push(ra);
           break;
-        case SVMParser.STORERA:
+        case lcmc.SVMParser.STORERA:
           ra = pop();
           break;
-        case SVMParser.LOADFP:
+        case lcmc.SVMParser.LOADFP:
           push(fp);
           break;
-        case SVMParser.STOREFP:
+        case lcmc.SVMParser.STOREFP:
           fp = pop();
           break;
-        case SVMParser.LOADHP:
+        case lcmc.SVMParser.LOADHP:
           push(hp);
           break;
-        case SVMParser.STOREHP:
+        case lcmc.SVMParser.STOREHP:
           hp = pop();
           break;
-        case SVMParser.COPYFP:
+        case lcmc.SVMParser.COPYFP:
           fp = sp;
           break;
-        case SVMParser.JS:
+        case lcmc.SVMParser.JS:
           ra = pop();
           ip = ra;
           break;
-        case SVMParser.LOADW:
+        case lcmc.SVMParser.LOADW:
           v1 = pop();
           v2 = memory[v1];
           push(v2);
           break;
-        case SVMParser.STOREW:
+        case lcmc.SVMParser.STOREW:
           v1 = pop();
           v2 = pop();
           memory[v1] = v2;
           break;
-        case SVMParser.PRINT:
+        case lcmc.SVMParser.PRINT:
           System.out.printf("Print: %s%n",
               sp == MEM_SIZE ? "Empty stack." : memory[sp]);
           break;
-        case SVMParser.HALT:
+        case lcmc.SVMParser.HALT:
           // Leave cpu() method.
           return;
         default:

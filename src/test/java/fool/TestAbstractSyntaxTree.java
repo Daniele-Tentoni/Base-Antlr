@@ -1,18 +1,16 @@
 package fool;
 
 import fool.compiler.ast.AbsSynTreeGenSynTreeVisitor;
-import fool.compiler.ast.CalcASTVisitor;
-import fool.compiler.ast.PrintASTVisitor;
+import fool.compiler.ast.CalcAbsSynTreeVisitor;
+import fool.compiler.ast.PrintAbsSynTreeVisitor;
 import fool.compiler.ast.lib.Node;
-import fool.FOOLLexer;
-import fool.FOOLParser;
-import fool.compiler.east.SymbolTableASTVisitor;
+import fool.compiler.east.PrintEnrAbsSynTreeVisitor;
+import fool.compiler.east.SymbolTableAbsSynTreeVisitor;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -44,8 +42,8 @@ public class TestAbstractSyntaxTree {
 
     String fileName = "prova.fool"; // quicksort.fool.asm
 
-    FOOLLexer lexer = factory.getLexer(fileName);
-    FOOLParser parser = factory.getParser(lexer);
+    fool.FOOLLexer lexer = factory.getLexer(fileName);
+    fool.FOOLParser parser = factory.getParser(lexer);
     ParseTree pt = parser.prog();
 
     System.out.println(
@@ -62,11 +60,12 @@ public class TestAbstractSyntaxTree {
 
     System.out.println("Visualizing AST...");
 
-    new PrintASTVisitor().visit(ast);
+    new PrintAbsSynTreeVisitor().visit(ast);
 
     System.out.println("Calculating program value...");
     System.out
-        .println("Program value is: " + new CalcASTVisitor(false).visit(ast));
+        .println(
+            "Program value is: " + new CalcAbsSynTreeVisitor(false).visit(ast));
     // TODO: Continue from 3:12
   }
 
@@ -74,11 +73,11 @@ public class TestAbstractSyntaxTree {
   public void testTry2311() throws IOException {
     String fileName = "prova_23_11.fool"; // quicksort.fool.asm
 
-    FOOLLexer lexer = factory.getLexer(fileName);
-    FOOLParser parser = factory.getParser(lexer);
+    fool.FOOLLexer lexer = factory.getLexer(fileName);
+    fool.FOOLParser parser = factory.getParser(lexer);
     ParseTree pt = parser.prog();
 
-    System.out.println(
+    log(
         "You had: " + lexer.lexicalErrors + " lexical errors and " +
             parser.getNumberOfSyntaxErrors() + " syntax errors.");
     log("Prog");
@@ -91,18 +90,19 @@ public class TestAbstractSyntaxTree {
         new AbsSynTreeGenSynTreeVisitor(true);
     Node ast = astGenVisitor.visit(pt);
 
-    System.out.println("Visualizing AST...");
+    log("Visualizing AST...");
 
-    new PrintASTVisitor().visit(ast);
+    new PrintAbsSynTreeVisitor().visit(ast);
 
-    System.out.println("Enriching AST.");
+    log("Enriching AST.");
 
-    SymbolTableASTVisitor symbolTableVisitor = new SymbolTableASTVisitor();
+    SymbolTableAbsSynTreeVisitor symbolTableVisitor = new SymbolTableAbsSynTreeVisitor();
     symbolTableVisitor.visit(ast);
 
-    System.out.println("You had: " + symbolTableVisitor.getErrors() + " "
+    log("You had: " + symbolTableVisitor.getErrors() + " "
         + "symbol table errors.\n");
-
+    log("Visualizing enriched AST");
+    new PrintEnrAbsSynTreeVisitor().visit(ast);
   }
 
   private void log(String msg) {

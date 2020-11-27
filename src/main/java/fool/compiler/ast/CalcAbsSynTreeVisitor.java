@@ -1,19 +1,18 @@
 package fool.compiler.ast;
 
-import fool.compiler.ast.AbstractSyntaxTree.*;
-import fool.compiler.ast.lib.ASTVisitor;
+import fool.compiler.ast.lib.AbsSynTreeVisitor;
 
 /**
  * Calculate the return value of a ABS.
  * This class doesn't be updated anymore.
  */
-public class CalcASTVisitor extends ASTVisitor<Integer> {
+public class CalcAbsSynTreeVisitor extends AbsSynTreeVisitor<Integer> {
 
-  public CalcASTVisitor(boolean print) {
+  public CalcAbsSynTreeVisitor(boolean print) {
     super(print);
   }
 
-  public CalcASTVisitor() {
+  public CalcAbsSynTreeVisitor() {
     super();
   }
 
@@ -23,7 +22,7 @@ public class CalcASTVisitor extends ASTVisitor<Integer> {
    * @param n node to visit.
    */
   @Override
-  public Integer visit(ProgNode n) {
+  public Integer visit(AbstractSyntaxTree.ProgNode n) {
     if (super.mustPrint()) {
       super.printNode(n);
     }
@@ -36,7 +35,7 @@ public class CalcASTVisitor extends ASTVisitor<Integer> {
    * @param n node to visit.
    */
   @Override
-  public Integer visit(TimesNode n) {
+  public Integer visit(AbstractSyntaxTree.TimesNode n) {
     if (super.mustPrint()) {
       super.printNode(n);
     }
@@ -49,7 +48,7 @@ public class CalcASTVisitor extends ASTVisitor<Integer> {
    * @param n node to visit.
    */
   @Override
-  public Integer visit(PlusNode n) {
+  public Integer visit(AbstractSyntaxTree.PlusNode n) {
     if (super.mustPrint()) {
       super.printNode(n);
     }
@@ -62,7 +61,7 @@ public class CalcASTVisitor extends ASTVisitor<Integer> {
    * @param n node to visit.
    */
   @Override
-  public Integer visit(IntValueNode n) {
+  public Integer visit(AbstractSyntaxTree.IntValueNode n) {
     if (super.mustPrint()) {
       super.printNode(n);
     }
@@ -70,7 +69,7 @@ public class CalcASTVisitor extends ASTVisitor<Integer> {
   }
 
   @Override
-  public Integer visit(EqualNode n) {
+  public Integer visit(AbstractSyntaxTree.EqualNode n) {
     if (super.mustPrint()) {
       super.printNode(n);
     }
@@ -79,7 +78,7 @@ public class CalcASTVisitor extends ASTVisitor<Integer> {
   }
 
   @Override
-  public Integer visit(BoolValueNode n) {
+  public Integer visit(AbstractSyntaxTree.BoolValueNode n) {
     if (super.mustPrint()) {
       super.printNode(n);
     }
@@ -87,7 +86,7 @@ public class CalcASTVisitor extends ASTVisitor<Integer> {
   }
 
   @Override
-  public Integer visit(IfNode n) {
+  public Integer visit(AbstractSyntaxTree.IfNode n) {
     if (super.mustPrint()) {
       super.printNode(n);
     }
@@ -96,10 +95,18 @@ public class CalcASTVisitor extends ASTVisitor<Integer> {
   }
 
   @Override
-  public Integer visit(PrintNode n) {
+  public Integer visit(AbstractSyntaxTree.PrintNode n) {
     if (super.mustPrint()) {
       super.printNode(n);
     }
     return visit(n.getPrint());
+  }
+
+  @Override
+  public Integer visit(AbstractSyntaxTree.ParameterNode n) {
+    if (super.mustPrint()) {
+      super.printNode(n, n.getId());
+    }
+    return visit(n.getType());
   }
 }

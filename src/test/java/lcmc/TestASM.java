@@ -1,13 +1,11 @@
 package lcmc;
 
-import org.junit.Before;
-import org.junit.Test;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
 import lcmc.SVMLexer;
 import lcmc.SVMParser;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import org.junit.Before;
+import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -53,7 +51,7 @@ public class TestASM {
     assertEquals(0, parser.getNumberOfSyntaxErrors());
 
     System.out.println("Starting Virtual Machine...");
-    ExecuteVM vm = new ExecuteVM(parser.code);
+    ExecuteViMa vm = new ExecuteViMa(parser.code);
     vm.cpu();
   }
 

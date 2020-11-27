@@ -7,11 +7,11 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 public class CalcAbstractSyntaxTreeVisitorTest {
-  private CalcASTVisitor visitor;
+  private CalcAbsSynTreeVisitor visitor;
 
   @Before
   public void setup() {
-    visitor = new CalcASTVisitor();
+    visitor = new CalcAbsSynTreeVisitor();
   }
 
   @Test

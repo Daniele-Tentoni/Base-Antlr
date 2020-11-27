@@ -1,12 +1,11 @@
 package fool.compiler.east;
 
 import fool.compiler.ast.AbstractSyntaxTree;
-import fool.compiler.ast.lib.Node;
-import fool.compiler.east.lib.EASTVisitor;
-import fool.compiler.east.lib.SymbolTableEntry;
+import fool.compiler.east.lib.EnrAbsSynTreeVisitor;
+import fool.compiler.east.lib.SymTabEntry;
 
-public class PrintEASTVisitor extends EASTVisitor<Void> {
-  PrintEASTVisitor() {
+public class PrintEnrAbsSynTreeVisitor extends EnrAbsSynTreeVisitor<Void> {
+  public PrintEnrAbsSynTreeVisitor() {
     super(true);
   }
 
@@ -53,7 +52,6 @@ public class PrintEASTVisitor extends EASTVisitor<Void> {
     return null;
   }
 
-
   @Override
   public Void visit(AbstractSyntaxTree.IfNode n) {
     printNode(n);
@@ -74,7 +72,7 @@ public class PrintEASTVisitor extends EASTVisitor<Void> {
   @Override
   public Void visit(AbstractSyntaxTree.ProgLetInNode n) {
     printNode(n);
-    for (Node dec : n.getDeclarationList()) visit(dec);
+    n.getDeclarationList().forEach(this::visit);
     visit(n.getExpression());
     return null;
   }
@@ -103,8 +101,8 @@ public class PrintEASTVisitor extends EASTVisitor<Void> {
   public Void visit(AbstractSyntaxTree.FunNode n) {
     printNode(n, n.getId());
     visit(n.getRetType());
-    // for (ParNode par : n.parlist) visit(par);
-    for (Node dec : n.getDeclarationList()) visit(dec);
+    n.getParameterList().forEach(this::visit);
+    n.getDeclarationList().forEach(this::visit);
     visit(n.getExp());
     return null;
   }
@@ -112,19 +110,34 @@ public class PrintEASTVisitor extends EASTVisitor<Void> {
   @Override
   public Void visit(AbstractSyntaxTree.IdNode n) {
     printNode(n, n.getId());
+    var entry = n.getEntry();
+    if (entry != null) {
+      visit(n.getEntry());
+    }
     return null;
   }
 
   @Override
   public Void visit(AbstractSyntaxTree.CallNode n) {
     printNode(n, n.getId());
-    // for (Node arg : n.arglist) visit(arg);
+    var entry = n.getEntry();
+    if (entry != null) {
+      visit(n.getEntry());
+    }
+    n.getArgumentList().forEach(this::visit);
     return null;
   }
 
   @Override
-  public Void visit(SymbolTableEntry entry) {
-    super.printSTEntry("nestlev " + entry.getNestingLevel());
+  public Void visit(AbstractSyntaxTree.ParameterNode n) {
+    printNode(n, n.getId());
+    visit(n.getType());
+    return null;
+  }
+
+  @Override
+  public Void visitSymTabEntry(SymTabEntry entry) {
+    super.printSymTabEntry("nesting level " + entry.getNestingLevel());
     return null;
   }
 }

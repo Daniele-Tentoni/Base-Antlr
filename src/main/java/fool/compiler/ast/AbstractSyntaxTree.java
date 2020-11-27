@@ -1,9 +1,8 @@
 package fool.compiler.ast;
 
-import fool.compiler.ast.lib.ASTVisitor;
+import fool.compiler.ast.lib.AbsSynTreeVisitor;
 import fool.compiler.ast.lib.Node;
-import fool.compiler.east.lib.SymbolTableEntry;
-
+import fool.compiler.east.lib.SymTabEntry;
 import java.util.List;
 
 /**
@@ -13,7 +12,7 @@ public class AbstractSyntaxTree {
   /**
    * Start node of FOOL language.
    */
-  public final static class ProgNode extends Node {
+  public static final class ProgNode extends Node {
     private final Node exp;
 
     /**
@@ -43,7 +42,7 @@ public class AbstractSyntaxTree {
      * @return visitor object type return.
      */
     @Override
-    public <S> S accept(ASTVisitor<S> visitor) {
+    public <S> S accept(AbsSynTreeVisitor<S> visitor) {
       return visitor.visit(this);
     }
   }
@@ -51,7 +50,7 @@ public class AbstractSyntaxTree {
   /**
    * First node when there are declaration at start of program.
    */
-  public final static class ProgLetInNode extends Node {
+  public static final class ProgLetInNode extends Node {
     private final List<Node> declarationList;
     private final Node expression;
 
@@ -75,7 +74,7 @@ public class AbstractSyntaxTree {
      * @return visitor object type return.
      */
     @Override
-    public <S> S accept(ASTVisitor<S> visitor) {
+    public <S> S accept(AbsSynTreeVisitor<S> visitor) {
       return visitor.visit(this);
     }
 
@@ -101,7 +100,7 @@ public class AbstractSyntaxTree {
   /**
    * Node to sum two nodes.
    */
-  public final static class PlusNode extends Node {
+  public static final class PlusNode extends Node {
     private final Node left;
     private final Node right;
 
@@ -142,12 +141,12 @@ public class AbstractSyntaxTree {
      * @return visitor object type return.
      */
     @Override
-    public <S> S accept(ASTVisitor<S> visitor) {
+    public <S> S accept(AbsSynTreeVisitor<S> visitor) {
       return visitor.visit(this);
     }
   }
 
-  public final static class TimesNode extends Node {
+  public static final class TimesNode extends Node {
     private final Node left;
     private final Node right;
 
@@ -165,12 +164,12 @@ public class AbstractSyntaxTree {
     }
 
     @Override
-    public <S> S accept(ASTVisitor<S> visitor) {
+    public <S> S accept(AbsSynTreeVisitor<S> visitor) {
       return visitor.visit(this);
     }
   }
 
-  public final static class IntValueNode extends Node {
+  public static final class IntValueNode extends Node {
     private final int val;
 
     public IntValueNode(int n) {
@@ -182,7 +181,7 @@ public class AbstractSyntaxTree {
     }
 
     @Override
-    public <S> S accept(ASTVisitor<S> visitor) {
+    public <S> S accept(AbsSynTreeVisitor<S> visitor) {
       return visitor.visit(this);
     }
   }
@@ -190,7 +189,7 @@ public class AbstractSyntaxTree {
   /**
    * The int TYPE node. This is not a value.
    */
-  public final static class IntTypeNode extends Node {
+  public static final class IntTypeNode extends Node {
 
     public IntTypeNode() {
       super();
@@ -205,12 +204,12 @@ public class AbstractSyntaxTree {
      * @return node visited.
      */
     @Override
-    public <S> S accept(ASTVisitor<S> visitor) {
+    public <S> S accept(AbsSynTreeVisitor<S> visitor) {
       return visitor.visit(this);
     }
   }
 
-  public final static class EqualNode extends Node {
+  public static final class EqualNode extends Node {
     private final Node left;
     private final Node right;
 
@@ -228,12 +227,77 @@ public class AbstractSyntaxTree {
     }
 
     @Override
-    public <S> S accept(ASTVisitor<S> visitor) {
+    public <S> S accept(AbsSynTreeVisitor<S> visitor) {
       return visitor.visit(this);
     }
   }
 
-  public final static class BoolValueNode extends Node {
+  /**
+   * Parenthesis node.
+   */
+  public static final class ParameterNode extends Node {
+    private final String id;
+    private final Node type;
+
+    /**
+     * Generate a Parameter Node.
+     *
+     * @param i    identifier.
+     * @param line declaration line.
+     * @param t    data type.
+     */
+    public ParameterNode(String i, int line, Node t) {
+      super(line);
+      id = i;
+      type = t;
+    }
+
+    /**
+     * Simple constructor without line.
+     * Generate a Parameter Node.
+     *
+     * @param i identifier.
+     * @param t data type.
+     */
+    public ParameterNode(String i, Node t) {
+      super();
+      id = i;
+      type = t;
+    }
+
+    /**
+     * Visit the runtime type of the node.
+     * This apply the visitor pattern.
+     *
+     * @param visitor visitor to recall.
+     * @param <S>     return type.
+     * @return node visited.
+     */
+    @Override
+    public <S> S accept(AbsSynTreeVisitor<S> visitor) {
+      return visitor.visit(this);
+    }
+
+    /**
+     * Return the identifier.
+     *
+     * @return identifier.
+     */
+    public String getId() {
+      return id;
+    }
+
+    /**
+     * Return the type.
+     *
+     * @return type.
+     */
+    public Node getType() {
+      return type;
+    }
+  }
+
+  public static final class BoolValueNode extends Node {
     private final boolean val;
 
     public BoolValueNode(boolean v) {
@@ -245,7 +309,7 @@ public class AbstractSyntaxTree {
     }
 
     @Override
-    public <S> S accept(ASTVisitor<S> visitor) {
+    public <S> S accept(AbsSynTreeVisitor<S> visitor) {
       return visitor.visit(this);
     }
   }
@@ -253,7 +317,7 @@ public class AbstractSyntaxTree {
   /**
    * The bool TYPE node. This is not a value.
    */
-  public final static class BoolTypeNode extends Node {
+  public static final class BoolTypeNode extends Node {
 
     public BoolTypeNode() {
       super();
@@ -265,12 +329,12 @@ public class AbstractSyntaxTree {
      * @return node visited.
      */
     @Override
-    public <S> S accept(ASTVisitor<S> visitor) {
+    public <S> S accept(AbsSynTreeVisitor<S> visitor) {
       return visitor.visit(this);
     }
   }
 
-  public final static class IfNode extends Node {
+  public static final class IfNode extends Node {
     private final Node condition;
     private final Node then;
     private final Node els;
@@ -294,16 +358,16 @@ public class AbstractSyntaxTree {
     }
 
     @Override
-    public <S> S accept(ASTVisitor<S> visitor) {
+    public <S> S accept(AbsSynTreeVisitor<S> visitor) {
       return visitor.visit(this);
     }
   }
 
-  public final static class PrintNode extends Node {
+  public static final class PrintNode extends Node {
     private final Node print;
 
     public PrintNode(Node p) {
-      this.print = p;
+      print = p;
     }
 
     public Node getPrint() {
@@ -311,7 +375,7 @@ public class AbstractSyntaxTree {
     }
 
     @Override
-    public <S> S accept(ASTVisitor<S> visitor) {
+    public <S> S accept(AbsSynTreeVisitor<S> visitor) {
       return visitor.visit(this);
     }
   }
@@ -319,7 +383,7 @@ public class AbstractSyntaxTree {
   /**
    * Variable declaration node.
    */
-  public final static class VarNode extends Node {
+  public static final class VarNode extends Node {
     private final String id;
     private final Node type;
     private final Node exp;
@@ -347,7 +411,7 @@ public class AbstractSyntaxTree {
     }
 
     @Override
-    public <S> S accept(ASTVisitor<S> visitor) {
+    public <S> S accept(AbsSynTreeVisitor<S> visitor) {
       return visitor.visit(this);
     }
 
@@ -379,43 +443,44 @@ public class AbstractSyntaxTree {
     }
   }
 
-  public final static class FunNode extends Node {
+  public static final class FunNode extends Node {
     private final String id;
     private final Node retType;
     private final List<Node> declarationList;
     private final Node exp;
-    //private final List<ParNode> parlist;@param pl parameter list.
+    private final List<ParameterNode> parameterList;
 
     /**
      * Create a function declaration node.
      *
      * @param i  identifier.
      * @param rt return type.
+     * @param pl parameter list.
      * @param dl declaration list.
      * @param e  expression inside the function scope.
      */
-    public FunNode(String i, int line, Node rt, /*List<Par> pl,*/ List<Node> dl,
-                   Node e) {
+    public FunNode(String i, int line, Node rt, List<ParameterNode> pl,
+                   List<Node> dl, Node e) {
       super(line);
       id = i;
       retType = rt;
-      //parlist = pl;
+      parameterList = pl;
       declarationList = dl;
       exp = e;
     }
 
-    public FunNode(String i, Node rt, /*List<Par> pl,*/ List<Node> dl,
+    public FunNode(String i, Node rt, List<ParameterNode> pl, List<Node> dl,
                    Node e) {
       super();
       id = i;
       retType = rt;
-      //parlist = pl;
+      parameterList = pl;
       declarationList = dl;
       exp = e;
     }
 
     @Override
-    public <S> S accept(ASTVisitor<S> visitor) {
+    public <S> S accept(AbsSynTreeVisitor<S> visitor) {
       return visitor.visit(this);
     }
 
@@ -434,6 +499,10 @@ public class AbstractSyntaxTree {
     public Node getExp() {
       return exp;
     }
+
+    public List<ParameterNode> getParameterList() {
+      return parameterList;
+    }
   }
 
   /**
@@ -441,9 +510,9 @@ public class AbstractSyntaxTree {
    * Contain a Symbol Table Entry field to store the linked declaration to
    * get the value.
    */
-  public final static class IdNode extends Node {
+  public static final class IdNode extends Node {
     private final String id;
-    private SymbolTableEntry entry;
+    private SymTabEntry entry;
 
     /**
      * Create the identifier using node.
@@ -460,7 +529,7 @@ public class AbstractSyntaxTree {
      *
      * @return the Symbol Table Entry.
      */
-    public SymbolTableEntry getEntry() {
+    public SymTabEntry getEntry() {
       return entry;
     }
 
@@ -470,7 +539,7 @@ public class AbstractSyntaxTree {
      *
      * @param entry the Symbol Table Entry.
      */
-    public void setEntry(SymbolTableEntry entry) {
+    public void setEntry(SymTabEntry entry) {
       this.entry = entry;
     }
 
@@ -482,7 +551,7 @@ public class AbstractSyntaxTree {
      * @return return value.
      */
     @Override
-    public <S> S accept(ASTVisitor<S> visitor) {
+    public <S> S accept(AbsSynTreeVisitor<S> visitor) {
       return visitor.visit(this);
     }
 
@@ -496,10 +565,10 @@ public class AbstractSyntaxTree {
     }
   }
 
-  public final static class CallNode extends Node {
+  public static final class CallNode extends Node {
     private final String id;
-    //private final List<Node> arglist;
-    private SymbolTableEntry entry;
+    private final List<Node> argumentList;
+    private SymTabEntry entry;
 
     /**
      * Create a function call node.
@@ -510,17 +579,24 @@ public class AbstractSyntaxTree {
     public CallNode(String i, List<Node> p) {
       super();
       id = i;
-      //arglist = p;
+      argumentList = p;
     }
 
+    /**
+     * Create a function call node.
+     *
+     * @param i identifier called.
+     * @param line declaration line.
+     * @param p parameters list called.
+     */
     public CallNode(String i, int line, List<Node> p) {
       super(line);
       id = i;
-      //arglist = p;
+      argumentList = p;
     }
 
     @Override
-    public <S> S accept(ASTVisitor<S> visitor) {
+    public <S> S accept(AbsSynTreeVisitor<S> visitor) {
       return visitor.visit(this);
     }
 
@@ -528,16 +604,16 @@ public class AbstractSyntaxTree {
       return id;
     }
 
-    public SymbolTableEntry getEntry() {
+    public SymTabEntry getEntry() {
       return entry;
     }
 
-    public void setEntry(SymbolTableEntry entry) {
+    public void setEntry(SymTabEntry entry) {
       this.entry = entry;
     }
 
-    //public List<Node> getArglist() {
-    //  return arglist;
-    //}
+    public List<Node> getArgumentList() {
+      return argumentList;
+    }
   }
 }

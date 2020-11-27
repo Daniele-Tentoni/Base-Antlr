@@ -9,11 +9,11 @@ import static org.junit.Assert.*;
 
 public class AbstractSyntaxTreeVisitorTest {
 
-  private ASTVisitor<Integer> visitor;
+  private AbsSynTreeVisitor<Integer> visitor;
 
   @Before
   public void setup() {
-    visitor = new ASTVisitor<>();
+    visitor = new AbsSynTreeVisitor<>();
   }
 
   @Test
@@ -139,7 +139,8 @@ public class AbstractSyntaxTreeVisitorTest {
   @Test
   public void testUnimplementedExceptionsOnFunNode() {
     try {
-      visitor.visit(new AbstractSyntaxTree.FunNode(null, null, null, null));
+      visitor.visit(new AbstractSyntaxTree.FunNode(null, null, null, null,
+          null));
       fail("Expected an FileNotFoundException");
     } catch (UnImplementedException e) {
       assertNull(e.getMessage());

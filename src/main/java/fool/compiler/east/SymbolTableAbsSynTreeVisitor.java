@@ -1,8 +1,8 @@
 package fool.compiler.east;
 
 import fool.compiler.ast.AbstractSyntaxTree;
-import fool.compiler.ast.lib.ASTVisitor;
-import fool.compiler.east.lib.SymbolTableEntry;
+import fool.compiler.ast.lib.AbsSynTreeVisitor;
+import fool.compiler.east.lib.SymTabEntry;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -11,19 +11,19 @@ import java.util.Map;
 /**
  * Link statements to their declarations.
  */
-public class SymbolTableASTVisitor extends ASTVisitor<Void> {
-  private final List<Map<String, SymbolTableEntry>> symbolTable;
+public class SymbolTableAbsSynTreeVisitor extends AbsSynTreeVisitor<Void> {
+  private final List<Map<String, SymTabEntry>> symbolTable;
   private int errors;
   private int nestingLevel;
 
   /**
    * Simple
    */
-  public SymbolTableASTVisitor() {
+  public SymbolTableAbsSynTreeVisitor() {
     this(false);
   }
 
-  public SymbolTableASTVisitor(boolean debug) {
+  public SymbolTableAbsSynTreeVisitor(boolean debug) {
     super(debug);
     errors = 0;
     symbolTable = new LinkedList<>();
@@ -125,7 +125,7 @@ public class SymbolTableASTVisitor extends ASTVisitor<Void> {
     if (mustPrint()) {
       printNode(n);
     }
-    Map<String, SymbolTableEntry> hashMap = new HashMap<>();
+    Map<String, SymTabEntry> hashMap = new HashMap<>();
     symbolTable.add(hashMap);
     n.getDeclarationList().forEach(this::visit);
     visit(n.getExpression());
@@ -152,7 +152,7 @@ public class SymbolTableASTVisitor extends ASTVisitor<Void> {
 
     // After that get actual map for nesting level and var entry.
     var map = symbolTable.get(nestingLevel);
-    var entry = new SymbolTableEntry(nestingLevel);
+    var entry = new SymTabEntry(nestingLevel);
 
     // Insert and verify if var is already present.
     var index = map.put(n.getId(), entry);
@@ -173,7 +173,7 @@ public class SymbolTableASTVisitor extends ASTVisitor<Void> {
 
     // Get the current nesting level map and check correct insert.
     var map = symbolTable.get(nestingLevel);
-    var entry = new SymbolTableEntry(nestingLevel);
+    var entry = new SymTabEntry(nestingLevel);
     var index = map.put(n.getId(), entry);
     if (index != null) {
       System.out.println(
@@ -184,10 +184,21 @@ public class SymbolTableASTVisitor extends ASTVisitor<Void> {
 
     // Create a new map for next nesting level.
     nestingLevel++;
-    var hashMap = new HashMap<String, SymbolTableEntry>();
+    var hashMap = new HashMap<String, SymTabEntry>();
     symbolTable.add(hashMap);
 
     // TODO: Visit here parameters.
+    n.getParameterList().forEach(param -> {
+      var paramEntry = new SymTabEntry(nestingLevel);
+      var paramIndex = map.put(param.getId(), paramEntry);
+      if (paramIndex != null) {
+        System.out.println(
+            "Param id " + param.getId() + " at line " + param.getLine()
+                + " already declared.");
+        errors++;
+      }
+    });
+
     // Now visit all current nesting level + 1 declarations.
     n.getDeclarationList().forEach(this::visit);
     visit(n.getExp());
@@ -211,9 +222,10 @@ public class SymbolTableASTVisitor extends ASTVisitor<Void> {
 
     //Here we are at a certain nesting level.
     // I fetch each nesting level over me for other uses.
-    SymbolTableEntry entry = lookUp(n.getId());
+    SymTabEntry entry = lookUp(n.getId());
     if (entry == null) {
-      System.out.printf("Var id %s at line %d not declared.%n", n.getId(),
+      System.out.printf("Var or Par id %s at line %d not declared.%n",
+          n.getId(),
           n.getLine());
       errors++;
     } else {
@@ -228,7 +240,9 @@ public class SymbolTableASTVisitor extends ASTVisitor<Void> {
     if (mustPrint()) {
       printNode(n, n.getId());
     }
-    SymbolTableEntry entry = lookUp(n.getId());
+
+    // Search for function id.
+    SymTabEntry entry = lookUp(n.getId());
     if (entry == null) {
       System.out.printf("Fun id %s at line %d not declared.%n", n.getId(),
           n.getLine());
@@ -236,6 +250,9 @@ public class SymbolTableASTVisitor extends ASTVisitor<Void> {
     } else {
       n.setEntry(entry);
     }
+
+    n.getArgumentList().forEach(this::visit);
+
     return null;
   }
 
@@ -245,9 +262,9 @@ public class SymbolTableASTVisitor extends ASTVisitor<Void> {
    * @param id id to search.
    * @return entry found or null.
    */
-  private SymbolTableEntry lookUp(String id) {
+  private SymTabEntry lookUp(String id) {
     int j = nestingLevel;
-    SymbolTableEntry entry = null;
+    SymTabEntry entry = null;
     while (j >= 0 && entry == null) {
       entry = symbolTable.get(j--).get(id);
     }

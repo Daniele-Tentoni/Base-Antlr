@@ -1,7 +1,8 @@
 package fool.compiler.ast.lib;
 
-import fool.compiler.ast.AbstractSyntaxTree;
 import fool.compiler.UnImplementedException;
+import fool.compiler.Visitable;
+import fool.compiler.ast.AbstractSyntaxTree;
 
 import static fool.compiler.SyntaxTreeUtils.extractNodeName;
 
@@ -10,7 +11,7 @@ import static fool.compiler.SyntaxTreeUtils.extractNodeName;
  *
  * @param <T> return type of visitor.
  */
-public class ASTVisitor<T> {
+public class AbsSynTreeVisitor<T> {
 
   private final boolean print;
   private String indent;
@@ -20,7 +21,7 @@ public class ASTVisitor<T> {
    *
    * @param debug enable or not result prints.
    */
-  protected ASTVisitor(boolean debug) {
+  protected AbsSynTreeVisitor(boolean debug) {
     print = debug;
     indent = "";
   }
@@ -28,7 +29,7 @@ public class ASTVisitor<T> {
   /**
    * Default constructor.
    */
-  protected ASTVisitor() {
+  protected AbsSynTreeVisitor() {
     this(false);
   }
 
@@ -54,33 +55,33 @@ public class ASTVisitor<T> {
     System.out.println(indent + nodeName);
   }
 
-  public T visit(Node n, String s) {
+  public T visit(Visitable v, String s) {
     if (mustPrint()) {
       final String temp = indent;
       indent = (indent == null) ? "" : indent + s;
       // Dobbiamo eseguire qui la visitazione del'albero per sfruttare l'identazione.
-      final T result = visitByAcc(n);
+      final T result = visitByAcc(v);
       // Tramite questa istruzione resettiamo la indent prima di tornare al livello superiore.
       indent = temp;
       return result;
     }
 
-    return visitByAcc(n);
+    return visitByAcc(v);
   }
 
-  public T visit(Node n) {
-    return visit(n, " ");
+  public T visit(Visitable v) {
+    return visit(v, " ");
   }
 
   /**
    * Metodo di visita generico per tutti i nodes. A runtime eseguiremo sempre
    * questo metodo. Quindi dobbiamo poi redirigere la computazione dove vogliamo.
    *
-   * @param n il Node da valutare.
+   * @param v il Node da valutare.
    * @return TODO
    */
-  private T visitByAcc(Node n) {
-    return n.accept(this);
+  private T visitByAcc(Visitable v) {
+    return v.accept(this);
   }
 
   /**
@@ -124,6 +125,10 @@ public class ASTVisitor<T> {
   }
 
   public T visit(AbstractSyntaxTree.EqualNode n) {
+    throw new UnImplementedException();
+  }
+
+  public T visit(AbstractSyntaxTree.ParameterNode n) {
     throw new UnImplementedException();
   }
 

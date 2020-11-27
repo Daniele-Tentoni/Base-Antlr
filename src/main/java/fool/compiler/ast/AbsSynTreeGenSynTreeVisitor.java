@@ -128,16 +128,23 @@ public class AbsSynTreeGenSynTreeVisitor extends FOOLBaseVisitor<Node> {
 
     var id = c.ID(0).getText();
     var line = c.ID(0).getSymbol().getLine();
-    var parameterList = new LinkedList<Node>();
-    c.ID().subList(1, c.ID().size())
-        .forEach(param -> parameterList.add(visit(param)));
+    var parameterList = new LinkedList<AbstractSyntaxTree.ParameterNode>();
+    if (c.COLON().size() > 0) {
+      for (int i = 1; i < c.COLON().size(); i++) {
+        var paramId = c.ID(i).getText();
+        var paramLine = c.COLON(i).getSymbol().getLine();
+        var type = visit(c.type(i));
+        var param = new AbstractSyntaxTree.ParameterNode(paramId, paramLine,
+            type);
+        parameterList.add(param);
+      }
+    }
     var declarationList = new LinkedList<Node>();
     c.dec().forEach(dec -> declarationList.add(visit(dec)));
     var returnType = visit(c.type(0));
     var exp = visit(c.exp());
     return new AbstractSyntaxTree.FunNode(id, line, returnType,
-        /*parameterList,*/
-        declarationList, exp);
+        parameterList, declarationList, exp);
   }
 
   @Override
@@ -182,13 +189,19 @@ public class AbsSynTreeGenSynTreeVisitor extends FOOLBaseVisitor<Node> {
     return new AbstractSyntaxTree.PlusNode(visit(c.exp(0)), visit(c.exp(1)));
   }
 
+  /**
+   * Visit a Pars Context exploring his expression child.
+   *
+   * @param c pars context.
+   * @return pars node.
+   */
   @Override
   public Node visitPars(final FOOLParser.ParsContext c) {
     if (mustPrint()) {
       printVarAndProdName(c);
     }
-
-    return visit(c.exp());
+    visit(c.exp());
+    return null;
   }
 
   @Override

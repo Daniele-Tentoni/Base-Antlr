@@ -1,11 +1,13 @@
 package fool.compiler.ast.lib;
 
+import fool.compiler.Visitable;
+
 /**
  * Represent a single node for the AST.
  *
  * @author ap
  */
-public abstract class Node {
+public abstract class Node implements Visitable {
 
   // This is the line in the file of the node.
   private int line;
@@ -44,13 +46,4 @@ public abstract class Node {
   public void setLine(int line) {
     this.line = line;
   }
-
-  /**
-   * Use the specific visit implementation at runtime.
-   *
-   * @param visitor visitor to recall.
-   * @param <S>     return type.
-   * @return TODO
-   */
-  public abstract <S> S accept(ASTVisitor<S> visitor);
 }

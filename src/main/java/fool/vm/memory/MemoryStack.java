@@ -8,6 +8,7 @@ import java.util.Stack;
 public class MemoryStack {
   private final int maxSize;
   private final Stack<Integer> memory;
+  private int stackPointer;
 
   /**
    * Initialize the memory stack.
@@ -18,6 +19,7 @@ public class MemoryStack {
    */
   public MemoryStack(int maxSize) {
     this.maxSize = maxSize;
+    stackPointer = 0;
     memory = new Stack<>();
   }
 

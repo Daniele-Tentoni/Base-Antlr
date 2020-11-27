@@ -1,16 +1,15 @@
 package fool.compiler.ast;
 
-import fool.compiler.ast.AbstractSyntaxTree.*;
-import fool.compiler.ast.lib.ASTVisitor;
+import fool.compiler.ast.lib.AbsSynTreeVisitor;
 
 /**
  * Classe che ci permette di stampare l'ast.
  *
  * @author ap nono, è il professore che l'ha fatto.
  */
-public class PrintASTVisitor extends ASTVisitor<Void> {
+public class PrintAbsSynTreeVisitor extends AbsSynTreeVisitor<Void> {
 
-  public PrintASTVisitor() {
+  public PrintAbsSynTreeVisitor() {
     super(true);
   }
 
@@ -20,7 +19,7 @@ public class PrintASTVisitor extends ASTVisitor<Void> {
    * @param n il Prog Node da visitare.
    */
   @Override
-  public Void visit(ProgNode n) {
+  public Void visit(AbstractSyntaxTree.ProgNode n) {
     printNode(n);
     visit(n.getExp());
     return null;
@@ -32,7 +31,7 @@ public class PrintASTVisitor extends ASTVisitor<Void> {
    * @param n il Times Node da visitare.
    */
   @Override
-  public Void visit(TimesNode n) {
+  public Void visit(AbstractSyntaxTree.TimesNode n) {
     printNode(n);
     visit(n.getLeft());
     visit(n.getRight());
@@ -45,7 +44,7 @@ public class PrintASTVisitor extends ASTVisitor<Void> {
    * @param n il Plus node da visitare.
    */
   @Override
-  public Void visit(PlusNode n) {
+  public Void visit(AbstractSyntaxTree.PlusNode n) {
     printNode(n);
     visit(n.getLeft());
     visit(n.getRight());
@@ -53,32 +52,52 @@ public class PrintASTVisitor extends ASTVisitor<Void> {
   }
 
   /**
-   * Visita per il node Int.
+   * Visit Int Node.
    *
-   * @param n il Int node da visitare.
+   * @param n int node to visit.
+   * @return nothing.
    */
   @Override
-  public Void visit(IntValueNode n) {
-    printNode(n,String.valueOf(n.getVal()));
+  public Void visit(AbstractSyntaxTree.IntValueNode n) {
+    printNode(n, String.valueOf(n.getVal()));
     return null;
   }
 
+  /**
+   * Visit Equal Node.
+   *
+   * @param n equal node to visit.
+   * @return nothing.
+   */
   @Override
-  public Void visit(EqualNode n) {
+  public Void visit(AbstractSyntaxTree.EqualNode n) {
     printNode(n);
     visit(n.getLeft());
     visit(n.getRight());
     return null;
   }
 
+  /**
+   * Visit Pars Node.
+   *
+   * @param n pars node to visit.
+   * @return nothing.
+   */
   @Override
-  public Void visit(BoolValueNode n) {
+  public Void visit(AbstractSyntaxTree.ParameterNode n) {
+    printNode(n, n.getId());
+    visit(n.getType());
+    return null;
+  }
+
+  @Override
+  public Void visit(AbstractSyntaxTree.BoolValueNode n) {
     printNode(n);
     return null;
   }
 
   @Override
-  public Void visit(IfNode n) {
+  public Void visit(AbstractSyntaxTree.IfNode n) {
     printNode(n);
     visit(n.getCondition());
     visit(n.getThen());
@@ -87,7 +106,7 @@ public class PrintASTVisitor extends ASTVisitor<Void> {
   }
 
   @Override
-  public Void visit(PrintNode n) {
+  public Void visit(AbstractSyntaxTree.PrintNode n) {
     printNode(n);
     visit(n.getPrint());
     return null;
@@ -100,7 +119,7 @@ public class PrintASTVisitor extends ASTVisitor<Void> {
    * @return nothing.
    */
   @Override
-  public Void visit(ProgLetInNode n) {
+  public Void visit(AbstractSyntaxTree.ProgLetInNode n) {
     printNode(n);
     n.getDeclarationList().forEach(this::visit);
     visit(n.getExpression());
@@ -114,7 +133,7 @@ public class PrintASTVisitor extends ASTVisitor<Void> {
    * @return nothing.
    */
   @Override
-  public Void visit(VarNode n) {
+  public Void visit(AbstractSyntaxTree.VarNode n) {
     printNode(n, n.getId());
     visit(n.getType());
     visit(n.getExp());
@@ -128,7 +147,7 @@ public class PrintASTVisitor extends ASTVisitor<Void> {
    * @return nothing.
    */
   @Override
-  public Void visit(IntTypeNode n) {
+  public Void visit(AbstractSyntaxTree.IntTypeNode n) {
     printNode(n);
     return null;
   }
@@ -140,7 +159,7 @@ public class PrintASTVisitor extends ASTVisitor<Void> {
    * @return nothing.
    */
   @Override
-  public Void visit(BoolTypeNode n) {
+  public Void visit(AbstractSyntaxTree.BoolTypeNode n) {
     printNode(n);
     return null;
   }
@@ -153,7 +172,7 @@ public class PrintASTVisitor extends ASTVisitor<Void> {
    * @return nothing.
    */
   @Override
-  public Void visit(FunNode n) {
+  public Void visit(AbstractSyntaxTree.FunNode n) {
     printNode(n, n.getId());
     visit(n.getRetType());
     n.getDeclarationList().forEach(this::visit);
@@ -168,7 +187,7 @@ public class PrintASTVisitor extends ASTVisitor<Void> {
    * @return nothing.
    */
   @Override
-  public Void visit(CallNode n) {
+  public Void visit(AbstractSyntaxTree.CallNode n) {
     printNode(n, n.getId());
     return null;
   }
@@ -180,7 +199,7 @@ public class PrintASTVisitor extends ASTVisitor<Void> {
    * @return nothing.
    */
   @Override
-  public Void visit(IdNode n) {
+  public Void visit(AbstractSyntaxTree.IdNode n) {
     printNode(n, n.getId());
     return null;
   }
