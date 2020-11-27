@@ -187,7 +187,7 @@ public class SymbolTableAbsSynTreeVisitor extends AbsSynTreeVisitor<Void> {
     var hashMap = new HashMap<String, SymTabEntry>();
     symbolTable.add(hashMap);
 
-    // TODO: Visit here parameters.
+    // Visit parameter for existing declarations.
     n.getParameterList().forEach(param -> {
       var paramEntry = new SymTabEntry(nestingLevel);
       var paramIndex = map.put(param.getId(), paramEntry);

@@ -74,21 +74,20 @@ public class AbsSynTreeVisitor<T> {
   }
 
   /**
-   * Metodo di visita generico per tutti i nodes. A runtime eseguiremo sempre
-   * questo metodo. Quindi dobbiamo poi redirigere la computazione dove vogliamo.
+   * Generic visit method. Is called a runtime to enable the visitor pattern.
    *
-   * @param v il Node da valutare.
-   * @return TODO
+   * @param v visitable object with accept method.
+   * @return value computed.
    */
   private T visitByAcc(Visitable v) {
     return v.accept(this);
   }
 
   /**
-   * Visita per il node Prog.
+   * Visit a Prog Node.
    *
-   * @param n il Prog Node da visitare.
-   * @return TODO
+   * @param n node to visit.
+   * @return value computed.
    */
   public T visit(AbstractSyntaxTree.ProgNode n) {
     throw new UnImplementedException("ProgNode");
@@ -98,7 +97,7 @@ public class AbsSynTreeVisitor<T> {
    * Visita per il node Times.
    *
    * @param n il Times Node da visitare.
-   * @return TODO
+   * @return value computed.
    */
   public T visit(AbstractSyntaxTree.TimesNode n) {
     throw new UnImplementedException();
@@ -108,7 +107,7 @@ public class AbsSynTreeVisitor<T> {
    * Visita per il node Plus.
    *
    * @param n il Plus node da visitare.
-   * @return TODO
+   * @return value computed.
    */
   public T visit(AbstractSyntaxTree.PlusNode n) {
     throw new UnImplementedException();
@@ -118,7 +117,7 @@ public class AbsSynTreeVisitor<T> {
    * Visita per il node Int.
    *
    * @param n il Int node da visitare.
-   * @return TODO
+   * @return value computed.
    */
   public T visit(AbstractSyntaxTree.IntValueNode n) {
     throw new UnImplementedException();

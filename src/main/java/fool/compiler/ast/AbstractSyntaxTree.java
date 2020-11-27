@@ -146,10 +146,19 @@ public class AbstractSyntaxTree {
     }
   }
 
+  /**
+   * Multiply two expressions.
+   */
   public static final class TimesNode extends Node {
     private final Node left;
     private final Node right;
 
+    /**
+     * Complex constructor with both nodes.
+     *
+     * @param l left node.
+     * @param r right node.
+     */
     public TimesNode(Node l, Node r) {
       left = l;
       right = r;
@@ -169,9 +178,17 @@ public class AbstractSyntaxTree {
     }
   }
 
+  /**
+   * Node of an Int value.
+   */
   public static final class IntValueNode extends Node {
     private final int val;
 
+    /**
+     * Create the node with his value.
+     *
+     * @param n int value.
+     */
     public IntValueNode(int n) {
       val = n;
     }
@@ -297,9 +314,17 @@ public class AbstractSyntaxTree {
     }
   }
 
+  /**
+   * Node for boolean value.
+   */
   public static final class BoolValueNode extends Node {
     private final boolean val;
 
+    /**
+     * Create the node with his value.
+     *
+     * @param v boolean value.
+     */
     public BoolValueNode(boolean v) {
       val = v;
     }
@@ -363,9 +388,17 @@ public class AbstractSyntaxTree {
     }
   }
 
+  /**
+   * Node to print in console some information.
+   */
   public static final class PrintNode extends Node {
     private final Node print;
 
+    /**
+     * Create the node with some values to print.
+     *
+     * @param p value to print.
+     */
     public PrintNode(Node p) {
       print = p;
     }
@@ -389,7 +422,7 @@ public class AbstractSyntaxTree {
     private final Node exp;
 
     /**
-     * Generate a Variable Declaration Node.
+     * Generate a rich Variable Declaration Node.
      *
      * @param i identifier.
      * @param t type.
@@ -403,6 +436,14 @@ public class AbstractSyntaxTree {
       exp = v;
     }
 
+    /**
+     * Generate a simple Variable Declaration Node.
+     *
+     * @param i identifier.
+     * @param t type.
+     * @param v value. This is a functional language, there aren't
+     *          declaration without assignment.
+     */
     public VarNode(String i, Node t, Node v) {
       super();
       id = i;
@@ -443,6 +484,10 @@ public class AbstractSyntaxTree {
     }
   }
 
+  /**
+   * A Function declaration node. Contains all infos to recall it at need.
+   * TODO: Expand his features.
+   */
   public static final class FunNode extends Node {
     private final String id;
     private final Node retType;
@@ -451,7 +496,7 @@ public class AbstractSyntaxTree {
     private final List<ParameterNode> parameterList;
 
     /**
-     * Create a function declaration node.
+     * Create a rich function declaration node.
      *
      * @param i  identifier.
      * @param rt return type.
@@ -469,6 +514,15 @@ public class AbstractSyntaxTree {
       exp = e;
     }
 
+    /**
+     * Create a simple function declaration node.
+     *
+     * @param i  identifier.
+     * @param rt return type.
+     * @param pl parameter list.
+     * @param dl declaration list.
+     * @param e  expression inside the function scope.
+     */
     public FunNode(String i, Node rt, List<ParameterNode> pl, List<Node> dl,
                    Node e) {
       super();
@@ -484,22 +538,47 @@ public class AbstractSyntaxTree {
       return visitor.visit(this);
     }
 
+    /**
+     * Return the declaration list.
+     *
+     * @return declaration list.
+     */
     public List<Node> getDeclarationList() {
       return declarationList;
     }
 
+    /**
+     * Return the return type.
+     *
+     * @return return type.
+     */
     public Node getRetType() {
       return retType;
     }
 
+    /**
+     * Return the identifier.
+     *
+     * @return identifier.
+     */
     public String getId() {
       return id;
     }
 
+    /**
+     * Return the child expression.
+     *
+     * @return expression.
+     */
     public Node getExp() {
       return exp;
     }
 
+    /**
+     * Return the parameter list.
+     *
+     * @return parameter list.
+     */
     public List<ParameterNode> getParameterList() {
       return parameterList;
     }
@@ -565,13 +644,17 @@ public class AbstractSyntaxTree {
     }
   }
 
+  /**
+   * A function call node. Contain a Symbol Table Entry to store the linked
+   * declaration to call it at need.
+   */
   public static final class CallNode extends Node {
     private final String id;
     private final List<Node> argumentList;
     private SymTabEntry entry;
 
     /**
-     * Create a function call node.
+     * Create a simple function call node.
      *
      * @param i identifier called.
      * @param p parameters list called.
@@ -583,11 +666,11 @@ public class AbstractSyntaxTree {
     }
 
     /**
-     * Create a function call node.
+     * Create a rich function call node.
      *
-     * @param i identifier called.
+     * @param i    identifier called.
      * @param line declaration line.
-     * @param p parameters list called.
+     * @param p    parameters list called.
      */
     public CallNode(String i, int line, List<Node> p) {
       super(line);
@@ -600,18 +683,38 @@ public class AbstractSyntaxTree {
       return visitor.visit(this);
     }
 
+    /**
+     * Return the identifier.
+     *
+     * @return identifier.
+     */
     public String getId() {
       return id;
     }
 
+    /**
+     * Return the symbol table entry.
+     *
+     * @return entry.
+     */
     public SymTabEntry getEntry() {
       return entry;
     }
 
+    /**
+     * Set the symbol table entry.
+     *
+     * @param entry entry.
+     */
     public void setEntry(SymTabEntry entry) {
       this.entry = entry;
     }
 
+    /**
+     * Return the argument list.
+     *
+     * @return argument list.
+     */
     public List<Node> getArgumentList() {
       return argumentList;
     }
