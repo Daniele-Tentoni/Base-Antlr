@@ -19,7 +19,7 @@ public class PrintAbsSynTreeVisitor extends AbsSynTreeVisitor<Void> {
    * @param n il Prog Node da visitare.
    */
   @Override
-  public Void visit(AbstractSyntaxTree.ProgNode n) {
+  public Void visit(AbsSynTree.ProgNode n) {
     printNode(n);
     visit(n.getExp());
     return null;
@@ -31,7 +31,7 @@ public class PrintAbsSynTreeVisitor extends AbsSynTreeVisitor<Void> {
    * @param n il Times Node da visitare.
    */
   @Override
-  public Void visit(AbstractSyntaxTree.TimesNode n) {
+  public Void visit(AbsSynTree.TimesNode n) {
     printNode(n);
     visit(n.getLeft());
     visit(n.getRight());
@@ -44,7 +44,7 @@ public class PrintAbsSynTreeVisitor extends AbsSynTreeVisitor<Void> {
    * @param n il Plus node da visitare.
    */
   @Override
-  public Void visit(AbstractSyntaxTree.PlusNode n) {
+  public Void visit(AbsSynTree.PlusNode n) {
     printNode(n);
     visit(n.getLeft());
     visit(n.getRight());
@@ -58,7 +58,7 @@ public class PrintAbsSynTreeVisitor extends AbsSynTreeVisitor<Void> {
    * @return nothing.
    */
   @Override
-  public Void visit(AbstractSyntaxTree.IntValueNode n) {
+  public Void visit(AbsSynTree.IntValueNode n) {
     printNode(n, String.valueOf(n.getVal()));
     return null;
   }
@@ -70,7 +70,7 @@ public class PrintAbsSynTreeVisitor extends AbsSynTreeVisitor<Void> {
    * @return nothing.
    */
   @Override
-  public Void visit(AbstractSyntaxTree.EqualNode n) {
+  public Void visit(AbsSynTree.EqualNode n) {
     printNode(n);
     visit(n.getLeft());
     visit(n.getRight());
@@ -84,20 +84,20 @@ public class PrintAbsSynTreeVisitor extends AbsSynTreeVisitor<Void> {
    * @return nothing.
    */
   @Override
-  public Void visit(AbstractSyntaxTree.ParameterNode n) {
+  public Void visit(AbsSynTree.ParameterNode n) {
     printNode(n, n.getId());
     visit(n.getType());
     return null;
   }
 
   @Override
-  public Void visit(AbstractSyntaxTree.BoolValueNode n) {
+  public Void visit(AbsSynTree.BoolValueNode n) {
     printNode(n);
     return null;
   }
 
   @Override
-  public Void visit(AbstractSyntaxTree.IfNode n) {
+  public Void visit(AbsSynTree.IfNode n) {
     printNode(n);
     visit(n.getCondition());
     visit(n.getThen());
@@ -106,7 +106,7 @@ public class PrintAbsSynTreeVisitor extends AbsSynTreeVisitor<Void> {
   }
 
   @Override
-  public Void visit(AbstractSyntaxTree.PrintNode n) {
+  public Void visit(AbsSynTree.PrintNode n) {
     printNode(n);
     visit(n.getPrint());
     return null;
@@ -119,7 +119,7 @@ public class PrintAbsSynTreeVisitor extends AbsSynTreeVisitor<Void> {
    * @return nothing.
    */
   @Override
-  public Void visit(AbstractSyntaxTree.ProgLetInNode n) {
+  public Void visit(AbsSynTree.ProgLetInNode n) {
     printNode(n);
     n.getDeclarationList().forEach(this::visit);
     visit(n.getExpression());
@@ -133,7 +133,7 @@ public class PrintAbsSynTreeVisitor extends AbsSynTreeVisitor<Void> {
    * @return nothing.
    */
   @Override
-  public Void visit(AbstractSyntaxTree.VarNode n) {
+  public Void visit(AbsSynTree.VarNode n) {
     printNode(n, n.getId());
     visit(n.getType());
     visit(n.getExp());
@@ -147,7 +147,7 @@ public class PrintAbsSynTreeVisitor extends AbsSynTreeVisitor<Void> {
    * @return nothing.
    */
   @Override
-  public Void visit(AbstractSyntaxTree.IntTypeNode n) {
+  public Void visit(AbsSynTree.IntTypeNode n) {
     printNode(n);
     return null;
   }
@@ -159,7 +159,7 @@ public class PrintAbsSynTreeVisitor extends AbsSynTreeVisitor<Void> {
    * @return nothing.
    */
   @Override
-  public Void visit(AbstractSyntaxTree.BoolTypeNode n) {
+  public Void visit(AbsSynTree.BoolTypeNode n) {
     printNode(n);
     return null;
   }
@@ -172,7 +172,7 @@ public class PrintAbsSynTreeVisitor extends AbsSynTreeVisitor<Void> {
    * @return nothing.
    */
   @Override
-  public Void visit(AbstractSyntaxTree.FunNode n) {
+  public Void visit(AbsSynTree.FunNode n) {
     printNode(n, n.getId());
     visit(n.getRetType());
     n.getDeclarationList().forEach(this::visit);
@@ -187,7 +187,7 @@ public class PrintAbsSynTreeVisitor extends AbsSynTreeVisitor<Void> {
    * @return nothing.
    */
   @Override
-  public Void visit(AbstractSyntaxTree.CallNode n) {
+  public Void visit(AbsSynTree.CallNode n) {
     printNode(n, n.getId());
     return null;
   }
@@ -199,7 +199,7 @@ public class PrintAbsSynTreeVisitor extends AbsSynTreeVisitor<Void> {
    * @return nothing.
    */
   @Override
-  public Void visit(AbstractSyntaxTree.IdNode n) {
+  public Void visit(AbsSynTree.IdNode n) {
     printNode(n, n.getId());
     return null;
   }

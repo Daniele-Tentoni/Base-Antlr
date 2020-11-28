@@ -1,6 +1,6 @@
 package fool.compiler.east;
 
-import fool.compiler.ast.AbstractSyntaxTree;
+import fool.compiler.ast.AbsSynTree;
 import fool.compiler.east.lib.EnrAbsSynTreeVisitor;
 import fool.compiler.east.lib.SymTabEntry;
 
@@ -10,20 +10,20 @@ public class PrintEnrAbsSynTreeVisitor extends EnrAbsSynTreeVisitor<Void> {
   }
 
   @Override
-  public Void visit(AbstractSyntaxTree.ProgNode n) {
+  public Void visit(AbsSynTree.ProgNode n) {
     printNode(n);
     visit(n.getExp());
     return null;
   }
 
   @Override
-  public Void visit(AbstractSyntaxTree.IntValueNode n) {
+  public Void visit(AbsSynTree.IntValueNode n) {
     printNode(n, String.valueOf(n.getVal()));
     return null;
   }
 
   @Override
-  public Void visit(AbstractSyntaxTree.PlusNode n) {
+  public Void visit(AbsSynTree.PlusNode n) {
     printNode(n);
     visit(n.getLeft());
     visit(n.getRight());
@@ -31,7 +31,7 @@ public class PrintEnrAbsSynTreeVisitor extends EnrAbsSynTreeVisitor<Void> {
   }
 
   @Override
-  public Void visit(AbstractSyntaxTree.TimesNode n) {
+  public Void visit(AbsSynTree.TimesNode n) {
     printNode(n);
     visit(n.getLeft());
     visit(n.getRight());
@@ -39,7 +39,7 @@ public class PrintEnrAbsSynTreeVisitor extends EnrAbsSynTreeVisitor<Void> {
   }
 
   @Override
-  public Void visit(AbstractSyntaxTree.EqualNode n) {
+  public Void visit(AbsSynTree.EqualNode n) {
     printNode(n);
     visit(n.getLeft());
     visit(n.getRight());
@@ -47,13 +47,13 @@ public class PrintEnrAbsSynTreeVisitor extends EnrAbsSynTreeVisitor<Void> {
   }
 
   @Override
-  public Void visit(AbstractSyntaxTree.BoolValueNode n) {
+  public Void visit(AbsSynTree.BoolValueNode n) {
     printNode(n, String.valueOf(n.getVal()));
     return null;
   }
 
   @Override
-  public Void visit(AbstractSyntaxTree.IfNode n) {
+  public Void visit(AbsSynTree.IfNode n) {
     printNode(n);
     visit(n.getCondition());
     visit(n.getThen());
@@ -62,15 +62,14 @@ public class PrintEnrAbsSynTreeVisitor extends EnrAbsSynTreeVisitor<Void> {
   }
 
   @Override
-  public Void visit(AbstractSyntaxTree.PrintNode n) {
+  public Void visit(AbsSynTree.PrintNode n) {
     printNode(n);
     visit(n.getPrint());
     return null;
   }
 
-  //
   @Override
-  public Void visit(AbstractSyntaxTree.ProgLetInNode n) {
+  public Void visit(AbsSynTree.ProgLetInNode n) {
     printNode(n);
     n.getDeclarationList().forEach(this::visit);
     visit(n.getExpression());
@@ -78,19 +77,19 @@ public class PrintEnrAbsSynTreeVisitor extends EnrAbsSynTreeVisitor<Void> {
   }
 
   @Override
-  public Void visit(AbstractSyntaxTree.BoolTypeNode n) {
+  public Void visit(AbsSynTree.BoolTypeNode n) {
     printNode(n);
     return null;
   }
 
   @Override
-  public Void visit(AbstractSyntaxTree.IntTypeNode n) {
+  public Void visit(AbsSynTree.IntTypeNode n) {
     printNode(n);
     return null;
   }
 
   @Override
-  public Void visit(AbstractSyntaxTree.VarNode n) {
+  public Void visit(AbsSynTree.VarNode n) {
     printNode(n, n.getId());
     visit(n.getType());
     visit(n.getExp());
@@ -98,7 +97,7 @@ public class PrintEnrAbsSynTreeVisitor extends EnrAbsSynTreeVisitor<Void> {
   }
 
   @Override
-  public Void visit(AbstractSyntaxTree.FunNode n) {
+  public Void visit(AbsSynTree.FunNode n) {
     printNode(n, n.getId());
     visit(n.getRetType());
     n.getParameterList().forEach(this::visit);
@@ -108,7 +107,7 @@ public class PrintEnrAbsSynTreeVisitor extends EnrAbsSynTreeVisitor<Void> {
   }
 
   @Override
-  public Void visit(AbstractSyntaxTree.IdNode n) {
+  public Void visit(AbsSynTree.IdNode n) {
     printNode(n, n.getId());
     var entry = n.getEntry();
     if (entry != null) {
@@ -118,7 +117,7 @@ public class PrintEnrAbsSynTreeVisitor extends EnrAbsSynTreeVisitor<Void> {
   }
 
   @Override
-  public Void visit(AbstractSyntaxTree.CallNode n) {
+  public Void visit(AbsSynTree.CallNode n) {
     printNode(n, n.getId());
     var entry = n.getEntry();
     if (entry != null) {
@@ -129,7 +128,7 @@ public class PrintEnrAbsSynTreeVisitor extends EnrAbsSynTreeVisitor<Void> {
   }
 
   @Override
-  public Void visit(AbstractSyntaxTree.ParameterNode n) {
+  public Void visit(AbsSynTree.ParameterNode n) {
     printNode(n, n.getId());
     visit(n.getType());
     return null;
@@ -138,6 +137,20 @@ public class PrintEnrAbsSynTreeVisitor extends EnrAbsSynTreeVisitor<Void> {
   @Override
   public Void visitSymTabEntry(SymTabEntry entry) {
     super.printSymTabEntry("nesting level " + entry.getNestingLevel());
+    return null;
+  }
+
+  /**
+   * Visit an Arrow Type Node, applying visitor pattern.
+   *
+   * @param n node.
+   * @return nothing.
+   */
+  @Override
+  public Void visit(AbsSynTree.ArrowTypeNode n) {
+    printNode(n);
+    n.getParameterTypesList().forEach(this::visit);
+    visit(n.getReturnType());
     return null;
   }
 }

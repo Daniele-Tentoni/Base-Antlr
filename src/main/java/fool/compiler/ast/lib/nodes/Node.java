@@ -1,4 +1,4 @@
-package fool.compiler.ast.lib;
+package fool.compiler.ast.lib.nodes;
 
 import fool.compiler.Visitable;
 

@@ -2,7 +2,8 @@ package fool.compiler.ast.lib;
 
 import fool.compiler.UnImplementedException;
 import fool.compiler.Visitable;
-import fool.compiler.ast.AbstractSyntaxTree;
+import fool.compiler.ast.AbsSynTree;
+import fool.compiler.ast.lib.nodes.Node;
 
 import static fool.compiler.SyntaxTreeUtils.extractNodeName;
 
@@ -70,7 +71,7 @@ public class AbsSynTreeVisitor<T> {
   }
 
   public T visit(Visitable v) {
-    return visit(v, " ");
+    return visit(v, "  ");
   }
 
   /**
@@ -89,7 +90,7 @@ public class AbsSynTreeVisitor<T> {
    * @param n node to visit.
    * @return value computed.
    */
-  public T visit(AbstractSyntaxTree.ProgNode n) {
+  public T visit(AbsSynTree.ProgNode n) {
     throw new UnImplementedException("ProgNode");
   }
 
@@ -99,7 +100,7 @@ public class AbsSynTreeVisitor<T> {
    * @param n il Times Node da visitare.
    * @return value computed.
    */
-  public T visit(AbstractSyntaxTree.TimesNode n) {
+  public T visit(AbsSynTree.TimesNode n) {
     throw new UnImplementedException();
   }
 
@@ -109,7 +110,7 @@ public class AbsSynTreeVisitor<T> {
    * @param n il Plus node da visitare.
    * @return value computed.
    */
-  public T visit(AbstractSyntaxTree.PlusNode n) {
+  public T visit(AbsSynTree.PlusNode n) {
     throw new UnImplementedException();
   }
 
@@ -119,55 +120,55 @@ public class AbsSynTreeVisitor<T> {
    * @param n il Int node da visitare.
    * @return value computed.
    */
-  public T visit(AbstractSyntaxTree.IntValueNode n) {
+  public T visit(AbsSynTree.IntValueNode n) {
     throw new UnImplementedException();
   }
 
-  public T visit(AbstractSyntaxTree.EqualNode n) {
+  public T visit(AbsSynTree.EqualNode n) {
     throw new UnImplementedException();
   }
 
-  public T visit(AbstractSyntaxTree.ParameterNode n) {
+  public T visit(AbsSynTree.ParameterNode n) {
     throw new UnImplementedException();
   }
 
-  public T visit(AbstractSyntaxTree.BoolValueNode n) {
+  public T visit(AbsSynTree.BoolValueNode n) {
     throw new UnImplementedException();
   }
 
-  public T visit(AbstractSyntaxTree.IfNode n) {
+  public T visit(AbsSynTree.IfNode n) {
     throw new UnImplementedException();
   }
 
-  public T visit(AbstractSyntaxTree.PrintNode n) {
+  public T visit(AbsSynTree.PrintNode n) {
     throw new UnImplementedException();
   }
 
-  public T visit(AbstractSyntaxTree.ProgLetInNode n) {
+  public T visit(AbsSynTree.ProgLetInNode n) {
     throw new UnImplementedException();
   }
 
-  public T visit(AbstractSyntaxTree.BoolTypeNode n) {
+  public T visit(AbsSynTree.BoolTypeNode n) {
     throw new UnImplementedException();
   }
 
-  public T visit(AbstractSyntaxTree.IntTypeNode n) {
+  public T visit(AbsSynTree.IntTypeNode n) {
     throw new UnImplementedException();
   }
 
-  public T visit(AbstractSyntaxTree.VarNode n) {
+  public T visit(AbsSynTree.VarNode n) {
     throw new UnImplementedException();
   }
 
-  public T visit(AbstractSyntaxTree.FunNode n) {
+  public T visit(AbsSynTree.FunNode n) {
     throw new UnImplementedException();
   }
 
-  public T visit(AbstractSyntaxTree.IdNode n) {
+  public T visit(AbsSynTree.IdNode n) {
     throw new UnImplementedException();
   }
 
-  public T visit(AbstractSyntaxTree.CallNode n) {
+  public T visit(AbsSynTree.CallNode n) {
     throw new UnImplementedException();
   }
 

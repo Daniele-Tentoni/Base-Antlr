@@ -1,6 +1,6 @@
 package fool.compiler.east;
 
-import fool.compiler.ast.AbstractSyntaxTree;
+import fool.compiler.ast.AbsSynTree;
 import fool.compiler.ast.lib.AbsSynTreeVisitor;
 import fool.compiler.east.lib.SymTabEntry;
 import java.util.HashMap;
@@ -40,7 +40,7 @@ public class SymbolTableAbsSynTreeVisitor extends AbsSynTreeVisitor<Void> {
   }
 
   @Override
-  public Void visit(AbstractSyntaxTree.ProgNode n) {
+  public Void visit(AbsSynTree.ProgNode n) {
     if (mustPrint()) {
       printNode(n);
     }
@@ -49,7 +49,7 @@ public class SymbolTableAbsSynTreeVisitor extends AbsSynTreeVisitor<Void> {
   }
 
   @Override
-  public Void visit(AbstractSyntaxTree.TimesNode n) {
+  public Void visit(AbsSynTree.TimesNode n) {
     if (mustPrint()) {
       printNode(n);
     }
@@ -59,7 +59,7 @@ public class SymbolTableAbsSynTreeVisitor extends AbsSynTreeVisitor<Void> {
   }
 
   @Override
-  public Void visit(AbstractSyntaxTree.PlusNode n) {
+  public Void visit(AbsSynTree.PlusNode n) {
     if (mustPrint()) {
       printNode(n);
     }
@@ -69,7 +69,7 @@ public class SymbolTableAbsSynTreeVisitor extends AbsSynTreeVisitor<Void> {
   }
 
   @Override
-  public Void visit(AbstractSyntaxTree.IntValueNode n) {
+  public Void visit(AbsSynTree.IntValueNode n) {
     if (mustPrint()) {
       printNode(n, String.valueOf(n.getVal()));
     }
@@ -77,7 +77,7 @@ public class SymbolTableAbsSynTreeVisitor extends AbsSynTreeVisitor<Void> {
   }
 
   @Override
-  public Void visit(AbstractSyntaxTree.EqualNode n) {
+  public Void visit(AbsSynTree.EqualNode n) {
     if (mustPrint()) {
       printNode(n);
     }
@@ -87,7 +87,7 @@ public class SymbolTableAbsSynTreeVisitor extends AbsSynTreeVisitor<Void> {
   }
 
   @Override
-  public Void visit(AbstractSyntaxTree.BoolValueNode n) {
+  public Void visit(AbsSynTree.BoolValueNode n) {
     if (mustPrint()) {
       printNode(n, String.valueOf(n.getVal()));
     }
@@ -95,7 +95,7 @@ public class SymbolTableAbsSynTreeVisitor extends AbsSynTreeVisitor<Void> {
   }
 
   @Override
-  public Void visit(AbstractSyntaxTree.IfNode n) {
+  public Void visit(AbsSynTree.IfNode n) {
     if (mustPrint()) {
       printNode(n);
     }
@@ -106,7 +106,7 @@ public class SymbolTableAbsSynTreeVisitor extends AbsSynTreeVisitor<Void> {
   }
 
   @Override
-  public Void visit(AbstractSyntaxTree.PrintNode n) {
+  public Void visit(AbsSynTree.PrintNode n) {
     if (mustPrint()) {
       printNode(n);
     }
@@ -121,7 +121,7 @@ public class SymbolTableAbsSynTreeVisitor extends AbsSynTreeVisitor<Void> {
    * @return nothing.
    */
   @Override
-  public Void visit(AbstractSyntaxTree.ProgLetInNode n) {
+  public Void visit(AbsSynTree.ProgLetInNode n) {
     if (mustPrint()) {
       printNode(n);
     }
@@ -136,7 +136,7 @@ public class SymbolTableAbsSynTreeVisitor extends AbsSynTreeVisitor<Void> {
   }
 
   @Override
-  public Void visit(AbstractSyntaxTree.BoolTypeNode n) {
+  public Void visit(AbsSynTree.BoolTypeNode n) {
     if (mustPrint()) {
       printNode(n);
     }
@@ -144,7 +144,7 @@ public class SymbolTableAbsSynTreeVisitor extends AbsSynTreeVisitor<Void> {
   }
 
   @Override
-  public Void visit(AbstractSyntaxTree.IntTypeNode n) {
+  public Void visit(AbsSynTree.IntTypeNode n) {
     if (mustPrint()) {
       printNode(n);
     }
@@ -158,7 +158,7 @@ public class SymbolTableAbsSynTreeVisitor extends AbsSynTreeVisitor<Void> {
    * @return nothing.
    */
   @Override
-  public Void visit(AbstractSyntaxTree.VarNode n) {
+  public Void visit(AbsSynTree.VarNode n) {
     if (mustPrint()) {
       printNode(n, n.getId());
     }
@@ -173,8 +173,8 @@ public class SymbolTableAbsSynTreeVisitor extends AbsSynTreeVisitor<Void> {
     // Insert and verify if var is already present.
     var index = map.put(n.getId(), entry);
     if (index != null) {
-      System.out.println("Var id " + n.getId() + " at line " + n.getLine()
-          + " already declared.");
+      System.out.printf("Var id %s at line %s already declared.", n.getId(),
+          n.getLine());
       errors++;
     }
 
@@ -182,7 +182,7 @@ public class SymbolTableAbsSynTreeVisitor extends AbsSynTreeVisitor<Void> {
   }
 
   @Override
-  public Void visit(AbstractSyntaxTree.FunNode n) {
+  public Void visit(AbsSynTree.FunNode n) {
     if (mustPrint()) {
       printNode(n, n.getId());
     }
@@ -205,18 +205,6 @@ public class SymbolTableAbsSynTreeVisitor extends AbsSynTreeVisitor<Void> {
 
     // Visit parameter for existing declarations.
     n.getParameterList().forEach(this::visit);
-    /*
-     param -> {
-      var paramEntry = new SymTabEntry(nestingLevel);
-      var paramIndex = map.put(param.getId(), paramEntry);
-      if (paramIndex != null) {
-        System.out.println(
-            "Param id " + param.getId() + " at line " + param.getLine()
-                + " already declared.");
-        errors++;
-      }
-    }
-     */
 
     // Now visit all current nesting level + 1 declarations.
     n.getDeclarationList().forEach(this::visit);
@@ -228,7 +216,7 @@ public class SymbolTableAbsSynTreeVisitor extends AbsSynTreeVisitor<Void> {
   }
 
   @Override
-  public Void visit(AbstractSyntaxTree.ParameterNode n) {
+  public Void visit(AbsSynTree.ParameterNode n) {
     if (mustPrint()) {
       printNode(n, n.getId());
     }
@@ -254,7 +242,7 @@ public class SymbolTableAbsSynTreeVisitor extends AbsSynTreeVisitor<Void> {
    * @return nothing.
    */
   @Override
-  public Void visit(AbstractSyntaxTree.IdNode n) {
+  public Void visit(AbsSynTree.IdNode n) {
     if (mustPrint()) {
       printNode(n, n.getId());
     }
@@ -263,9 +251,9 @@ public class SymbolTableAbsSynTreeVisitor extends AbsSynTreeVisitor<Void> {
     // I fetch each nesting level over me for other uses.
     SymTabEntry entry = lookUp(n.getId());
     if (entry == null) {
-      System.out.printf("Var or Par id %s at line %d not declared.%n",
-          n.getId(),
-          n.getLine());
+      System.out
+          .printf("Var or Par id %s at line %d not declared.%n", n.getId(),
+              n.getLine());
       errors++;
     } else {
       n.setEntry(entry);
@@ -275,7 +263,7 @@ public class SymbolTableAbsSynTreeVisitor extends AbsSynTreeVisitor<Void> {
   }
 
   @Override
-  public Void visit(AbstractSyntaxTree.CallNode n) {
+  public Void visit(AbsSynTree.CallNode n) {
     if (mustPrint()) {
       printNode(n, n.getId());
     }

@@ -1,14 +1,14 @@
 package fool.compiler.ast;
 
 import fool.compiler.ast.lib.AbsSynTreeVisitor;
-import fool.compiler.ast.lib.Node;
+import fool.compiler.ast.lib.nodes.Node;
 import fool.compiler.east.lib.SymTabEntry;
 import java.util.List;
 
 /**
  * Collection of all nodes of the ABS of FOOL language.
  */
-public class AbstractSyntaxTree {
+public class AbsSynTree {
   /**
    * Start node of FOOL language.
    */
@@ -352,11 +352,6 @@ public class AbstractSyntaxTree {
    * The bool TYPE node. This is not a value.
    */
   public static final class BoolTypeNode extends Node {
-
-    public BoolTypeNode() {
-      super();
-    }
-
     /**
      * @param visitor visitor to recall.
      * @param <S>     return type.
@@ -377,6 +372,14 @@ public class AbstractSyntaxTree {
     private final Node then;
     private final Node els;
 
+    /**
+     * Complex constructor with all branches defined. Atm, we don't permit to
+     * declare an if without a branch.
+     *
+     * @param c condition node.
+     * @param t then node.
+     * @param e else node.
+     */
     public IfNode(Node c, Node t, Node e) {
       this.condition = c;
       this.then = t;
@@ -498,7 +501,7 @@ public class AbstractSyntaxTree {
   }
 
   /**
-   * A Function declaration node. Contains all infos to recall it at need.
+   * A Function declaration node. Contains all info to recall it at need.
    * TODO: Expand his features.
    */
   public static final class FunNode extends Node {
@@ -506,7 +509,7 @@ public class AbstractSyntaxTree {
     private final Node retType;
     private final List<Node> declarationList;
     private final Node exp;
-    private final List<ParameterNode> parameterList;
+    private final List<Node> parameterList;
 
     /**
      * Create a rich function declaration node.
@@ -517,7 +520,7 @@ public class AbstractSyntaxTree {
      * @param dl declaration list.
      * @param e  expression inside the function scope.
      */
-    public FunNode(String i, int line, Node rt, List<ParameterNode> pl,
+    public FunNode(String i, int line, Node rt, List<Node> pl,
                    List<Node> dl, Node e) {
       super(line);
       id = i;
@@ -536,7 +539,7 @@ public class AbstractSyntaxTree {
      * @param dl declaration list.
      * @param e  expression inside the function scope.
      */
-    public FunNode(String i, Node rt, List<ParameterNode> pl, List<Node> dl,
+    public FunNode(String i, Node rt, List<Node> pl, List<Node> dl,
                    Node e) {
       super();
       id = i;
@@ -592,7 +595,7 @@ public class AbstractSyntaxTree {
      *
      * @return parameter list.
      */
-    public List<ParameterNode> getParameterList() {
+    public List<Node> getParameterList() {
       return parameterList;
     }
   }
@@ -735,20 +738,28 @@ public class AbstractSyntaxTree {
 
   /**
    * A Function type node in the form of:
-   * arg type, arg type -> ret type
+   * arg type, arg type -> ret type.
    */
   public static final class ArrowTypeNode extends Node {
-    List<Node> parameterList;
-    Node ret;
+    private final List<Node> parameterTypesList;
+    private final Node returnType;
 
     public ArrowTypeNode(List<Node> p, Node r) {
-      parameterList = p;
-      ret = r;
+      parameterTypesList = p;
+      returnType = r;
     }
 
     @Override
     public <S> S accept(AbsSynTreeVisitor<S> visitor) {
       return visitor.visit(this);
+    }
+
+    public Node getReturnType() {
+      return returnType;
+    }
+
+    public List<Node> getParameterTypesList() {
+      return parameterTypesList;
     }
   }
 }

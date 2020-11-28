@@ -3,7 +3,7 @@ package fool;
 import fool.compiler.ast.AbsSynTreeGenSynTreeVisitor;
 import fool.compiler.ast.CalcAbsSynTreeVisitor;
 import fool.compiler.ast.PrintAbsSynTreeVisitor;
-import fool.compiler.ast.lib.Node;
+import fool.compiler.ast.lib.nodes.Node;
 import fool.compiler.east.PrintEnrAbsSynTreeVisitor;
 import fool.compiler.east.SymbolTableAbsSynTreeVisitor;
 import java.io.FileNotFoundException;

@@ -22,7 +22,7 @@ public class CalcAbsSynTreeVisitor extends AbsSynTreeVisitor<Integer> {
    * @param n node to visit.
    */
   @Override
-  public Integer visit(AbstractSyntaxTree.ProgNode n) {
+  public Integer visit(AbsSynTree.ProgNode n) {
     if (super.mustPrint()) {
       super.printNode(n);
     }
@@ -35,7 +35,7 @@ public class CalcAbsSynTreeVisitor extends AbsSynTreeVisitor<Integer> {
    * @param n node to visit.
    */
   @Override
-  public Integer visit(AbstractSyntaxTree.TimesNode n) {
+  public Integer visit(AbsSynTree.TimesNode n) {
     if (super.mustPrint()) {
       super.printNode(n);
     }
@@ -48,7 +48,7 @@ public class CalcAbsSynTreeVisitor extends AbsSynTreeVisitor<Integer> {
    * @param n node to visit.
    */
   @Override
-  public Integer visit(AbstractSyntaxTree.PlusNode n) {
+  public Integer visit(AbsSynTree.PlusNode n) {
     if (super.mustPrint()) {
       super.printNode(n);
     }
@@ -61,7 +61,7 @@ public class CalcAbsSynTreeVisitor extends AbsSynTreeVisitor<Integer> {
    * @param n node to visit.
    */
   @Override
-  public Integer visit(AbstractSyntaxTree.IntValueNode n) {
+  public Integer visit(AbsSynTree.IntValueNode n) {
     if (super.mustPrint()) {
       super.printNode(n);
     }
@@ -69,7 +69,7 @@ public class CalcAbsSynTreeVisitor extends AbsSynTreeVisitor<Integer> {
   }
 
   @Override
-  public Integer visit(AbstractSyntaxTree.EqualNode n) {
+  public Integer visit(AbsSynTree.EqualNode n) {
     if (super.mustPrint()) {
       super.printNode(n);
     }
@@ -78,7 +78,7 @@ public class CalcAbsSynTreeVisitor extends AbsSynTreeVisitor<Integer> {
   }
 
   @Override
-  public Integer visit(AbstractSyntaxTree.BoolValueNode n) {
+  public Integer visit(AbsSynTree.BoolValueNode n) {
     if (super.mustPrint()) {
       super.printNode(n);
     }
@@ -86,7 +86,7 @@ public class CalcAbsSynTreeVisitor extends AbsSynTreeVisitor<Integer> {
   }
 
   @Override
-  public Integer visit(AbstractSyntaxTree.IfNode n) {
+  public Integer visit(AbsSynTree.IfNode n) {
     if (super.mustPrint()) {
       super.printNode(n);
     }
@@ -95,7 +95,7 @@ public class CalcAbsSynTreeVisitor extends AbsSynTreeVisitor<Integer> {
   }
 
   @Override
-  public Integer visit(AbstractSyntaxTree.PrintNode n) {
+  public Integer visit(AbsSynTree.PrintNode n) {
     if (super.mustPrint()) {
       super.printNode(n);
     }
@@ -103,7 +103,7 @@ public class CalcAbsSynTreeVisitor extends AbsSynTreeVisitor<Integer> {
   }
 
   @Override
-  public Integer visit(AbstractSyntaxTree.ParameterNode n) {
+  public Integer visit(AbsSynTree.ParameterNode n) {
     if (super.mustPrint()) {
       super.printNode(n, n.getId());
     }

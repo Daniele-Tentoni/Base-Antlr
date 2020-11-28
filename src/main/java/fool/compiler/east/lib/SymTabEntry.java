@@ -2,6 +2,7 @@ package fool.compiler.east.lib;
 
 import fool.compiler.Visitable;
 import fool.compiler.ast.lib.AbsSynTreeVisitor;
+import fool.compiler.ast.lib.nodes.Node;
 import java.util.Objects;
 
 /**
@@ -10,6 +11,7 @@ import java.util.Objects;
  */
 public class SymTabEntry implements Visitable {
   private final int nestingLevel;
+  private Node type;
 
   /**
    * Create the entry with the defined nesting level.

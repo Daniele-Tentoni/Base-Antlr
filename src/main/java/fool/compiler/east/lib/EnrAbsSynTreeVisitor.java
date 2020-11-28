@@ -1,6 +1,7 @@
 package fool.compiler.east.lib;
 
 import fool.compiler.UnImplementedException;
+import fool.compiler.ast.AbsSynTree;
 import fool.compiler.ast.lib.AbsSynTreeVisitor;
 
 /**
@@ -42,6 +43,16 @@ public class EnrAbsSynTreeVisitor<T> extends AbsSynTreeVisitor<T> {
    * @return value calculated.
    */
   public T visitSymTabEntry(SymTabEntry s) {
+    throw new UnImplementedException();
+  }
+
+  /**
+   * Visit an Arrow Type Node, applying visitor pattern.
+   *
+   * @param n node.
+   * @return value calculated.
+   */
+  public T visit(AbsSynTree.ArrowTypeNode n) {
     throw new UnImplementedException();
   }
 }

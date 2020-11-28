@@ -1,13 +1,13 @@
 package fool.compiler.ast.lib;
 
-import fool.compiler.ast.AbstractSyntaxTree;
+import fool.compiler.ast.AbsSynTree;
 import fool.compiler.UnImplementedException;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class AbstractSyntaxTreeVisitorTest {
+public class AbsSynTreeVisitorTest {
 
   private AbsSynTreeVisitor<Integer> visitor;
 
@@ -19,7 +19,7 @@ public class AbstractSyntaxTreeVisitorTest {
   @Test
   public void testUnimplementedExceptionsOnProgNode() {
     try {
-      visitor.visit(new AbstractSyntaxTree.ProgNode(null));
+      visitor.visit(new AbsSynTree.ProgNode(null));
       fail("Expected an FileNotFoundException");
     } catch (UnImplementedException e) {
       assertEquals("ProgNode", e.getMessage());
@@ -29,7 +29,7 @@ public class AbstractSyntaxTreeVisitorTest {
   @Test
   public void testUnimplementedExceptionsOnTimesNode() {
     try {
-      visitor.visit(new AbstractSyntaxTree.TimesNode(null, null));
+      visitor.visit(new AbsSynTree.TimesNode(null, null));
       fail("Expected an FileNotFoundException");
     } catch (UnImplementedException e) {
       assertNull(e.getMessage());
@@ -39,7 +39,7 @@ public class AbstractSyntaxTreeVisitorTest {
   @Test
   public void testUnimplementedExceptionsOnPlusNode() {
     try {
-      visitor.visit(new AbstractSyntaxTree.PlusNode(null, null));
+      visitor.visit(new AbsSynTree.PlusNode(null, null));
       fail("Expected an FileNotFoundException");
     } catch (UnImplementedException e) {
       assertNull(e.getMessage());
@@ -49,7 +49,7 @@ public class AbstractSyntaxTreeVisitorTest {
   @Test
   public void testUnimplementedExceptionsOnIntNode() {
     try {
-      visitor.visit(new AbstractSyntaxTree.IntValueNode(0));
+      visitor.visit(new AbsSynTree.IntValueNode(0));
       fail("Expected an FileNotFoundException");
     } catch (UnImplementedException e) {
       assertNull(e.getMessage());
@@ -59,7 +59,7 @@ public class AbstractSyntaxTreeVisitorTest {
   @Test
   public void testUnimplementedExceptionsOnEqualNode() {
     try {
-      visitor.visit(new AbstractSyntaxTree.EqualNode(null, null));
+      visitor.visit(new AbsSynTree.EqualNode(null, null));
       fail("Expected an FileNotFoundException");
     } catch (UnImplementedException e) {
       assertNull(e.getMessage());
@@ -69,7 +69,7 @@ public class AbstractSyntaxTreeVisitorTest {
   @Test
   public void testUnimplementedExceptionsOnBoolNode() {
     try {
-      visitor.visit(new AbstractSyntaxTree.BoolValueNode(true));
+      visitor.visit(new AbsSynTree.BoolValueNode(true));
       fail("Expected an FileNotFoundException");
     } catch (UnImplementedException e) {
       assertNull(e.getMessage());
@@ -79,7 +79,7 @@ public class AbstractSyntaxTreeVisitorTest {
   @Test
   public void testUnimplementedExceptionsOnIfNode() {
     try {
-      visitor.visit(new AbstractSyntaxTree.IfNode(null, null, null));
+      visitor.visit(new AbsSynTree.IfNode(null, null, null));
       fail("Expected an FileNotFoundException");
     } catch (UnImplementedException e) {
       assertNull(e.getMessage());
@@ -89,7 +89,7 @@ public class AbstractSyntaxTreeVisitorTest {
   @Test
   public void testUnimplementedExceptionsOnPrintNode() {
     try {
-      visitor.visit(new AbstractSyntaxTree.PrintNode(null));
+      visitor.visit(new AbsSynTree.PrintNode(null));
       fail("Expected an FileNotFoundException");
     } catch (UnImplementedException e) {
       assertNull(e.getMessage());
@@ -99,7 +99,7 @@ public class AbstractSyntaxTreeVisitorTest {
   @Test
   public void testUnimplementedExceptionsOnProgLetInNode() {
     try {
-      visitor.visit(new AbstractSyntaxTree.ProgLetInNode(null, null));
+      visitor.visit(new AbsSynTree.ProgLetInNode(null, null));
       fail("Expected an FileNotFoundException");
     } catch (UnImplementedException e) {
       assertNull(e.getMessage());
@@ -109,7 +109,7 @@ public class AbstractSyntaxTreeVisitorTest {
   @Test
   public void testUnimplementedExceptionsOnBoolTypeNode() {
     try {
-      visitor.visit(new AbstractSyntaxTree.BoolTypeNode());
+      visitor.visit(new AbsSynTree.BoolTypeNode());
       fail("Expected an FileNotFoundException");
     } catch (UnImplementedException e) {
       assertNull(e.getMessage());
@@ -119,7 +119,7 @@ public class AbstractSyntaxTreeVisitorTest {
   @Test
   public void testUnimplementedExceptionsOnIntTypeNode() {
     try {
-      visitor.visit(new AbstractSyntaxTree.IntTypeNode());
+      visitor.visit(new AbsSynTree.IntTypeNode());
       fail("Expected an FileNotFoundException");
     } catch (UnImplementedException e) {
       assertNull(e.getMessage());
@@ -129,7 +129,7 @@ public class AbstractSyntaxTreeVisitorTest {
   @Test
   public void testUnimplementedExceptionsOnVarNode() {
     try {
-      visitor.visit(new AbstractSyntaxTree.VarNode(null, null, null));
+      visitor.visit(new AbsSynTree.VarNode(null, null, null));
       fail("Expected an FileNotFoundException");
     } catch (UnImplementedException e) {
       assertNull(e.getMessage());
@@ -139,7 +139,7 @@ public class AbstractSyntaxTreeVisitorTest {
   @Test
   public void testUnimplementedExceptionsOnFunNode() {
     try {
-      visitor.visit(new AbstractSyntaxTree.FunNode(null, null, null, null,
+      visitor.visit(new AbsSynTree.FunNode(null, null, null, null,
           null));
       fail("Expected an FileNotFoundException");
     } catch (UnImplementedException e) {
@@ -150,7 +150,7 @@ public class AbstractSyntaxTreeVisitorTest {
   @Test
   public void testUnimplementedExceptionsOnIdNode() {
     try {
-      visitor.visit(new AbstractSyntaxTree.IdNode(null, 0));
+      visitor.visit(new AbsSynTree.IdNode(null, 0));
       fail("Expected an FileNotFoundException");
     } catch (UnImplementedException e) {
       assertNull(e.getMessage());
@@ -160,7 +160,7 @@ public class AbstractSyntaxTreeVisitorTest {
   @Test
   public void testUnimplementedExceptionsOnCallNode() {
     try {
-      visitor.visit(new AbstractSyntaxTree.CallNode(null, null));
+      visitor.visit(new AbsSynTree.CallNode(null, null));
       fail("Expected an FileNotFoundException");
     } catch (UnImplementedException e) {
       assertNull(e.getMessage());
