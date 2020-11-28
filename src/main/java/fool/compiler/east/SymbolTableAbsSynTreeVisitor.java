@@ -135,6 +135,22 @@ public class SymbolTableAbsSynTreeVisitor extends AbsSynTreeVisitor<Void> {
     return null;
   }
 
+  @Override
+  public Void visit(AbstractSyntaxTree.BoolTypeNode n) {
+    if (mustPrint()) {
+      printNode(n);
+    }
+    return null;
+  }
+
+  @Override
+  public Void visit(AbstractSyntaxTree.IntTypeNode n) {
+    if (mustPrint()) {
+      printNode(n);
+    }
+    return null;
+  }
+
   /**
    * Fill a symbol table with a variable initialization.
    *
@@ -188,7 +204,9 @@ public class SymbolTableAbsSynTreeVisitor extends AbsSynTreeVisitor<Void> {
     symbolTable.add(hashMap);
 
     // Visit parameter for existing declarations.
-    n.getParameterList().forEach(param -> {
+    n.getParameterList().forEach(this::visit);
+    /*
+     param -> {
       var paramEntry = new SymTabEntry(nestingLevel);
       var paramIndex = map.put(param.getId(), paramEntry);
       if (paramIndex != null) {
@@ -197,7 +215,8 @@ public class SymbolTableAbsSynTreeVisitor extends AbsSynTreeVisitor<Void> {
                 + " already declared.");
         errors++;
       }
-    });
+    }
+     */
 
     // Now visit all current nesting level + 1 declarations.
     n.getDeclarationList().forEach(this::visit);
@@ -205,6 +224,26 @@ public class SymbolTableAbsSynTreeVisitor extends AbsSynTreeVisitor<Void> {
 
     // After visit remove the top nesting level map.
     symbolTable.remove(nestingLevel--);
+    return null;
+  }
+
+  @Override
+  public Void visit(AbstractSyntaxTree.ParameterNode n) {
+    if (mustPrint()) {
+      printNode(n, n.getId());
+    }
+
+    var map = symbolTable.get(nestingLevel);
+    var entry = new SymTabEntry(nestingLevel);
+    var index = map.put(n.getId(), entry);
+    if (index != null) {
+      System.out.printf("Param id %s at line %s already declared.", n.getId(),
+          n.getLine());
+      errors++;
+    }
+
+    visit(n.getType());
+
     return null;
   }
 
@@ -220,7 +259,7 @@ public class SymbolTableAbsSynTreeVisitor extends AbsSynTreeVisitor<Void> {
       printNode(n, n.getId());
     }
 
-    //Here we are at a certain nesting level.
+    // Here we are at a certain nesting level.
     // I fetch each nesting level over me for other uses.
     SymTabEntry entry = lookUp(n.getId());
     if (entry == null) {

@@ -235,7 +235,8 @@ public class AbstractSyntaxTree {
 
     /**
      * Create a simple equal node.
-     * @param left left node.
+     *
+     * @param left  left node.
      * @param right right node.
      */
     public EqualNode(Node left, Node right) {
@@ -729,6 +730,25 @@ public class AbstractSyntaxTree {
      */
     public List<Node> getArgumentList() {
       return argumentList;
+    }
+  }
+
+  /**
+   * A Function type node in the form of:
+   * arg type, arg type -> ret type
+   */
+  public static final class ArrowTypeNode extends Node {
+    List<Node> parameterList;
+    Node ret;
+
+    public ArrowTypeNode(List<Node> p, Node r) {
+      parameterList = p;
+      ret = r;
+    }
+
+    @Override
+    public <S> S accept(AbsSynTreeVisitor<S> visitor) {
+      return visitor.visit(this);
     }
   }
 }
