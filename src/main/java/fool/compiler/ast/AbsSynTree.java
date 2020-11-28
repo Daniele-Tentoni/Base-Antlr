@@ -266,19 +266,6 @@ public class AbsSynTree {
     private final Node type;
 
     /**
-     * Generate a Parameter Node.
-     *
-     * @param i    identifier.
-     * @param line declaration line.
-     * @param t    data type.
-     */
-    public ParameterNode(String i, int line, Node t) {
-      super(line);
-      id = i;
-      type = t;
-    }
-
-    /**
      * Simple constructor without line.
      * Generate a Parameter Node.
      *
@@ -286,7 +273,6 @@ public class AbsSynTree {
      * @param t data type.
      */
     public ParameterNode(String i, Node t) {
-      super();
       id = i;
       type = t;
     }
@@ -438,21 +424,6 @@ public class AbsSynTree {
     private final Node exp;
 
     /**
-     * Generate a rich Variable Declaration Node.
-     *
-     * @param i identifier.
-     * @param t type.
-     * @param v value. This is a functional language, there aren't
-     *          declaration without assignment.
-     */
-    public VarNode(String i, int line, Node t, Node v) {
-      super(line);
-      id = i;
-      type = t;
-      exp = v;
-    }
-
-    /**
      * Generate a simple Variable Declaration Node.
      *
      * @param i identifier.
@@ -461,7 +432,6 @@ public class AbsSynTree {
      *          declaration without assignment.
      */
     public VarNode(String i, Node t, Node v) {
-      super();
       id = i;
       type = t;
       exp = v;
@@ -510,25 +480,6 @@ public class AbsSynTree {
     private final List<Node> declarationList;
     private final Node exp;
     private final List<Node> parameterList;
-
-    /**
-     * Create a rich function declaration node.
-     *
-     * @param i  identifier.
-     * @param rt return type.
-     * @param pl parameter list.
-     * @param dl declaration list.
-     * @param e  expression inside the function scope.
-     */
-    public FunNode(String i, int line, Node rt, List<Node> pl,
-                   List<Node> dl, Node e) {
-      super(line);
-      id = i;
-      retType = rt;
-      parameterList = pl;
-      declarationList = dl;
-      exp = e;
-    }
 
     /**
      * Create a simple function declaration node.
@@ -677,19 +628,6 @@ public class AbsSynTree {
      */
     public CallNode(String i, List<Node> p) {
       super();
-      id = i;
-      argumentList = p;
-    }
-
-    /**
-     * Create a rich function call node.
-     *
-     * @param i    identifier called.
-     * @param line declaration line.
-     * @param p    parameters list called.
-     */
-    public CallNode(String i, int line, List<Node> p) {
-      super(line);
       id = i;
       argumentList = p;
     }

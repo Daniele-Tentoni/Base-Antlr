@@ -26,6 +26,20 @@ public class PrintAbsSynTreeVisitor extends AbsSynTreeVisitor<Void> {
   }
 
   /**
+   * Visit a variable declaration block.
+   *
+   * @param n block node.
+   * @return nothing.
+   */
+  @Override
+  public Void visit(AbsSynTree.ProgLetInNode n) {
+    printNode(n);
+    n.getDeclarationList().forEach(this::visit);
+    visit(n.getExpression());
+    return null;
+  }
+
+  /**
    * Visita per il node Times.
    *
    * @param n il Times Node da visitare.
@@ -113,30 +127,14 @@ public class PrintAbsSynTreeVisitor extends AbsSynTreeVisitor<Void> {
   }
 
   /**
-   * Visit a variable declaration block.
+   * Print bool type node and visit is type and exp.
    *
-   * @param n block node.
+   * @param n bool type node to visit.
    * @return nothing.
    */
   @Override
-  public Void visit(AbsSynTree.ProgLetInNode n) {
+  public Void visit(AbsSynTree.BoolTypeNode n) {
     printNode(n);
-    n.getDeclarationList().forEach(this::visit);
-    visit(n.getExpression());
-    return null;
-  }
-
-  /**
-   * Print var node and visit is type and exp.
-   *
-   * @param n var node to visit.
-   * @return nothing.
-   */
-  @Override
-  public Void visit(AbsSynTree.VarNode n) {
-    printNode(n, n.getId());
-    visit(n.getType());
-    visit(n.getExp());
     return null;
   }
 
@@ -153,14 +151,16 @@ public class PrintAbsSynTreeVisitor extends AbsSynTreeVisitor<Void> {
   }
 
   /**
-   * Print bool type node and visit is type and exp.
+   * Print var node and visit is type and exp.
    *
-   * @param n bool type node to visit.
+   * @param n var node to visit.
    * @return nothing.
    */
   @Override
-  public Void visit(AbsSynTree.BoolTypeNode n) {
-    printNode(n);
+  public Void visit(AbsSynTree.VarNode n) {
+    printNode(n, n.getId());
+    visit(n.getType());
+    visit(n.getExp());
     return null;
   }
 

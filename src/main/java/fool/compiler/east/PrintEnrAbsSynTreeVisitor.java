@@ -4,6 +4,9 @@ import fool.compiler.ast.AbsSynTree;
 import fool.compiler.east.lib.EnrAbsSynTreeVisitor;
 import fool.compiler.east.lib.SymTabEntry;
 
+/**
+ * Print the Enriched Abstract Syntax Tree.
+ */
 public class PrintEnrAbsSynTreeVisitor extends EnrAbsSynTreeVisitor<Void> {
   public PrintEnrAbsSynTreeVisitor() {
     super(true);
@@ -17,16 +20,10 @@ public class PrintEnrAbsSynTreeVisitor extends EnrAbsSynTreeVisitor<Void> {
   }
 
   @Override
-  public Void visit(AbsSynTree.IntValueNode n) {
-    printNode(n, String.valueOf(n.getVal()));
-    return null;
-  }
-
-  @Override
-  public Void visit(AbsSynTree.PlusNode n) {
+  public Void visit(AbsSynTree.ProgLetInNode n) {
     printNode(n);
-    visit(n.getLeft());
-    visit(n.getRight());
+    n.getDeclarationList().forEach(this::visit);
+    visit(n.getExpression());
     return null;
   }
 
@@ -39,10 +36,31 @@ public class PrintEnrAbsSynTreeVisitor extends EnrAbsSynTreeVisitor<Void> {
   }
 
   @Override
+  public Void visit(AbsSynTree.PlusNode n) {
+    printNode(n);
+    visit(n.getLeft());
+    visit(n.getRight());
+    return null;
+  }
+
+  @Override
+  public Void visit(AbsSynTree.IntValueNode n) {
+    printNode(n, String.valueOf(n.getVal()));
+    return null;
+  }
+
+  @Override
   public Void visit(AbsSynTree.EqualNode n) {
     printNode(n);
     visit(n.getLeft());
     visit(n.getRight());
+    return null;
+  }
+
+  @Override
+  public Void visit(AbsSynTree.ParameterNode n) {
+    printNode(n, n.getId());
+    visit(n.getType());
     return null;
   }
 
@@ -65,14 +83,6 @@ public class PrintEnrAbsSynTreeVisitor extends EnrAbsSynTreeVisitor<Void> {
   public Void visit(AbsSynTree.PrintNode n) {
     printNode(n);
     visit(n.getPrint());
-    return null;
-  }
-
-  @Override
-  public Void visit(AbsSynTree.ProgLetInNode n) {
-    printNode(n);
-    n.getDeclarationList().forEach(this::visit);
-    visit(n.getExpression());
     return null;
   }
 
@@ -124,13 +134,6 @@ public class PrintEnrAbsSynTreeVisitor extends EnrAbsSynTreeVisitor<Void> {
       visit(n.getEntry());
     }
     n.getArgumentList().forEach(this::visit);
-    return null;
-  }
-
-  @Override
-  public Void visit(AbsSynTree.ParameterNode n) {
-    printNode(n, n.getId());
-    visit(n.getType());
     return null;
   }
 

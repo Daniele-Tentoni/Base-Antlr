@@ -1,11 +1,10 @@
 package fool.compiler.ast.lib;
 
+import fool.compiler.SyntaxTreeUtils;
 import fool.compiler.UnImplementedException;
 import fool.compiler.Visitable;
 import fool.compiler.ast.AbsSynTree;
 import fool.compiler.ast.lib.nodes.Node;
-
-import static fool.compiler.SyntaxTreeUtils.extractNodeName;
 
 /**
  * Visit an Abstract Syntax Tree. Implement to return a different type.
@@ -45,17 +44,24 @@ public class AbsSynTreeVisitor<T> {
   protected void printNode(Node n, String s) {
     // returns a string compiler.AST$ClassName
     final String className = n.getClass().getName();
-    final String nodeName = extractNodeName(className);
+    final String nodeName = SyntaxTreeUtils.extractNodeName(className);
     System.out.println(indent + nodeName + ": " + s);
   }
 
   protected void printNode(Node n) {
     // TODO: We can refactor those two methods?
     final String className = n.getClass().getName();
-    final String nodeName = extractNodeName(className);
+    final String nodeName = SyntaxTreeUtils.extractNodeName(className);
     System.out.println(indent + nodeName);
   }
 
+  /**
+   * Visit a visitable object printing an additional String.
+   *
+   * @param v visitable object.
+   * @param s additional string to print.
+   * @return calculated value.
+   */
   public T visit(Visitable v, String s) {
     if (mustPrint()) {
       final String temp = indent;
@@ -92,6 +98,10 @@ public class AbsSynTreeVisitor<T> {
    */
   public T visit(AbsSynTree.ProgNode n) {
     throw new UnImplementedException("ProgNode");
+  }
+
+  public T visit(AbsSynTree.ProgLetInNode n) {
+    throw new UnImplementedException();
   }
 
   /**
@@ -141,10 +151,6 @@ public class AbsSynTreeVisitor<T> {
   }
 
   public T visit(AbsSynTree.PrintNode n) {
-    throw new UnImplementedException();
-  }
-
-  public T visit(AbsSynTree.ProgLetInNode n) {
     throw new UnImplementedException();
   }
 

@@ -3,12 +3,12 @@ package fool.compiler.ast;
 import fool.FOOLBaseVisitor;
 import fool.compiler.SyntaxTreeUtils;
 import fool.compiler.ast.lib.nodes.Node;
+import org.antlr.v4.runtime.ParserRuleContext;
+import org.antlr.v4.runtime.tree.ParseTree;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import org.antlr.v4.runtime.ParserRuleContext;
-import org.antlr.v4.runtime.tree.ParseTree;
 
 /**
  * Visit the Abstract Syntax Tree of FOOL language.
@@ -28,7 +28,9 @@ public class AbsSynTreeGenSynTreeVisitor extends FOOLBaseVisitor<Node> {
   }
 
   /**
-   * @return process must print debug info during execution.
+   * Return if the process must print debug info during execution.
+   *
+   * @return true for print, false otherwise.
    */
   protected boolean mustPrint() {
     return print;
@@ -45,11 +47,12 @@ public class AbsSynTreeGenSynTreeVisitor extends FOOLBaseVisitor<Node> {
     Class<?> parentClass = ctxClass.getSuperclass();
     if (!parentClass.equals(ParserRuleContext.class)) {
       // parentClass is the var context (and not ctxClass itself)
-      var pName = SyntaxTreeUtils.extractCtxName(parentClass.getName());
-      prefix = SyntaxTreeUtils.lowerFirstChar(pName) + ": production #";
+      var pcName = SyntaxTreeUtils.extractCtxName(parentClass.getName());
+      prefix = SyntaxTreeUtils.lowerFirstChar(pcName) + ": production #";
     }
-    var cName = SyntaxTreeUtils.extractCtxName(ctxClass.getName());
-    System.out.println(indent + prefix + SyntaxTreeUtils.lowerFirstChar(cName));
+    var clName = SyntaxTreeUtils.extractCtxName(ctxClass.getName());
+    System.out.printf("%s%s%s", indent, prefix,
+        SyntaxTreeUtils.lowerFirstChar(clName));
   }
 
   /**
@@ -112,11 +115,16 @@ public class AbsSynTreeGenSynTreeVisitor extends FOOLBaseVisitor<Node> {
       printVarAndProdName(c);
     }
 
-    var name = c.ID().getText();
-    var line = c.VAR().getSymbol().getLine();
-    var type = visit(c.type());
-    var val = visit(c.exp());
-    return new AbsSynTree.VarNode(name, line, type, val);
+    // Generate var node.
+    final var name = c.ID().getText();
+    final var type = visit(c.type());
+    final var val = visit(c.exp());
+    final var node = new AbsSynTree.VarNode(name, type, val);
+
+    // Add line to report errors.
+    final var line = c.VAR().getSymbol().getLine();
+    node.setLine(line);
+    return node;
   }
 
   @Override
@@ -126,26 +134,34 @@ public class AbsSynTreeGenSynTreeVisitor extends FOOLBaseVisitor<Node> {
     }
 
     final var id = c.ID(0).getText();
-    final var line = c.ID(0).getSymbol().getLine();
 
-    // Generate parameter list.
-    List<Node> pList =
+    List<Node> pl =
         IntStream.range(1, c.COLON().size()).mapToObj(i -> {
+          // Generate parameter node.
           final var pId = c.ID(i).getText();
-          final var pLine = c.COLON(i).getSymbol().getLine();
           final var pType = visit(c.type(i));
-          return new AbsSynTree.ParameterNode(pId,
-              pLine,
+          final var pNode = new AbsSynTree.ParameterNode(pId,
               pType);
+
+          // Set his line to report errors.
+          final var pLine = c.COLON(i).getSymbol().getLine();
+          pNode.setLine(pLine);
+
+          return pNode;
         }).collect(Collectors.toList());
 
     // Generate declaration list.
-    var dList = c.dec().stream().map(this::visit).collect(Collectors.toList());
+    final var dl =
+        c.dec().stream().map(this::visit).collect(Collectors.toList());
 
-    var returnType = visit(c.type(0));
-    var exp = visit(c.exp());
-    return new AbsSynTree.FunNode(id, line, returnType,
-        pList, dList, exp);
+    final var returnType = visit(c.type(0));
+    final var exp = visit(c.exp());
+    final var node = new AbsSynTree.FunNode(id, returnType,
+        pl, dl, exp);
+
+    final var line = c.ID(0).getSymbol().getLine();
+    node.setLine(line);
+    return node;
   }
 
   @Override
@@ -154,22 +170,21 @@ public class AbsSynTreeGenSynTreeVisitor extends FOOLBaseVisitor<Node> {
       printVarAndProdName(c);
     }
 
-    var name = c.ID().getText();
-    var line = c.ID().getSymbol().getLine();
-    var params = new LinkedList<Node>();
+    // Generate call node.
+    final var name = c.ID().getText();
+    final var params = new LinkedList<Node>();
     c.exp().forEach(elem -> params.add(visit(elem)));
-    return new AbsSynTree.CallNode(name, line, params);
+    final var node = new AbsSynTree.CallNode(name, params);
+
+    // Add line number to report errors.
+    final var line = c.ID().getSymbol().getLine();
+    node.setLine(line);
+    return node;
   }
 
   @Override
-  public Node visitId(final fool.FOOLParser.IdContext c) {
-    if (mustPrint()) {
-      printVarAndProdName(c);
-    }
-
-    var name = c.ID().getText();
-    var line = c.ID().getSymbol().getLine();
-    return new AbsSynTree.IdNode(name, line);
+  public Node visitPrint(final fool.FOOLParser.PrintContext c) {
+    return new AbsSynTree.PrintNode(visit(c.exp()));
   }
 
   @Override
@@ -179,15 +194,6 @@ public class AbsSynTreeGenSynTreeVisitor extends FOOLBaseVisitor<Node> {
     }
 
     return new AbsSynTree.TimesNode(visit(c.exp(0)), visit(c.exp(1)));
-  }
-
-  @Override
-  public Node visitPlus(final fool.FOOLParser.PlusContext c) {
-    if (mustPrint()) {
-      printVarAndProdName(c);
-    }
-
-    return new AbsSynTree.PlusNode(visit(c.exp(0)), visit(c.exp(1)));
   }
 
   /**
@@ -203,34 +209,6 @@ public class AbsSynTreeGenSynTreeVisitor extends FOOLBaseVisitor<Node> {
     }
 
     return visit(c.exp());
-  }
-
-  @Override
-  public Node visitInteger(final fool.FOOLParser.IntegerContext c) {
-    int v = Integer.parseInt(c.NUM().getText());
-    boolean minus = c.MINUS() != null;
-    int res = minus ? -v : v;
-    if (mustPrint()) {
-      printVarAndProdName(c);
-    }
-    //System.out.println(
-    //    indent + "exp: prod with " + (minus ? "MINUS " : "") + "NUM " + res);
-
-    return new AbsSynTree.IntValueNode(res);
-  }
-
-  @Override
-  public Node visitEq(final fool.FOOLParser.EqContext c) {
-    if (mustPrint()) {
-      printVarAndProdName(c);
-    }
-
-    return new AbsSynTree.EqualNode(visit(c.exp(0)), visit(c.exp(1)));
-  }
-
-  @Override
-  public Node visitPrint(final fool.FOOLParser.PrintContext c) {
-    return new AbsSynTree.PrintNode(visit(c.exp()));
   }
 
   @Override
@@ -252,6 +230,40 @@ public class AbsSynTreeGenSynTreeVisitor extends FOOLBaseVisitor<Node> {
   }
 
   @Override
+  public Node visitInteger(final fool.FOOLParser.IntegerContext c) {
+    int v = Integer.parseInt(c.NUM().getText());
+    boolean minus = c.MINUS() != null;
+    int res = minus ? -v : v;
+    if (mustPrint()) {
+      printVarAndProdName(c);
+    }
+    //System.out.println(
+    //    indent + "exp: prod with " + (minus ? "MINUS " : "") + "NUM " + res);
+
+    return new AbsSynTree.IntValueNode(res);
+  }
+
+  @Override
+  public Node visitId(final fool.FOOLParser.IdContext c) {
+    if (mustPrint()) {
+      printVarAndProdName(c);
+    }
+
+    var name = c.ID().getText();
+    var line = c.ID().getSymbol().getLine();
+    return new AbsSynTree.IdNode(name, line);
+  }
+
+  @Override
+  public Node visitEq(final fool.FOOLParser.EqContext c) {
+    if (mustPrint()) {
+      printVarAndProdName(c);
+    }
+
+    return new AbsSynTree.EqualNode(visit(c.exp(0)), visit(c.exp(1)));
+  }
+
+  @Override
   public Node visitIf(final fool.FOOLParser.IfContext c) {
     if (mustPrint()) {
       printVarAndProdName(c);
@@ -260,6 +272,15 @@ public class AbsSynTreeGenSynTreeVisitor extends FOOLBaseVisitor<Node> {
         visit(c.exp(0)),
         visit(c.exp(1)),
         visit(c.exp(2)));
+  }
+
+  @Override
+  public Node visitPlus(final fool.FOOLParser.PlusContext c) {
+    if (mustPrint()) {
+      printVarAndProdName(c);
+    }
+
+    return new AbsSynTree.PlusNode(visit(c.exp(0)), visit(c.exp(1)));
   }
 
   @Override

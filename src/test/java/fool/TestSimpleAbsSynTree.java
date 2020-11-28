@@ -6,15 +6,16 @@ import fool.compiler.ast.PrintAbsSynTreeVisitor;
 import fool.compiler.ast.lib.nodes.Node;
 import fool.compiler.east.PrintEnrAbsSynTreeVisitor;
 import fool.compiler.east.SymbolTableAbsSynTreeVisitor;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import org.antlr.v4.runtime.tree.ParseTree;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-
+/**
+ * Test if version 1 of language is supported.
+ */
 public class TestSimpleAbsSynTree {
   private FOOLObjectFactory factory;
 
@@ -28,12 +29,12 @@ public class TestSimpleAbsSynTree {
     String fileName = "non.exist";
     try {
       factory.getLexer(fileName);
-      fail("Expected an FileNotFoundException");
+      Assert.fail("Expected an FileNotFoundException");
     } catch (FileNotFoundException e) {
-      assertEquals(String.format("Not found %s file.", fileName),
+      Assert.assertEquals(String.format("Not found %s file.", fileName),
           e.getMessage());
     } catch (Exception e) {
-      fail("Unexpected exception thrown.");
+      Assert.fail("Unexpected exception thrown.");
     }
   }
 
@@ -49,8 +50,8 @@ public class TestSimpleAbsSynTree {
     log("Prog");
     log("Lexical errors: " + lexer.lexicalErrors);
     log("Syntax errors: " + parser.getNumberOfSyntaxErrors());
-    assertEquals(0, lexer.lexicalErrors);
-    assertEquals(0, parser.getNumberOfSyntaxErrors());
+    Assert.assertEquals(0, lexer.lexicalErrors);
+    Assert.assertEquals(0, parser.getNumberOfSyntaxErrors());
 
     AbsSynTreeGenSynTreeVisitor astGenVisitor = new AbsSynTreeGenSynTreeVisitor();
     Node ast = astGenVisitor.visit(pt);
@@ -77,8 +78,8 @@ public class TestSimpleAbsSynTree {
     log("Prog");
     log("Lexical errors: " + lexer.lexicalErrors);
     log("Syntax errors: " + parser.getNumberOfSyntaxErrors());
-    assertEquals(0, lexer.lexicalErrors);
-    assertEquals(0, parser.getNumberOfSyntaxErrors());
+    Assert.assertEquals(0, lexer.lexicalErrors);
+    Assert.assertEquals(0, parser.getNumberOfSyntaxErrors());
 
     AbsSynTreeGenSynTreeVisitor astGenVisitor =
         new AbsSynTreeGenSynTreeVisitor(true);
