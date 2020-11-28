@@ -8,10 +8,6 @@ import fool.compiler.east.lib.SymTabEntry;
  * Print the Enriched Abstract Syntax Tree.
  */
 public class PrintEnrAbsSynTreeVisitor extends EnrAbsSynTreeVisitor<Void> {
-  public PrintEnrAbsSynTreeVisitor() {
-    super(true);
-  }
-
   @Override
   public Void visit(AbsSynTree.ProgNode n) {
     printNode(n);

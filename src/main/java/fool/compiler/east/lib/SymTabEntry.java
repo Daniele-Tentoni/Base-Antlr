@@ -45,6 +45,7 @@ public class SymTabEntry implements Visitable {
     var visitorSuperClass = visitorClass.getSuperclass();
     if (!visitorSuperClass.equals(EnrAbsSynTreeVisitor.class)) {
       System.out.println("Class not compatible");
+      throw new ClassCastException("Need a EnrAbsSynTreeVisitor class");
     }
 
     return ((EnrAbsSynTreeVisitor<S>) visitor).visitSymTabEntry(this);
