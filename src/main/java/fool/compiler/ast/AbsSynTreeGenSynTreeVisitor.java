@@ -2,21 +2,19 @@ package fool.compiler.ast;
 
 import fool.FOOLBaseVisitor;
 import fool.FOOLParser;
+import fool.compiler.SyntaxTreeUtils;
 import fool.compiler.ast.lib.Node;
-import java.util.LinkedList;
-import java.util.List;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTree;
-
-import static fool.compiler.SyntaxTreeUtils.extractCtxName;
-import static fool.compiler.SyntaxTreeUtils.lowerFirstChar;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Visit the Abstract Syntax Tree of FOOL language.
  */
 public class AbsSynTreeGenSynTreeVisitor extends FOOLBaseVisitor<Node> {
 
-  private boolean print;
+  private final boolean print;
   private String indent;
 
   public AbsSynTreeGenSynTreeVisitor() {
@@ -46,11 +44,11 @@ public class AbsSynTreeGenSynTreeVisitor extends FOOLBaseVisitor<Node> {
     Class<?> parentClass = ctxClass.getSuperclass();
     if (!parentClass.equals(ParserRuleContext.class)) {
       // parentClass is the var context (and not ctxClass itself)
-      prefix = lowerFirstChar(extractCtxName(parentClass.getName())) +
-          ": production #";
+      var pName = SyntaxTreeUtils.extractCtxName(parentClass.getName());
+      prefix = SyntaxTreeUtils.lowerFirstChar(pName) + ": production #";
     }
-    System.out.println(
-        indent + prefix + lowerFirstChar(extractCtxName(ctxClass.getName())));
+    var cName = SyntaxTreeUtils.extractCtxName(ctxClass.getName());
+    System.out.println(indent + prefix + SyntaxTreeUtils.lowerFirstChar(cName));
   }
 
   /**
@@ -200,8 +198,8 @@ public class AbsSynTreeGenSynTreeVisitor extends FOOLBaseVisitor<Node> {
     if (mustPrint()) {
       printVarAndProdName(c);
     }
-    visit(c.exp());
-    return null;
+
+    return visit(c.exp());
   }
 
   @Override

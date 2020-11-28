@@ -1,4 +1,7 @@
-/* Use this file to test the v0.2 of the FOOL language. */
+/*
+ * Use this file to test the v0.2 of the FOOL language.
+ * This version doesn't have functions.
+ */
 print (
   if (5+3)*-7 == -56
     then { false }

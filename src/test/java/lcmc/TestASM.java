@@ -1,7 +1,5 @@
 package lcmc;
 
-import lcmc.SVMLexer;
-import lcmc.SVMParser;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import org.junit.Before;
@@ -34,23 +32,21 @@ public class TestASM {
 
   @Test
   public void testSVM() throws IOException {
+    String fileName = "prova.asm";
 
-    String fileName = "prova.asm"; // quicksort.fool.asm
-
-    SVMLexer lexer = factory.getLexer(fileName);
-    SVMParser parser = factory.getParser(lexer);
+    lcmc.SVMLexer lexer = factory.getLexer(fileName);
+    lcmc.SVMParser parser = factory.getParser(lexer);
     parser.assembly();
 
-    System.out.println(
-        "You had: " + lexer.lexicalErrors + " lexical errors and " +
-            parser.getNumberOfSyntaxErrors() + " syntax errors.");
+    log("You had: " + lexer.lexicalErrors + " lexical errors and " +
+        parser.getNumberOfSyntaxErrors() + " syntax errors.");
     log("Prog");
     log("Lexical errors: " + lexer.lexicalErrors);
     log("Syntax errors: " + parser.getNumberOfSyntaxErrors());
     assertEquals(0, lexer.lexicalErrors);
     assertEquals(0, parser.getNumberOfSyntaxErrors());
 
-    System.out.println("Starting Virtual Machine...");
+    log("Starting Virtual Machine...");
     ExecuteViMa vm = new ExecuteViMa(parser.code);
     vm.cpu();
   }

@@ -226,10 +226,18 @@ public class AbstractSyntaxTree {
     }
   }
 
+  /**
+   * The equals comparison node.
+   */
   public static final class EqualNode extends Node {
     private final Node left;
     private final Node right;
 
+    /**
+     * Create a simple equal node.
+     * @param left left node.
+     * @param right right node.
+     */
     public EqualNode(Node left, Node right) {
       this.left = left;
       this.right = right;
@@ -250,7 +258,7 @@ public class AbstractSyntaxTree {
   }
 
   /**
-   * Parenthesis node.
+   * Parameter node.
    */
   public static final class ParameterNode extends Node {
     private final String id;
@@ -359,6 +367,10 @@ public class AbstractSyntaxTree {
     }
   }
 
+  /**
+   * The selection construct node.
+   * Always return a value, since this is a functional language.
+   */
   public static final class IfNode extends Node {
     private final Node condition;
     private final Node then;

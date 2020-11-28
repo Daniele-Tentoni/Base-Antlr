@@ -4,8 +4,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
-import lcmc.ExampleLexer;
-import lcmc.ExampleParser;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -14,12 +12,8 @@ import org.antlr.v4.runtime.CommonTokenStream;
  * Provide factory methods for antlr objects for example language.
  */
 public final class ExampleObjectsFactory
-    implements ObjectFactory<ExampleLexer, ExampleParser> {
+    implements ObjectFactory<lcmc.ExampleLexer, lcmc.ExampleParser> {
   private static ExampleObjectsFactory instance;
-
-  private ExampleLexer lexer;
-  private ExampleParser parser;
-  private String openedFile;
 
   private ExampleObjectsFactory() {
   }
@@ -36,30 +30,20 @@ public final class ExampleObjectsFactory
   }
 
   @Override
-  public ExampleLexer getLexer(String fileName) throws IOException {
-    if (lexer == null || !openedFile.equals(fileName)) {
-      URL strings = getClass().getClassLoader().getResource(fileName);
-      if (strings == null) {
-        throw new FileNotFoundException(
-            String.format("Not found %s file.", fileName));
-      }
-      CharStream chars = CharStreams.fromFileName(strings.getPath());
-      lexer = new ExampleLexer(chars);
-      openedFile = fileName;
+  public lcmc.ExampleLexer getLexer(String fileName) throws IOException {
+    URL strings = getClass().getClassLoader().getResource(fileName);
+    if (strings == null) {
+      throw new FileNotFoundException(
+          String.format("Not found %s file.", fileName));
     }
-
-    return lexer;
+    CharStream chars = CharStreams.fromFileName(strings.getPath());
+    return new lcmc.ExampleLexer(chars);
   }
 
   @Override
-  public ExampleParser getParser(ExampleLexer exampleLexer) {
+  public lcmc.ExampleParser getParser(lcmc.ExampleLexer exampleLexer) {
     Objects.requireNonNull(exampleLexer);
-
-    if (parser == null) {
-      CommonTokenStream tokens = new CommonTokenStream(exampleLexer);
-      parser = new ExampleParser(tokens);
-    }
-
-    return parser;
+    CommonTokenStream tokens = new CommonTokenStream(exampleLexer);
+    return new lcmc.ExampleParser(tokens);
   }
 }

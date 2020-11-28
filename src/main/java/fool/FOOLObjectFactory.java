@@ -1,7 +1,5 @@
 package fool;
 
-import fool.FOOLLexer;
-import fool.FOOLParser;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
@@ -15,12 +13,9 @@ import org.antlr.v4.runtime.CommonTokenStream;
  * Provide factory methods for antlr objects for FOOL language.
  */
 public final class FOOLObjectFactory implements
-    ObjectFactory<FOOLLexer, FOOLParser> {
+    ObjectFactory<fool.FOOLLexer, fool.FOOLParser> {
 
   private static FOOLObjectFactory instance;
-  private FOOLParser parser;
-  private FOOLLexer lexer;
-  private String openedFile;
 
   /**
    * Generate an empty factory. Used private for singleton pattern.
@@ -48,19 +43,14 @@ public final class FOOLObjectFactory implements
    * @throws IOException when file is not found.
    */
   @Override
-  public FOOLLexer getLexer(final String fileName) throws IOException {
-    if (lexer == null || !openedFile.equals(fileName)) {
-      URL strings = getClass().getClassLoader().getResource(fileName);
-      if (strings == null) {
-        throw new FileNotFoundException(
-            String.format("Not found %s file.", fileName));
-      }
-      CharStream chars = CharStreams.fromFileName(strings.getPath());
-      lexer = new FOOLLexer(chars);
-      openedFile = fileName;
+  public fool.FOOLLexer getLexer(final String fileName) throws IOException {
+    URL strings = getClass().getClassLoader().getResource(fileName);
+    if (strings == null) {
+      throw new FileNotFoundException(
+          String.format("Not found %s file.", fileName));
     }
-
-    return lexer;
+    CharStream chars = CharStreams.fromFileName(strings.getPath());
+    return new fool.FOOLLexer(chars);
   }
 
   /**
@@ -70,14 +60,10 @@ public final class FOOLObjectFactory implements
    * @return parser that create syntax trees.
    */
   @Override
-  public FOOLParser getParser(final FOOLLexer foolLexer) {
+  public fool.FOOLParser getParser(final fool.FOOLLexer foolLexer) {
     Objects.requireNonNull(foolLexer);
 
-    if (parser == null) {
-      CommonTokenStream tokens = new CommonTokenStream(foolLexer);
-      parser = new FOOLParser(tokens);
-    }
-
-    return parser;
+    CommonTokenStream tokens = new CommonTokenStream(foolLexer);
+    return new fool.FOOLParser(tokens);
   }
 }

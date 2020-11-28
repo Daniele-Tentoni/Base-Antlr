@@ -15,7 +15,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-public class TestAbstractSyntaxTree {
+public class TestSimpleAbsSynTree {
   private FOOLObjectFactory factory;
 
   @Before
@@ -38,17 +38,14 @@ public class TestAbstractSyntaxTree {
   }
 
   @Test
-  public void testSVM() throws IOException {
+  public void testTryBase() throws IOException {
 
-    String fileName = "prova.fool"; // quicksort.fool.asm
+    String fileName = "prova.fool";
 
     fool.FOOLLexer lexer = factory.getLexer(fileName);
     fool.FOOLParser parser = factory.getParser(lexer);
     ParseTree pt = parser.prog();
 
-    System.out.println(
-        "You had: " + lexer.lexicalErrors + " lexical errors and " +
-            parser.getNumberOfSyntaxErrors() + " syntax errors.");
     log("Prog");
     log("Lexical errors: " + lexer.lexicalErrors);
     log("Syntax errors: " + parser.getNumberOfSyntaxErrors());
@@ -62,11 +59,8 @@ public class TestAbstractSyntaxTree {
 
     new PrintAbsSynTreeVisitor().visit(ast);
 
-    System.out.println("Calculating program value...");
-    System.out
-        .println(
-            "Program value is: " + new CalcAbsSynTreeVisitor(false).visit(ast));
-    // TODO: Continue from 3:12
+    log("Calculating program value...");
+    log("Program value is: " + new CalcAbsSynTreeVisitor(false).visit(ast));
   }
 
   @Test

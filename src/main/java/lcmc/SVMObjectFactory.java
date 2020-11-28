@@ -4,8 +4,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
-import lcmc.SVMLexer;
-import lcmc.SVMParser;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -14,11 +12,8 @@ import org.antlr.v4.runtime.CommonTokenStream;
  * Provide factory methods for antlr objects for SVM language.
  */
 public final class SVMObjectFactory
-    implements ObjectFactory<SVMLexer, SVMParser> {
+    implements ObjectFactory<lcmc.SVMLexer, lcmc.SVMParser> {
   private static SVMObjectFactory instance;
-  private SVMParser parser;
-  private SVMLexer lexer;
-  private String openedFile;
 
   private SVMObjectFactory() {
   }
@@ -41,19 +36,14 @@ public final class SVMObjectFactory
    * @throws IOException when file is not found.
    */
   @Override
-  public SVMLexer getLexer(String fileName) throws IOException {
-    if (lexer == null || !openedFile.equals(fileName)) {
-      URL strings = getClass().getClassLoader().getResource(fileName);
-      if (strings == null) {
-        throw new FileNotFoundException(
-            String.format("Not found %s file.", fileName));
-      }
-      CharStream chars = CharStreams.fromFileName(strings.getPath());
-      lexer = new SVMLexer(chars);
-      openedFile = fileName;
+  public lcmc.SVMLexer getLexer(String fileName) throws IOException {
+    URL strings = getClass().getClassLoader().getResource(fileName);
+    if (strings == null) {
+      throw new FileNotFoundException(
+          String.format("Not found %s file.", fileName));
     }
-
-    return lexer;
+    CharStream chars = CharStreams.fromFileName(strings.getPath());
+    return new lcmc.SVMLexer(chars);
   }
 
   /**
@@ -63,14 +53,9 @@ public final class SVMObjectFactory
    * @return parser that create syntax trees.
    */
   @Override
-  public SVMParser getParser(SVMLexer svmLexer) {
+  public lcmc.SVMParser getParser(lcmc.SVMLexer svmLexer) {
     Objects.requireNonNull(svmLexer);
-
-    if (parser == null) {
-      CommonTokenStream tokens = new CommonTokenStream(svmLexer);
-      parser = new SVMParser(tokens);
-    }
-
-    return parser;
+    CommonTokenStream tokens = new CommonTokenStream(svmLexer);
+    return new lcmc.SVMParser(tokens);
   }
 }
