@@ -33,7 +33,7 @@ configurations {
 dependencies {
     antlr 'org.antlr:antlr4:4.8'
     compile 'org.antlr:antlr4:4.8'
-    testImplementation 'junit:junit:4.13'
+    testImplementation 'junit:junit:4.13.1'
     testCompile 'junit:junit:4.13'
 }
 
