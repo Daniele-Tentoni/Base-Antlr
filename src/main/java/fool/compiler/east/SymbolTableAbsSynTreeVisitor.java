@@ -192,9 +192,8 @@ public class SymbolTableAbsSynTreeVisitor extends AbsSynTreeVisitor<Void> {
     var entry = new SymTabEntry(nestingLevel);
     var index = map.put(n.getId(), entry);
     if (index != null) {
-      System.out.println(
-          "Fun id " + n.getId() + " at line " + n.getLine()
-              + " already declared.");
+      System.out.printf("Fun id %s at line %s already declared.", n.getId(),
+          n.getLine());
       errors++;
     }
 
@@ -204,6 +203,7 @@ public class SymbolTableAbsSynTreeVisitor extends AbsSynTreeVisitor<Void> {
     symbolTable.add(hashMap);
 
     // Visit parameter for existing declarations.
+    // Another visit may require more complication on code generation.
     n.getParameterList().forEach(this::visit);
 
     // Now visit all current nesting level + 1 declarations.
