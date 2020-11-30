@@ -1,4 +1,4 @@
-package fool.compiler.ast.lib.nodes;
+package fool.compiler.abssyntree.lib.nodes;
 
 import fool.compiler.Visitable;
 

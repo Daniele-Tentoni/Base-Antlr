@@ -1,8 +1,9 @@
-package fool.compiler.ast;
+package fool.compiler.abssyntree;
 
-import fool.compiler.ast.lib.AbsSynTreeVisitor;
-import fool.compiler.ast.lib.nodes.Node;
-import fool.compiler.east.lib.SymTabEntry;
+import fool.compiler.abssyntree.visitors.AbsSynTreeVisitor;
+import fool.compiler.abssyntree.lib.nodes.Node;
+import fool.compiler.abssyntree.lib.nodes.TypeNode;
+import fool.compiler.enrabssyntree.lib.SymTabEntry;
 import java.util.List;
 
 /**
@@ -13,7 +14,7 @@ public class AbsSynTree {
    * Start node of FOOL language.
    */
   public static final class ProgNode extends Node {
-    private final Node exp;
+    private final Node expression;
 
     /**
      * Create a Prog Node with a node inside.
@@ -21,7 +22,7 @@ public class AbsSynTree {
      * @param e node wrapped by Prog.
      */
     public ProgNode(Node e) {
-      exp = e;
+      expression = e;
     }
 
     /**
@@ -29,8 +30,8 @@ public class AbsSynTree {
      *
      * @return node.
      */
-    public Node getExp() {
-      return exp;
+    public Node getExpression() {
+      return expression;
     }
 
     /**
@@ -42,7 +43,8 @@ public class AbsSynTree {
      * @return visitor object type return.
      */
     @Override
-    public <S> S accept(AbsSynTreeVisitor<S> visitor) {
+    public <S, E extends Exception> S accept(AbsSynTreeVisitor<S, E> visitor)
+        throws E {
       return visitor.visit(this);
     }
   }
@@ -74,7 +76,8 @@ public class AbsSynTree {
      * @return visitor object type return.
      */
     @Override
-    public <S> S accept(AbsSynTreeVisitor<S> visitor) {
+    public <S, E extends Exception> S accept(AbsSynTreeVisitor<S, E> visitor)
+        throws E {
       return visitor.visit(this);
     }
 
@@ -141,7 +144,8 @@ public class AbsSynTree {
      * @return visitor object type return.
      */
     @Override
-    public <S> S accept(AbsSynTreeVisitor<S> visitor) {
+    public <S, E extends Exception> S accept(AbsSynTreeVisitor<S, E> visitor)
+        throws E {
       return visitor.visit(this);
     }
   }
@@ -173,7 +177,8 @@ public class AbsSynTree {
     }
 
     @Override
-    public <S> S accept(AbsSynTreeVisitor<S> visitor) {
+    public <S, E extends Exception> S accept(AbsSynTreeVisitor<S, E> visitor)
+        throws E {
       return visitor.visit(this);
     }
   }
@@ -198,7 +203,8 @@ public class AbsSynTree {
     }
 
     @Override
-    public <S> S accept(AbsSynTreeVisitor<S> visitor) {
+    public <S, E extends Exception> S accept(AbsSynTreeVisitor<S, E> visitor)
+        throws E {
       return visitor.visit(this);
     }
   }
@@ -206,7 +212,7 @@ public class AbsSynTree {
   /**
    * The int TYPE node. This is not a value.
    */
-  public static final class IntTypeNode extends Node {
+  public static final class IntTypeNode extends TypeNode {
 
     public IntTypeNode() {
       super();
@@ -221,7 +227,8 @@ public class AbsSynTree {
      * @return node visited.
      */
     @Override
-    public <S> S accept(AbsSynTreeVisitor<S> visitor) {
+    public <S, E extends Exception> S accept(AbsSynTreeVisitor<S, E> visitor)
+        throws E {
       return visitor.visit(this);
     }
   }
@@ -253,7 +260,8 @@ public class AbsSynTree {
     }
 
     @Override
-    public <S> S accept(AbsSynTreeVisitor<S> visitor) {
+    public <S, E extends Exception> S accept(AbsSynTreeVisitor<S, E> visitor)
+        throws E {
       return visitor.visit(this);
     }
   }
@@ -263,7 +271,7 @@ public class AbsSynTree {
    */
   public static final class ParameterNode extends Node {
     private final String id;
-    private final Node type;
+    private final TypeNode type;
 
     /**
      * Simple constructor without line.
@@ -272,7 +280,7 @@ public class AbsSynTree {
      * @param i identifier.
      * @param t data type.
      */
-    public ParameterNode(String i, Node t) {
+    public ParameterNode(String i, TypeNode t) {
       id = i;
       type = t;
     }
@@ -286,7 +294,8 @@ public class AbsSynTree {
      * @return node visited.
      */
     @Override
-    public <S> S accept(AbsSynTreeVisitor<S> visitor) {
+    public <S, E extends Exception> S accept(AbsSynTreeVisitor<S, E> visitor)
+        throws E {
       return visitor.visit(this);
     }
 
@@ -304,7 +313,7 @@ public class AbsSynTree {
      *
      * @return type.
      */
-    public Node getType() {
+    public TypeNode getType() {
       return type;
     }
   }
@@ -329,7 +338,8 @@ public class AbsSynTree {
     }
 
     @Override
-    public <S> S accept(AbsSynTreeVisitor<S> visitor) {
+    public <S, E extends Exception> S accept(AbsSynTreeVisitor<S, E> visitor)
+        throws E {
       return visitor.visit(this);
     }
   }
@@ -337,14 +347,15 @@ public class AbsSynTree {
   /**
    * The bool TYPE node. This is not a value.
    */
-  public static final class BoolTypeNode extends Node {
+  public static final class BoolTypeNode extends TypeNode {
     /**
      * @param visitor visitor to recall.
      * @param <S>     return type.
      * @return node visited.
      */
     @Override
-    public <S> S accept(AbsSynTreeVisitor<S> visitor) {
+    public <S, E extends Exception> S accept(AbsSynTreeVisitor<S, E> visitor)
+        throws E {
       return visitor.visit(this);
     }
   }
@@ -385,7 +396,8 @@ public class AbsSynTree {
     }
 
     @Override
-    public <S> S accept(AbsSynTreeVisitor<S> visitor) {
+    public <S, E extends Exception> S accept(AbsSynTreeVisitor<S, E> visitor)
+        throws E {
       return visitor.visit(this);
     }
   }
@@ -410,7 +422,8 @@ public class AbsSynTree {
     }
 
     @Override
-    public <S> S accept(AbsSynTreeVisitor<S> visitor) {
+    public <S, E extends Exception> S accept(AbsSynTreeVisitor<S, E> visitor)
+        throws E {
       return visitor.visit(this);
     }
   }
@@ -420,7 +433,7 @@ public class AbsSynTree {
    */
   public static final class VarNode extends Node {
     private final String id;
-    private final Node type;
+    private final TypeNode type;
     private final Node exp;
 
     /**
@@ -431,14 +444,15 @@ public class AbsSynTree {
      * @param v value. This is a functional language, there aren't
      *          declaration without assignment.
      */
-    public VarNode(String i, Node t, Node v) {
+    public VarNode(String i, TypeNode t, Node v) {
       id = i;
       type = t;
       exp = v;
     }
 
     @Override
-    public <S> S accept(AbsSynTreeVisitor<S> visitor) {
+    public <S, E extends Exception> S accept(AbsSynTreeVisitor<S, E> visitor)
+        throws E {
       return visitor.visit(this);
     }
 
@@ -456,7 +470,7 @@ public class AbsSynTree {
      *
      * @return type.
      */
-    public Node getType() {
+    public TypeNode getType() {
       return type;
     }
 
@@ -476,10 +490,10 @@ public class AbsSynTree {
    */
   public static final class FunNode extends Node {
     private final String id;
-    private final Node retType;
+    private final TypeNode returnType;
     private final List<Node> declarationList;
     private final Node exp;
-    private final List<Node> parameterList;
+    private final List<ParameterNode> parameterList;
 
     /**
      * Create a simple function declaration node.
@@ -490,18 +504,19 @@ public class AbsSynTree {
      * @param dl declaration list.
      * @param e  expression inside the function scope.
      */
-    public FunNode(String i, Node rt, List<Node> pl, List<Node> dl,
+    public FunNode(String i, TypeNode rt, List<ParameterNode> pl, List<Node> dl,
                    Node e) {
       super();
       id = i;
-      retType = rt;
+      returnType = rt;
       parameterList = pl;
       declarationList = dl;
       exp = e;
     }
 
     @Override
-    public <S> S accept(AbsSynTreeVisitor<S> visitor) {
+    public <S, E extends Exception> S accept(AbsSynTreeVisitor<S, E> visitor)
+        throws E {
       return visitor.visit(this);
     }
 
@@ -519,8 +534,8 @@ public class AbsSynTree {
      *
      * @return return type.
      */
-    public Node getRetType() {
-      return retType;
+    public TypeNode getReturnType() {
+      return returnType;
     }
 
     /**
@@ -546,7 +561,7 @@ public class AbsSynTree {
      *
      * @return parameter list.
      */
-    public List<Node> getParameterList() {
+    public List<ParameterNode> getParameterList() {
       return parameterList;
     }
   }
@@ -597,7 +612,8 @@ public class AbsSynTree {
      * @return return value.
      */
     @Override
-    public <S> S accept(AbsSynTreeVisitor<S> visitor) {
+    public <S, E extends Exception> S accept(AbsSynTreeVisitor<S, E> visitor)
+        throws E {
       return visitor.visit(this);
     }
 
@@ -633,7 +649,8 @@ public class AbsSynTree {
     }
 
     @Override
-    public <S> S accept(AbsSynTreeVisitor<S> visitor) {
+    public <S, E extends Exception> S accept(AbsSynTreeVisitor<S, E> visitor)
+        throws E {
       return visitor.visit(this);
     }
 
@@ -678,25 +695,26 @@ public class AbsSynTree {
    * A Function type node in the form of:
    * arg type, arg type -> ret type.
    */
-  public static final class ArrowTypeNode extends Node {
-    private final List<Node> parameterTypesList;
-    private final Node returnType;
+  public static final class ArrowTypeNode extends TypeNode {
+    private final List<TypeNode> parameterTypesList;
+    private final TypeNode returnType;
 
-    public ArrowTypeNode(List<Node> p, Node r) {
+    public ArrowTypeNode(List<TypeNode> p, TypeNode r) {
       parameterTypesList = p;
       returnType = r;
     }
 
     @Override
-    public <S> S accept(AbsSynTreeVisitor<S> visitor) {
+    public <S, E extends Exception> S accept(AbsSynTreeVisitor<S, E> visitor)
+        throws E {
       return visitor.visit(this);
     }
 
-    public Node getReturnType() {
+    public TypeNode getReturnType() {
       return returnType;
     }
 
-    public List<Node> getParameterTypesList() {
+    public List<TypeNode> getParameterTypesList() {
       return parameterTypesList;
     }
   }

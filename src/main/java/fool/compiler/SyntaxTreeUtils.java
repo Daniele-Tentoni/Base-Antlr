@@ -1,5 +1,7 @@
 package fool.compiler;
 
+import fool.compiler.abssyntree.AbsSynTree;
+import fool.compiler.abssyntree.lib.nodes.TypeNode;
 /**
  * Some utils methods for the Syntax Trees generation.
  */
@@ -39,5 +41,21 @@ public final class SyntaxTreeUtils {
    */
   public static String lowerFirstChar(final String s) {
     return Character.toLowerCase(s.charAt(0)) + s.substring(1);
+  }
+
+  // TODO: Questo metodo può essere dichiarato direttamente dentro TypeNode?
+
+  /**
+   * Return if type a is subtype of type b.
+   * For example IntTypeNode is a subtype of BoolTypeNode.
+   *
+   * @param a type node.
+   * @param b type node.
+   * @return true if are subtypes, false anywhere.
+   */
+  public static boolean isSubtype(TypeNode a, TypeNode b) {
+    return a.getClass().equals(b.getClass()) || (
+        (a instanceof AbsSynTree.BoolTypeNode)
+            && (b instanceof AbsSynTree.IntTypeNode));
   }
 }

@@ -1,6 +1,6 @@
 package fool.compiler;
 
-import fool.compiler.ast.lib.AbsSynTreeVisitor;
+import fool.compiler.abssyntree.visitors.AbsSynTreeVisitor;
 
 /**
  * Provide a contract for any visitable object from a Visitor.
@@ -14,5 +14,5 @@ public interface Visitable {
    * @param <S>     return type of the visitor.
    * @return visit return value.
    */
-  <S> S accept(AbsSynTreeVisitor<S> visitor);
+  <S, E extends Exception> S accept(AbsSynTreeVisitor<S, E> visitor) throws E;
 }

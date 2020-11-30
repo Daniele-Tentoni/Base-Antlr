@@ -1,7 +1,8 @@
-package fool.compiler.ast.lib;
+package fool.compiler.abssyntree.visitors;
 
-import fool.compiler.UnImplementedException;
-import fool.compiler.ast.AbsSynTree;
+import fool.compiler.abssyntree.AbsSynTree;
+import fool.compiler.execptions.TypeException;
+import fool.compiler.execptions.UnImplementedException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,7 +12,7 @@ import org.junit.Test;
  */
 public class AbsSynTreeVisitorTest {
 
-  private AbsSynTreeVisitor<Integer> visitor;
+  private AbsSynTreeVisitor<Integer, TypeException> visitor;
 
   @Before
   public void setup() {
@@ -25,6 +26,8 @@ public class AbsSynTreeVisitorTest {
       Assert.fail("Expected an FileNotFoundException");
     } catch (UnImplementedException e) {
       Assert.assertEquals("ProgNode", e.getMessage());
+    } catch (Exception e) {
+      e.printStackTrace();
     }
   }
 
@@ -35,6 +38,8 @@ public class AbsSynTreeVisitorTest {
       Assert.fail("Expected an FileNotFoundException");
     } catch (UnImplementedException e) {
       Assert.assertNull(e.getMessage());
+    } catch (Exception e) {
+      e.printStackTrace();
     }
   }
 
@@ -45,6 +50,8 @@ public class AbsSynTreeVisitorTest {
       Assert.fail("Expected an FileNotFoundException");
     } catch (UnImplementedException e) {
       Assert.assertNull(e.getMessage());
+    } catch (Exception e) {
+      e.printStackTrace();
     }
   }
 
@@ -55,6 +62,8 @@ public class AbsSynTreeVisitorTest {
       Assert.fail("Expected an FileNotFoundException");
     } catch (UnImplementedException e) {
       Assert.assertNull(e.getMessage());
+    } catch (Exception e) {
+      e.printStackTrace();
     }
   }
 
@@ -63,7 +72,7 @@ public class AbsSynTreeVisitorTest {
     try {
       visitor.visit(new AbsSynTree.EqualNode(null, null));
       Assert.fail("Expected an FileNotFoundException");
-    } catch (UnImplementedException e) {
+    } catch (UnImplementedException | TypeException e) {
       Assert.assertNull(e.getMessage());
     }
   }
@@ -73,7 +82,7 @@ public class AbsSynTreeVisitorTest {
     try {
       visitor.visit(new AbsSynTree.BoolValueNode(true));
       Assert.fail("Expected an FileNotFoundException");
-    } catch (UnImplementedException e) {
+    } catch (UnImplementedException | TypeException e) {
       Assert.assertNull(e.getMessage());
     }
   }
@@ -83,7 +92,7 @@ public class AbsSynTreeVisitorTest {
     try {
       visitor.visit(new AbsSynTree.IfNode(null, null, null));
       Assert.fail("Expected an FileNotFoundException");
-    } catch (UnImplementedException e) {
+    } catch (UnImplementedException | TypeException e) {
       Assert.assertNull(e.getMessage());
     }
   }
@@ -93,7 +102,7 @@ public class AbsSynTreeVisitorTest {
     try {
       visitor.visit(new AbsSynTree.PrintNode(null));
       Assert.fail("Expected an FileNotFoundException");
-    } catch (UnImplementedException e) {
+    } catch (UnImplementedException | TypeException e) {
       Assert.assertNull(e.getMessage());
     }
   }
@@ -103,7 +112,7 @@ public class AbsSynTreeVisitorTest {
     try {
       visitor.visit(new AbsSynTree.ProgLetInNode(null, null));
       Assert.fail("Expected an FileNotFoundException");
-    } catch (UnImplementedException e) {
+    } catch (UnImplementedException | TypeException e) {
       Assert.assertNull(e.getMessage());
     }
   }
@@ -113,7 +122,7 @@ public class AbsSynTreeVisitorTest {
     try {
       visitor.visit(new AbsSynTree.BoolTypeNode());
       Assert.fail("Expected an FileNotFoundException");
-    } catch (UnImplementedException e) {
+    } catch (UnImplementedException | TypeException e) {
       Assert.assertNull(e.getMessage());
     }
   }
@@ -123,7 +132,7 @@ public class AbsSynTreeVisitorTest {
     try {
       visitor.visit(new AbsSynTree.IntTypeNode());
       Assert.fail("Expected an FileNotFoundException");
-    } catch (UnImplementedException e) {
+    } catch (UnImplementedException | TypeException e) {
       Assert.assertNull(e.getMessage());
     }
   }
@@ -133,7 +142,7 @@ public class AbsSynTreeVisitorTest {
     try {
       visitor.visit(new AbsSynTree.VarNode(null, null, null));
       Assert.fail("Expected an FileNotFoundException");
-    } catch (UnImplementedException e) {
+    } catch (UnImplementedException | TypeException e) {
       Assert.assertNull(e.getMessage());
     }
   }
@@ -144,7 +153,7 @@ public class AbsSynTreeVisitorTest {
       visitor.visit(new AbsSynTree.FunNode(null, null, null, null,
           null));
       Assert.fail("Expected an FileNotFoundException");
-    } catch (UnImplementedException e) {
+    } catch (UnImplementedException | TypeException e) {
       Assert.assertNull(e.getMessage());
     }
   }
@@ -154,7 +163,7 @@ public class AbsSynTreeVisitorTest {
     try {
       visitor.visit(new AbsSynTree.IdNode(null, 0));
       Assert.fail("Expected an FileNotFoundException");
-    } catch (UnImplementedException e) {
+    } catch (UnImplementedException | TypeException e) {
       Assert.assertNull(e.getMessage());
     }
   }
@@ -164,7 +173,7 @@ public class AbsSynTreeVisitorTest {
     try {
       visitor.visit(new AbsSynTree.CallNode(null, null));
       Assert.fail("Expected an FileNotFoundException");
-    } catch (UnImplementedException e) {
+    } catch (UnImplementedException | TypeException e) {
       Assert.assertNull(e.getMessage());
     }
   }

@@ -1,11 +1,16 @@
-package fool.compiler.ast;
+package fool.compiler.abssyntree.visitors;
 
-import fool.compiler.ast.lib.nodes.Node;
+import fool.compiler.execptions.TypeException;
+import fool.compiler.abssyntree.AbsSynTree;
+import fool.compiler.abssyntree.lib.nodes.Node;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * This class doesn't be updated anymore.
+ */
 public class CalcAbsSynTreeVisitorTest {
   private CalcAbsSynTreeVisitor visitor;
 
@@ -15,7 +20,7 @@ public class CalcAbsSynTreeVisitorTest {
   }
 
   @Test
-  public void testVisitIntNode() {
+  public void testVisitIntNode() throws TypeException {
     int v = 1;
     Node n = new AbsSynTree.IntValueNode(1);
     Integer res = visitor.visit(n);
@@ -23,14 +28,14 @@ public class CalcAbsSynTreeVisitorTest {
   }
 
   @Test
-  public void testVisitBoolNode() {
+  public void testVisitBoolNode() throws TypeException {
     Node n = new AbsSynTree.BoolValueNode(true);
     Integer res = visitor.visit(n);
     assertEquals(0, (int) res);
   }
 
   @Test
-  public void testVisitProgNode() {
+  public void testVisitProgNode() throws TypeException {
     Node n = new AbsSynTree.BoolValueNode(true);
     Node p = new AbsSynTree.ProgNode(n);
     var res = visitor.visit(p);
@@ -38,7 +43,7 @@ public class CalcAbsSynTreeVisitorTest {
   }
 
   @Test
-  public void testVisitPrintNode() {
+  public void testVisitPrintNode() throws TypeException {
     int v = 1;
     Node i = new AbsSynTree.IntValueNode(v);
     Node n = new AbsSynTree.PrintNode(i);
@@ -47,7 +52,7 @@ public class CalcAbsSynTreeVisitorTest {
   }
 
   @Test
-  public void testVisitPlusNode() {
+  public void testVisitPlusNode() throws TypeException {
     int v1 = 1;
     int v2 = 2;
     Node n1 = new AbsSynTree.IntValueNode(v1);
@@ -58,7 +63,7 @@ public class CalcAbsSynTreeVisitorTest {
   }
 
   @Test
-  public void testVisitTimesNode() {
+  public void testVisitTimesNode() throws TypeException {
     int v1 = 1;
     int v2 = 2;
     Node n1 = new AbsSynTree.IntValueNode(v1);
@@ -69,7 +74,7 @@ public class CalcAbsSynTreeVisitorTest {
   }
 
   @Test
-  public void testVisitEqualNode() {
+  public void testVisitEqualNode() throws TypeException {
     // Here aren't equals, so I expect 0.
     int v1 = 1;
     int v2 = 2;
@@ -88,7 +93,7 @@ public class CalcAbsSynTreeVisitorTest {
   }
 
   @Test
-  public void testVisitIfNode() {
+  public void testVisitIfNode() throws TypeException {
     // Test left branch for if.
     int v2 = 1;
     int v3 = 2;

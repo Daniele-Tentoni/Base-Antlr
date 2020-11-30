@@ -1,9 +1,9 @@
 package fool;
-import fool.compiler.ast.AbsSynTreeGenSynTreeVisitor;
-import fool.compiler.ast.PrintAbsSynTreeVisitor;
-import fool.compiler.ast.lib.nodes.Node;
-import fool.compiler.east.PrintEnrAbsSynTreeVisitor;
-import fool.compiler.east.SymbolTableAbsSynTreeVisitor;
+import fool.compiler.abssyntree.visitors.AbsSynTreeGenSynTreeVisitor;
+import fool.compiler.abssyntree.visitors.PrintAbsSynTreeVisitor;
+import fool.compiler.abssyntree.lib.nodes.Node;
+import fool.compiler.enrabssyntree.visitors.PrintEnrAbsSynTreeVisitor;
+import fool.compiler.enrabssyntree.visitors.SymbolTableAbsSynTreeVisitor;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.junit.Before;
 import org.junit.Test;

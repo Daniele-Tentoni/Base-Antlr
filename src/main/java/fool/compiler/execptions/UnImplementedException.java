@@ -1,4 +1,4 @@
-package fool.compiler;
+package fool.compiler.execptions;
 
 /**
  * Ereditiamo da una eccezione unchecked. Non viene catturata dal compilatore di

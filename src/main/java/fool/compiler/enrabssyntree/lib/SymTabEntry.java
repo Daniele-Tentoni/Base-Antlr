@@ -1,8 +1,9 @@
-package fool.compiler.east.lib;
+package fool.compiler.enrabssyntree.lib;
 
 import fool.compiler.Visitable;
-import fool.compiler.ast.lib.AbsSynTreeVisitor;
-import fool.compiler.ast.lib.nodes.Node;
+import fool.compiler.abssyntree.visitors.AbsSynTreeVisitor;
+import fool.compiler.abssyntree.lib.nodes.TypeNode;
+import fool.compiler.enrabssyntree.visitors.EnrAbsSynTreeVisitor;
 import java.util.Objects;
 
 /**
@@ -11,15 +12,16 @@ import java.util.Objects;
  */
 public class SymTabEntry implements Visitable {
   private final int nestingLevel;
-  private Node type;
+  private TypeNode type;
 
   /**
    * Create the entry with the defined nesting level.
    *
    * @param nl nesting level.
    */
-  public SymTabEntry(int nl) {
+  public SymTabEntry(int nl, TypeNode node) {
     nestingLevel = nl;
+    type = node;
   }
 
   /**
@@ -37,7 +39,8 @@ public class SymTabEntry implements Visitable {
    * @return return value.
    */
   @Override
-  public <S> S accept(AbsSynTreeVisitor<S> visitor) {
+  public <S, E extends Exception> S accept(AbsSynTreeVisitor<S, E> visitor)
+      throws E {
     Objects.requireNonNull(visitor);
 
     // Make sure that visitor is an EASTVisitor.
@@ -48,6 +51,10 @@ public class SymTabEntry implements Visitable {
       throw new ClassCastException("Need a EnrAbsSynTreeVisitor class");
     }
 
-    return ((EnrAbsSynTreeVisitor<S>) visitor).visitSymTabEntry(this);
+    return ((EnrAbsSynTreeVisitor<S, E>) visitor).visitSymTabEntry(this);
+  }
+
+  public TypeNode getType() {
+    return type;
   }
 }

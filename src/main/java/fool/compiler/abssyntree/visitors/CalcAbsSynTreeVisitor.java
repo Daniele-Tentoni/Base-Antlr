@@ -1,12 +1,14 @@
-package fool.compiler.ast;
+package fool.compiler.abssyntree.visitors;
 
-import fool.compiler.ast.lib.AbsSynTreeVisitor;
+import fool.compiler.execptions.TypeException;
+import fool.compiler.abssyntree.AbsSynTree;
 
 /**
  * Calculate the return value of a ABS.
  * This class doesn't be updated anymore.
  */
-public class CalcAbsSynTreeVisitor extends AbsSynTreeVisitor<Integer> {
+public class CalcAbsSynTreeVisitor
+    extends AbsSynTreeVisitor<Integer, TypeException> {
 
   public CalcAbsSynTreeVisitor(boolean print) {
     super(print);
@@ -22,11 +24,11 @@ public class CalcAbsSynTreeVisitor extends AbsSynTreeVisitor<Integer> {
    * @param n node to visit.
    */
   @Override
-  public Integer visit(AbsSynTree.ProgNode n) {
+  public Integer visit(AbsSynTree.ProgNode n) throws TypeException {
     if (super.mustPrint()) {
       super.printNode(n);
     }
-    return visit(n.getExp());
+    return visit(n.getExpression());
   }
 
   /**
@@ -35,7 +37,7 @@ public class CalcAbsSynTreeVisitor extends AbsSynTreeVisitor<Integer> {
    * @param n node to visit.
    */
   @Override
-  public Integer visit(AbsSynTree.TimesNode n) {
+  public Integer visit(AbsSynTree.TimesNode n) throws TypeException {
     if (super.mustPrint()) {
       super.printNode(n);
     }
@@ -48,7 +50,7 @@ public class CalcAbsSynTreeVisitor extends AbsSynTreeVisitor<Integer> {
    * @param n node to visit.
    */
   @Override
-  public Integer visit(AbsSynTree.PlusNode n) {
+  public Integer visit(AbsSynTree.PlusNode n) throws TypeException {
     if (super.mustPrint()) {
       super.printNode(n);
     }
@@ -61,7 +63,7 @@ public class CalcAbsSynTreeVisitor extends AbsSynTreeVisitor<Integer> {
    * @param n node to visit.
    */
   @Override
-  public Integer visit(AbsSynTree.IntValueNode n) {
+  public Integer visit(AbsSynTree.IntValueNode n) throws TypeException {
     if (super.mustPrint()) {
       super.printNode(n);
     }
@@ -69,7 +71,7 @@ public class CalcAbsSynTreeVisitor extends AbsSynTreeVisitor<Integer> {
   }
 
   @Override
-  public Integer visit(AbsSynTree.EqualNode n) {
+  public Integer visit(AbsSynTree.EqualNode n) throws TypeException {
     if (super.mustPrint()) {
       super.printNode(n);
     }
@@ -78,7 +80,7 @@ public class CalcAbsSynTreeVisitor extends AbsSynTreeVisitor<Integer> {
   }
 
   @Override
-  public Integer visit(AbsSynTree.BoolValueNode n) {
+  public Integer visit(AbsSynTree.BoolValueNode n) throws TypeException {
     if (super.mustPrint()) {
       super.printNode(n);
     }
@@ -86,7 +88,7 @@ public class CalcAbsSynTreeVisitor extends AbsSynTreeVisitor<Integer> {
   }
 
   @Override
-  public Integer visit(AbsSynTree.IfNode n) {
+  public Integer visit(AbsSynTree.IfNode n) throws TypeException {
     if (super.mustPrint()) {
       super.printNode(n);
     }
@@ -95,7 +97,7 @@ public class CalcAbsSynTreeVisitor extends AbsSynTreeVisitor<Integer> {
   }
 
   @Override
-  public Integer visit(AbsSynTree.PrintNode n) {
+  public Integer visit(AbsSynTree.PrintNode n) throws TypeException {
     if (super.mustPrint()) {
       super.printNode(n);
     }
@@ -103,7 +105,7 @@ public class CalcAbsSynTreeVisitor extends AbsSynTreeVisitor<Integer> {
   }
 
   @Override
-  public Integer visit(AbsSynTree.ParameterNode n) {
+  public Integer visit(AbsSynTree.ParameterNode n) throws TypeException {
     if (super.mustPrint()) {
       super.printNode(n, n.getId());
     }

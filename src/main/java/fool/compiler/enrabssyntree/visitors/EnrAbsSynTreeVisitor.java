@@ -1,15 +1,18 @@
-package fool.compiler.east.lib;
+package fool.compiler.enrabssyntree.visitors;
 
-import fool.compiler.UnImplementedException;
-import fool.compiler.ast.AbsSynTree;
-import fool.compiler.ast.lib.AbsSynTreeVisitor;
+import fool.compiler.abssyntree.AbsSynTree;
+import fool.compiler.abssyntree.visitors.AbsSynTreeVisitor;
+import fool.compiler.enrabssyntree.lib.SymTabEntry;
+import fool.compiler.execptions.UnImplementedException;
 
 /**
  * Visit an Abstract Syntax Tree. Implement to return a different type.
  *
  * @param <T> return type of visitor methods.
  */
-public class EnrAbsSynTreeVisitor<T> extends AbsSynTreeVisitor<T> {
+public class EnrAbsSynTreeVisitor<T, E extends Exception>
+    extends AbsSynTreeVisitor<T
+    , E> {
 
   /**
    * Simple constructor. Set debug value at false by default.
@@ -18,13 +21,17 @@ public class EnrAbsSynTreeVisitor<T> extends AbsSynTreeVisitor<T> {
     this(false);
   }
 
+  protected EnrAbsSynTreeVisitor(boolean ie) {
+    this(ie, false);
+  }
+
   /**
    * Complex constructor.
    *
    * @param debug debug value.
    */
-  protected EnrAbsSynTreeVisitor(boolean debug) {
-    super(debug);
+  protected EnrAbsSynTreeVisitor(boolean ie, boolean debug) {
+    super(ie, debug);
   }
 
   /**
