@@ -5,11 +5,11 @@ import fool.compiler.SyntaxTreeUtils;
 import fool.compiler.abssyntree.AbsSynTree;
 import fool.compiler.abssyntree.lib.nodes.Node;
 import fool.compiler.abssyntree.lib.nodes.TypeNode;
-import org.antlr.v4.runtime.ParserRuleContext;
-import org.antlr.v4.runtime.tree.ParseTree;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import org.antlr.v4.runtime.ParserRuleContext;
+import org.antlr.v4.runtime.tree.ParseTree;
 
 /**
  * Visit the Abstract Syntax Tree of FOOL language.

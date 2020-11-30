@@ -2,6 +2,7 @@ package fool.compiler;
 
 import fool.compiler.abssyntree.AbsSynTree;
 import fool.compiler.abssyntree.lib.nodes.TypeNode;
+
 /**
  * Some utils methods for the Syntax Trees generation.
  */

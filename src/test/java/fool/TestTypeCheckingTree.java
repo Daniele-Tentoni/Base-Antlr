@@ -1,4 +1,5 @@
 package fool;
+
 import fool.compiler.abssyntree.visitors.AbsSynTreeGenSynTreeVisitor;
 import fool.compiler.abssyntree.visitors.PrintAbsSynTreeVisitor;
 import fool.compiler.enrabssyntree.visitors.PrintEnrAbsSynTreeVisitor;
@@ -6,12 +7,15 @@ import fool.compiler.enrabssyntree.visitors.SymbolTableAbsSynTreeVisitor;
 import fool.compiler.enrabssyntree.visitors.TypeCheckingAbsSynTreeVisitor;
 import fool.compiler.execptions.IncompleteException;
 import fool.compiler.execptions.TypeException;
+import java.io.IOException;
 import org.antlr.v4.runtime.tree.ParseTree;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import java.io.IOException;
 
-import static org.junit.Assert.assertEquals;
+/**
+ * Test the use of a Type Checking Visitor.
+ */
 public class TestTypeCheckingTree {
   private FOOLObjectFactory factory;
 
@@ -28,13 +32,13 @@ public class TestTypeCheckingTree {
     final var parser = factory.getParser(lexer);
     final ParseTree pt = parser.prog();
 
-    log("You had: " + lexer.lexicalErrors + " lexical errors and " +
-        parser.getNumberOfSyntaxErrors() + " syntax errors.");
+    log(String.format("You had: %d lexical errors and %d syntax errors.",
+        lexer.lexicalErrors, parser.getNumberOfSyntaxErrors()));
     log("Prog");
     log("Lexical errors: " + lexer.lexicalErrors);
     log("Syntax errors: " + parser.getNumberOfSyntaxErrors());
-    assertEquals(0, lexer.lexicalErrors);
-    assertEquals(0, parser.getNumberOfSyntaxErrors());
+    Assert.assertEquals(0, lexer.lexicalErrors);
+    Assert.assertEquals(0, parser.getNumberOfSyntaxErrors());
 
     final var astGenVisitor = new AbsSynTreeGenSynTreeVisitor(true);
     final var ast = astGenVisitor.visit(pt);
@@ -48,6 +52,7 @@ public class TestTypeCheckingTree {
     final var symbolTableVisitor = new SymbolTableAbsSynTreeVisitor();
     symbolTableVisitor.visit(ast);
 
+    Assert.assertEquals(0, symbolTableVisitor.getErrors());
     log("You had: " + symbolTableVisitor.getErrors() + " "
         + "symbol table errors.\n");
     log("Visualizing enriched AST");
@@ -63,8 +68,8 @@ public class TestTypeCheckingTree {
     } catch (TypeException e) {
       log("Type checking error in main program expression: " + e.getMessage());
     } catch (IncompleteException e) {
-      log(
-          "Could not determine main program expression type due to errors detected before type checking.");
+      log("Could not determine main program expression type"
+          + " due to errors detected before type checking.");
     }
     log("You had " + typeChecker.getTypeErrors() + " type checking errors.\n");
 
@@ -72,6 +77,7 @@ public class TestTypeCheckingTree {
         lexer.lexicalErrors + parser.getNumberOfSyntaxErrors()
             + symbolTableVisitor.getErrors() + typeChecker.getTypeErrors();
     log("You had a total of " + frontEndErrors + " front-end errors.\n");
+    Assert.assertEquals(0, frontEndErrors);
   }
 
   private void log(String msg) {

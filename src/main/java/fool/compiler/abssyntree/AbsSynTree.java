@@ -1,8 +1,8 @@
 package fool.compiler.abssyntree;
 
-import fool.compiler.abssyntree.visitors.AbsSynTreeVisitor;
 import fool.compiler.abssyntree.lib.nodes.Node;
 import fool.compiler.abssyntree.lib.nodes.TypeNode;
+import fool.compiler.abssyntree.visitors.AbsSynTreeVisitor;
 import fool.compiler.enrabssyntree.lib.SymTabEntry;
 import java.util.List;
 

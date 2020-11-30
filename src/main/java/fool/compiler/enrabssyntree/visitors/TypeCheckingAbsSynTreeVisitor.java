@@ -1,4 +1,5 @@
 package fool.compiler.enrabssyntree.visitors;
+
 import fool.compiler.SyntaxTreeUtils;
 import fool.compiler.abssyntree.AbsSynTree;
 import fool.compiler.abssyntree.lib.nodes.Node;
@@ -6,9 +7,14 @@ import fool.compiler.abssyntree.lib.nodes.TypeNode;
 import fool.compiler.abssyntree.visitors.AbsSynTreeVisitor;
 import fool.compiler.execptions.IncompleteException;
 import fool.compiler.execptions.TypeException;
-public class TypeCheckingAbsSynTreeVisitor extends AbsSynTreeVisitor<TypeNode
-    , TypeException> {
+
+/**
+ * Check the correct use of types.
+ */
+public class TypeCheckingAbsSynTreeVisitor extends AbsSynTreeVisitor<TypeNode,
+    TypeException> {
   private int typeErrors;
+
   public TypeCheckingAbsSynTreeVisitor() {
     super(true);
   }

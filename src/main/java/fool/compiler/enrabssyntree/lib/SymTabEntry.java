@@ -1,8 +1,8 @@
 package fool.compiler.enrabssyntree.lib;
 
 import fool.compiler.Visitable;
-import fool.compiler.abssyntree.visitors.AbsSynTreeVisitor;
 import fool.compiler.abssyntree.lib.nodes.TypeNode;
+import fool.compiler.abssyntree.visitors.AbsSynTreeVisitor;
 import fool.compiler.enrabssyntree.visitors.EnrAbsSynTreeVisitor;
 import java.util.Objects;
 
@@ -12,7 +12,7 @@ import java.util.Objects;
  */
 public class SymTabEntry implements Visitable {
   private final int nestingLevel;
-  private TypeNode type;
+  private final TypeNode type;
 
   /**
    * Create the entry with the defined nesting level.
@@ -25,7 +25,9 @@ public class SymTabEntry implements Visitable {
   }
 
   /**
-   * @return the nesting level for this entry.
+   * Return the nesting level for this table entry.
+   *
+   * @return nesting level.
    */
   public int getNestingLevel() {
     return nestingLevel;
