@@ -1,15 +1,17 @@
 package fool;
+
 import fool.compiler.abssyntree.visitors.AbsSynTreeGenSynTreeVisitor;
 import fool.compiler.abssyntree.visitors.PrintAbsSynTreeVisitor;
-import fool.compiler.abssyntree.lib.nodes.Node;
 import fool.compiler.enrabssyntree.visitors.PrintEnrAbsSynTreeVisitor;
 import fool.compiler.enrabssyntree.visitors.SymbolTableAbsSynTreeVisitor;
-import org.antlr.v4.runtime.tree.ParseTree;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import java.io.IOException;
 
-import static org.junit.Assert.assertEquals;
+/**
+ * Test FOOL language with functions.
+ */
 public class TestEnrAbsSynTree {
   private FOOLObjectFactory factory;
 
@@ -20,37 +22,35 @@ public class TestEnrAbsSynTree {
 
   @Test
   public void testTry2711() throws IOException {
-    String fileName = "prova_27_11.fool"; // quicksort.fool.asm
+    final var fileName = "prova_27_11.fool"; // quicksort.fool.asm
 
-    fool.FOOLLexer lexer = factory.getLexer(fileName);
-    fool.FOOLParser parser = factory.getParser(lexer);
-    ParseTree pt = parser.prog();
+    final var lexer = factory.getLexer(fileName);
+    final var parser = factory.getParser(lexer);
+    final var pt = parser.prog();
 
-    System.out.println(
-        "You had: " + lexer.lexicalErrors + " lexical errors and " +
-            parser.getNumberOfSyntaxErrors() + " syntax errors.");
+    log(String.format("You had: %d lexical errors and %d syntax errors.",
+        lexer.lexicalErrors, parser.getNumberOfSyntaxErrors()));
     log("Prog");
     log("Lexical errors: " + lexer.lexicalErrors);
     log("Syntax errors: " + parser.getNumberOfSyntaxErrors());
-    assertEquals(0, lexer.lexicalErrors);
-    assertEquals(0, parser.getNumberOfSyntaxErrors());
+    Assert.assertEquals(0, lexer.lexicalErrors);
+    Assert.assertEquals(0, parser.getNumberOfSyntaxErrors());
 
-    AbsSynTreeGenSynTreeVisitor astGenVisitor =
-        new AbsSynTreeGenSynTreeVisitor(true);
-    Node ast = astGenVisitor.visit(pt);
+    final var astGenVisitor = new AbsSynTreeGenSynTreeVisitor(true);
+    final var ast = astGenVisitor.visit(pt);
 
-    System.out.println("Visualizing AST...");
+    log("Visualizing AST...");
 
     new PrintAbsSynTreeVisitor().visit(ast);
 
-    System.out.println("Enriching AST.");
+    log("Enriching AST.");
 
-    SymbolTableAbsSynTreeVisitor symbolTableVisitor = new SymbolTableAbsSynTreeVisitor();
+    final var symbolTableVisitor = new SymbolTableAbsSynTreeVisitor();
     symbolTableVisitor.visit(ast);
 
-    System.out.println("You had: " + symbolTableVisitor.getErrors() + " "
-        + "symbol table errors.\n");
-    System.out.println("Visualizing enriched AST");
+    log(String.format("You had: %d symbol table errors.\n",
+        symbolTableVisitor.getErrors()));
+    log("Visualizing enriched AST");
     new PrintEnrAbsSynTreeVisitor().visit(ast);
   }
 

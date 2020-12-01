@@ -1,18 +1,18 @@
 package fool;
 
-import fool.compiler.execptions.TypeException;
 import fool.compiler.abssyntree.visitors.AbsSynTreeGenSynTreeVisitor;
 import fool.compiler.abssyntree.visitors.CalcAbsSynTreeVisitor;
 import fool.compiler.abssyntree.visitors.PrintAbsSynTreeVisitor;
 import fool.compiler.abssyntree.lib.nodes.Node;
 import fool.compiler.enrabssyntree.visitors.PrintEnrAbsSynTreeVisitor;
 import fool.compiler.enrabssyntree.visitors.SymbolTableAbsSynTreeVisitor;
+import fool.compiler.execptions.TypeException;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
 /**
  * Test if version 1 of language is supported.
@@ -42,11 +42,11 @@ public class TestSimpleAbsSynTree {
   @Test
   public void testTryBase() throws IOException, TypeException {
 
-    String fileName = "prova.fool";
+    final var fileName = "prova.fool";
 
-    fool.FOOLLexer lexer = factory.getLexer(fileName);
-    fool.FOOLParser parser = factory.getParser(lexer);
-    ParseTree pt = parser.prog();
+    final var lexer = factory.getLexer(fileName);
+    final var parser = factory.getParser(lexer);
+    final var pt = parser.prog();
 
     log("Prog");
     log("Lexical errors: " + lexer.lexicalErrors);
@@ -54,10 +54,10 @@ public class TestSimpleAbsSynTree {
     Assert.assertEquals(0, lexer.lexicalErrors);
     Assert.assertEquals(0, parser.getNumberOfSyntaxErrors());
 
-    AbsSynTreeGenSynTreeVisitor astGenVisitor = new AbsSynTreeGenSynTreeVisitor();
-    Node ast = astGenVisitor.visit(pt);
+    final var astGenVisitor = new AbsSynTreeGenSynTreeVisitor();
+    final var ast = astGenVisitor.visit(pt);
 
-    System.out.println("Visualizing AST...");
+    log("Visualizing AST...");
 
     new PrintAbsSynTreeVisitor().visit(ast);
 
@@ -67,24 +67,22 @@ public class TestSimpleAbsSynTree {
 
   @Test
   public void testTry2311() throws IOException {
-    String fileName = "prova_23_11.fool"; // quicksort.fool.asm
+    final var fileName = "prova_23_11.fool"; // quicksort.fool.asm
 
-    fool.FOOLLexer lexer = factory.getLexer(fileName);
-    fool.FOOLParser parser = factory.getParser(lexer);
-    ParseTree pt = parser.prog();
+    final var lexer = factory.getLexer(fileName);
+    final var parser = factory.getParser(lexer);
+    final var pt = parser.prog();
 
-    log(
-        "You had: " + lexer.lexicalErrors + " lexical errors and " +
-            parser.getNumberOfSyntaxErrors() + " syntax errors.");
+    log(String.format("You had: %d lexical errors and %d syntax errors.",
+        lexer.lexicalErrors, parser.getNumberOfSyntaxErrors()));
     log("Prog");
     log("Lexical errors: " + lexer.lexicalErrors);
     log("Syntax errors: " + parser.getNumberOfSyntaxErrors());
     Assert.assertEquals(0, lexer.lexicalErrors);
     Assert.assertEquals(0, parser.getNumberOfSyntaxErrors());
 
-    AbsSynTreeGenSynTreeVisitor astGenVisitor =
-        new AbsSynTreeGenSynTreeVisitor(true);
-    Node ast = astGenVisitor.visit(pt);
+    final var astGenVisitor = new AbsSynTreeGenSynTreeVisitor(true);
+    final var ast = astGenVisitor.visit(pt);
 
     log("Visualizing AST...");
 
@@ -92,11 +90,11 @@ public class TestSimpleAbsSynTree {
 
     log("Enriching AST.");
 
-    SymbolTableAbsSynTreeVisitor symbolTableVisitor = new SymbolTableAbsSynTreeVisitor();
+    final var symbolTableVisitor = new SymbolTableAbsSynTreeVisitor();
     symbolTableVisitor.visit(ast);
 
-    log("You had: " + symbolTableVisitor.getErrors() + " "
-        + "symbol table errors.\n");
+    log(String.format("You had: %d symbol table errors.",
+        symbolTableVisitor.getErrors()));
     log("Visualizing enriched AST");
     new PrintEnrAbsSynTreeVisitor().visit(ast);
   }

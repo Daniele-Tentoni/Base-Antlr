@@ -1,10 +1,12 @@
 package fool.vm.memory;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-
+/**
+ * Test Memory Stack class. This is a useless class.
+ */
 public class TestMemoryStack {
 
   private final int size = 10;
@@ -30,7 +32,7 @@ public class TestMemoryStack {
   public void testGet() {
     stack.push(v1);
     int value = stack.get(0);
-    assertEquals(value, v1);
+    Assert.assertEquals(value, v1);
   }
 
   @Test(expected = IndexOutOfBoundsException.class)
@@ -49,13 +51,13 @@ public class TestMemoryStack {
   public void testPop() {
     stack.push(v1);
     int value = stack.pop();
-    assertEquals(1, value);
+    Assert.assertEquals(1, value);
   }
 
   @Test(expected = StackOverflowError.class)
   public void testPopWithoutPush() {
     int v = stack.pop();
-    assertEquals(v1, v);
+    Assert.assertEquals(v1, v);
   }
 
   @Test
@@ -63,22 +65,22 @@ public class TestMemoryStack {
     stack.push(1);
     stack.push(3);
     int set = stack.set(0, 2);
-    assertEquals(1, set);
+    Assert.assertEquals(1, set);
     int firstPop = stack.pop();
-    assertEquals(3, firstPop);
+    Assert.assertEquals(3, firstPop);
     int secondPop = stack.pop();
-    assertEquals(2, secondPop);
+    Assert.assertEquals(2, secondPop);
   }
 
   @Test(expected = IndexOutOfBoundsException.class)
   public void testSetOnUpperBounds() {
     int set = stack.set(1, 2);
-    assertEquals(set, 2);
+    Assert.assertEquals(set, 2);
   }
 
   @Test(expected = IndexOutOfBoundsException.class)
   public void testSetOnLowerBounds() {
     int set = stack.set(-1, 2);
-    assertEquals(set, 2);
+    Assert.assertEquals(set, 2);
   }
 }

@@ -1,11 +1,11 @@
 package fool.compiler.abssyntree.visitors;
 
-import fool.compiler.execptions.IncompleteException;
 import fool.compiler.SyntaxTreeUtils;
-import fool.compiler.execptions.UnImplementedException;
 import fool.compiler.Visitable;
 import fool.compiler.abssyntree.AbsSynTree;
 import fool.compiler.abssyntree.lib.nodes.Node;
+import fool.compiler.execptions.IncompleteException;
+import fool.compiler.execptions.UnImplementedException;
 
 /**
  * Visit an Abstract Syntax Tree. Implement to return a different type.
