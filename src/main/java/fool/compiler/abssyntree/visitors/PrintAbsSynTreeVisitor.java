@@ -1,7 +1,7 @@
 package fool.compiler.abssyntree.visitors;
 
-import fool.compiler.execptions.VoidException;
 import fool.compiler.abssyntree.AbsSynTree;
+import fool.compiler.execptions.VoidException;
 
 /**
  * Classe che ci permette di stampare l'ast.
@@ -9,6 +9,7 @@ import fool.compiler.abssyntree.AbsSynTree;
  *
  * @author ap nono, è il professore che l'ha fatto.
  */
+@Deprecated(since = "Use of Enriched Abstract Syntax Tree", forRemoval = true)
 public class PrintAbsSynTreeVisitor
     extends AbsSynTreeVisitor<Void, VoidException> {
 

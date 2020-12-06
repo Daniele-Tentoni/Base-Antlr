@@ -1,12 +1,13 @@
 package fool.compiler.abssyntree.visitors;
 
-import fool.compiler.execptions.TypeException;
 import fool.compiler.abssyntree.AbsSynTree;
+import fool.compiler.execptions.TypeException;
 
 /**
  * Calculate the return value of a ABS.
  * This class doesn't be updated anymore.
  */
+@Deprecated(since = "Use of Enriched Abstract Syntax Tree", forRemoval = true)
 public class CalcAbsSynTreeVisitor
     extends AbsSynTreeVisitor<Integer, TypeException> {
 
