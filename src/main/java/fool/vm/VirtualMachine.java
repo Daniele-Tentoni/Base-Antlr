@@ -3,6 +3,15 @@ package fool.vm;
 import fool.vm.memory.MemoryStack;
 import lcmc.SVMParser;
 
+/**
+ * This class represent our executor of code.
+ * Will become very complex at the end of the course and is really important
+ * to understand each mechanism to make all things run better when become the
+ * moment. Things that I think to change are:
+ * 1. Memory Stack: provide a better implementation of memory array.
+ * 2. Inline Vars: provide inline variables instead of global fields. May
+ * this can impact on performance?
+ */
 public class VirtualMachine {
   private static final int CODE_SIZE = 10000;
   private static final int MEMORY_SIZE = 10000;

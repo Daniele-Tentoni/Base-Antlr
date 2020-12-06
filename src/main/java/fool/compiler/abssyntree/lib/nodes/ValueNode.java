@@ -6,7 +6,7 @@ package fool.compiler.abssyntree.lib.nodes;
 public abstract class ValueNode<T> extends Node {
   private final T value;
 
-  public ValueNode(final T v){
+  public ValueNode(final T v) {
     value = v;
   }
 

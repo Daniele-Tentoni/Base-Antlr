@@ -1,13 +1,13 @@
 package fool;
 
-import lcmc.ObjectFactory;
-import org.antlr.v4.runtime.CharStream;
-import org.antlr.v4.runtime.CharStreams;
-import org.antlr.v4.runtime.CommonTokenStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Objects;
+import lcmc.ObjectFactory;
+import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.CommonTokenStream;
 
 /**
  * Provide factory methods for Antlr objects for FOOL language.

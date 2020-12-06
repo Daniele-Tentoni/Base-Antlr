@@ -8,9 +8,11 @@ let
     let
       var x:bool = true;
     in x==(n==m);
+  var a: bool = 0;
+  var b: bool = 1;
 in
   print (
-   if x==8
+   if f(a,b)
      then { false }
      else { 10 }
   )

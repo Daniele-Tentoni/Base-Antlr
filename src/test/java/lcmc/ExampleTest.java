@@ -1,17 +1,15 @@
 package lcmc;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import lcmc.ExampleLexer;
-import lcmc.ExampleParser;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
-
+/**
+ * This is a simple class that you can copy to make your own tests.
+ * This is needed only to show you how to make things.
+ */
 public class ExampleTest {
   private ExampleObjectsFactory factory;
 
@@ -28,26 +26,26 @@ public class ExampleTest {
     String fileName = "non.exist";
     try {
       factory.getLexer(fileName);
-      fail("Expected an FileNotFoundException");
+      Assert.fail("Expected an FileNotFoundException");
     } catch (FileNotFoundException e) {
-      assertEquals(String.format("Not found %s file.", fileName),
+      Assert.assertEquals(String.format("Not found %s file.", fileName),
           e.getMessage());
     } catch (Exception e) {
-      fail("Unexpected exception thrown.");
+      Assert.fail("Unexpected exception thrown.");
     }
   }
 
   @Test
   public void testExamples() throws IOException {
-    ExampleLexer lexer = factory.getLexer("strings.txt");
-    ExampleParser parser = factory.getParser(lexer);
+    lcmc.ExampleLexer lexer = factory.getLexer("strings.txt");
+    lcmc.ExampleParser parser = factory.getParser(lexer);
     parser.prog();
 
     log("Prog");
     log("Lexical errors: " + lexer.lexicalErrors);
     log("Syntax errors: " + parser.getNumberOfSyntaxErrors());
-    assertEquals(0, lexer.lexicalErrors);
-    assertEquals(0, parser.getNumberOfSyntaxErrors());
+    Assert.assertEquals(0, lexer.lexicalErrors);
+    Assert.assertEquals(0, parser.getNumberOfSyntaxErrors());
   }
 
   private void log(String msg) {
